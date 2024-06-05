@@ -128,3 +128,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+*storybook.log
+
+# ignore
+package-lock.json
+
+# ignore
+yarn.lock
