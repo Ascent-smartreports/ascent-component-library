@@ -1,12 +1,16 @@
 import React from "react";
 import styles from "../../assets/button.module.scss";
-const Button: React.FC = () => {
+
+interface buttonProps {
+  label: string;
+}
+const Button: React.FC<buttonProps> = ({ label }) => {
   return (
     <button
       onClick={() => alert("im being tapped!!")}
       className={styles.button}
     >
-      tap me
+      {label}
     </button>
   );
 };
