@@ -130,3 +130,9 @@ dist
 .pnp.*
 
 *storybook.log
+
+# ignore
+package-lock.json
+
+# ignore
+yarn.lock
