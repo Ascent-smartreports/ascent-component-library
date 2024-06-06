@@ -4,14 +4,17 @@ import Button from "./index";
 describe("Button component", () => {
   it("renders with the correct label", () => {
     const label = "Click me!";
-    const { getByText } = render(<Button label={label} />);
+    const { getByText } = render(<Button label={label} onClick={() => {}} />);
     expect(getByText(label)).toBeDefined();
   });
 
   it("displays an alert when clicked", () => {
-    const { getByRole } = render(<Button label="Click me!" />);
+    const { getByRole } = render(
+      <Button label="Click me!" onClick={() => {}} />
+    );
     const button = getByRole("button");
     fireEvent.click(button);
     expect(window.alert).toBeDefined();
   });
 });
+
