@@ -1,26 +1,24 @@
-// import { getIn } from "formik";
 import { ChangeEvent, ReactNode, useState } from "react";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import { getIn, useFormikContext } from "formik";
+
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
   label: string;
   type?: string;
-  field?: {
+  field: {
     name: string;
     value: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   };
-  isValid?: boolean;
-  error?: string | undefined;
+  error: string | undefined;
   autoFocus?: boolean;
   placeholder?: string;
   component?: ReactNode;
   disabled?: boolean;
   isPassword?: boolean;
-  setPasswordIcon?: (data: boolean) => void;
-  passwordIcon?: boolean;
   maxLength?: number;
   rightIcon?: ReactNode;
   onBlur?: () => void;
@@ -28,15 +26,15 @@ export interface InputProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-// const isRequiredField = (validationSchema: any, name: string) => {
-//   return !!getIn(validationSchema.describe().fields, name)?.tests?.find(
-//     (obj: { name: string }) => obj.name === "required"
-//   );
-// };
+const isRequiredField = (validationSchema: any, name: string) => {
+  return !!getIn(validationSchema.describe().fields, name)?.tests?.find(
+    (obj: { name: string }) => obj.name === "required"
+  );
+};
 
 const InputField: React.FC<InputProps> = ({
   label,
-  // validationSchema,
+  validationSchema,
   type = "text",
   field,
   autoFocus,
@@ -44,19 +42,23 @@ const InputField: React.FC<InputProps> = ({
   placeholder,
   disabled = false,
   isPassword,
-  //   setPasswordIcon,
-  //   passwordIcon,
   maxLength,
   rightIcon,
   onBlur,
   leftIcon,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const { handleChange } = useFormikContext();
+
+  const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
+    handleChange(field.name)(e);
+  };
+
   return (
     <>
-      <p>
-        {/* {isRequiredField(validationSchema, field.name) && "*"} */}
+      <p className={styles.label}>
         {label}
+        {isRequiredField(validationSchema, field.name) && "*"}
       </p>
       <div>
         {leftIcon && <div className={styles.leftIcon}>{leftIcon}</div>}
@@ -64,20 +66,14 @@ const InputField: React.FC<InputProps> = ({
           type={isPassword && !isPasswordVisible ? "password" : type}
           autoFocus={!!autoFocus}
           security="true"
-          value={field && field.value ? field?.value : "jier"}
-          onChange={
-            field && field.onChange
-              ? field.onChange
-              : (e) => {
-                  console.log(e);
-                }
-          }
+          value={field.value}
+          onChange={onChangeText}
           placeholder={placeholder}
           disabled={disabled}
           maxLength={maxLength}
           autoComplete="none"
           onBlur={onBlur}
-          className={`${styles.input}`}
+          className={`${styles.input} ${leftIcon ? "px-8" : "px-2"}`}
           onFocus={onBlur}
         />
         {isPassword ? (
@@ -100,8 +96,9 @@ const InputField: React.FC<InputProps> = ({
           <div className={styles.passwordIcon}>{rightIcon}</div>
         ) : null}
       </div>
-      {error && <p className={`form-text text-danger form_error`}>{error}</p>}
+      {error && <p className={styles.errorText}>{error}</p>}
     </>
   );
 };
+
 export default InputField;

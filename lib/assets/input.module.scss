@@ -1,9 +1,17 @@
 .input{
-   @apply  rounded-md h-[54px] w-[390px] focus:outline-none border-[1.5px] border-border
+   @apply  rounded-md h-[54px]   focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%]
 }
 .passwordIcon{
     @apply fixed left-[360px] -mt-10
 }
 .leftIcon{
     @apply fixed left-0 mt-5 
+}
+.label{
+    font-size: 18px;
+    @apply font-semibold my-2 text-textDark
+}
+.errorText{
+    font-size: 18px;
+    @apply text-errorText my-1 
 }
