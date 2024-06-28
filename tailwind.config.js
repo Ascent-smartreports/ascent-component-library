@@ -9,6 +9,7 @@ export default {
       textLightGray: "#8D91A3",
       textDark: "#1B2124",
       backgroundLight: "#FFFFFF",
+      backgroundDark: "#000000",
       tableBackground: "#0000A",
       border: "#E4E5E9",
       errorText: "#FD6868",

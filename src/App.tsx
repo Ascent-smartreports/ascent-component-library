@@ -27,7 +27,7 @@ function App() {
         />
         <Button
           label={"hello world"}
-          isDisabled={true}
+          // isDisabled={true}
           onClick={function (): void {
             throw new Error("Function not implemented.");
           }}
