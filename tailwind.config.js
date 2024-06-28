@@ -12,6 +12,8 @@ export default {
       tableBackground: "#0000A",
       border: "#E4E5E9",
       errorText: "#FD6868",
+      disabledPrimaryBtn: "#7F879E",
+      disabledSecondaryBtn: "#CCCCCC",
     },
     extend: {},
   },
