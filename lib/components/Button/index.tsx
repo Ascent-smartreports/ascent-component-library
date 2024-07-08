@@ -7,7 +7,7 @@ interface buttonProps {
   buttonType?: "outlined";
   customStyle?: string;
   isDisabled?: boolean;
-  type?: string;
+  type?: "button" | "submit" | "reset";
 }
 const Button: React.FC<buttonProps> = ({
   label,
@@ -32,7 +32,7 @@ const Button: React.FC<buttonProps> = ({
       onClick={onClick}
       className={`${customClasses}${styles.button} ${buttonTypeClasses}`}
       disabled={isDisabled}
-      type={type}
+      type={type ? type : "submit"}
     >
       {label}
     </button>
