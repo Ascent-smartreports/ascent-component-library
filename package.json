@@ -73,6 +73,7 @@
     "@types/css-modules": "^1.0.5",
     "formik": "^2.4.6",
     "next-mdx-remote": "^5.0.0",
+    "react-datepicker": "^7.2.0",
     "react-icons": "^5.2.1",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
