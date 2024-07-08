@@ -5,7 +5,7 @@ import React, { ReactNode } from "react";
 
 export interface FormikFieldProps {
   name: string;
-  error: Record<string, string>;
+  error: string | undefined;
   validationSchema: AnySchema<AnyObject>;
   label: string;
   type?: string;
@@ -40,7 +40,7 @@ const FormikField: React.FC<FormikFieldProps> = ({
         <InputField
           validationSchema={validationSchema}
           label={label}
-          error={error[name]}
+          error={error}
           type={type}
           autoFocus={autoFocus}
           placeholder={placeholder}

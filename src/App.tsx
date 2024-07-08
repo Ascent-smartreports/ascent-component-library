@@ -6,34 +6,46 @@ import DropdownField from "../lib/components/DropDown/DropdownField";
 function App() {
   const initialValues = {
     name: "",
-    topic: "",
+    topic: [],
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
-    topic: Yup.string().required("Topics must be selected"),
+    topic: Yup.array()
+      .of(
+        Yup.object().shape({
+          label: Yup.string().required(),
+          value: Yup.string().required(),
+        })
+      )
+      .min(1, "Topics must be selected"),
   });
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: () => {
-      console.log(formik.values.name);
+      console.log(formik.values);
     },
   });
+
   return (
     <div style={{ width: 500, backgroundColor: "grey" }}>
       <FormikProvider value={formik}>
         <FormikField
           label="name"
           name={"name"}
-          error={formik.errors}
+          error={formik.errors.name}
           validationSchema={validationSchema}
         />
         <DropdownField
-          options={[{ label: "HTML", value: "html" }]}
+          options={[
+            { label: "HTML", value: "html" },
+            { label: "JavaScript", value: "js" },
+          ]}
           name={"topic"}
           label={"Topic"}
           error={formik.errors.topic}
           validationSchema={validationSchema}
+          isMulti
         />
         <Button
           label={"hello world"}

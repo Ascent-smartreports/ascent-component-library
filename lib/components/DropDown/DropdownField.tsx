@@ -5,7 +5,8 @@ import React from "react";
 
 interface DropdownFieldProps {
   name: string;
-  error: string | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error: any;
   validationSchema: AnySchema<AnyObject>;
   label: string;
   options: Option[];

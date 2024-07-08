@@ -1,9 +1,9 @@
-// import { useFormikContext } from "formik";
-import React, { ChangeEvent } from "react";
-import Select from "react-select";
+import React from "react";
+import Select, { MultiValue, SingleValue } from "react-select";
 import makeAnimated from "react-select/animated";
 import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
+import { useFormikContext } from "formik";
 
 export interface Option {
   label: string;
@@ -13,19 +13,20 @@ export interface Option {
 interface dropdownProps {
   placeholder?: string;
   options: Option[];
-
   validationSchema?: AnySchema<AnyObject> | undefined;
   label: string;
   field: {
     name: string;
-    value: string;
-    onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+    value: string | Option | Option[];
   };
-  error: string | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error: any;
   isMulti?: boolean;
   defaultValue?: Option[];
 }
+
 const animatedComponents = makeAnimated();
+
 const DropDown: React.FC<dropdownProps> = ({
   placeholder,
   options,
@@ -36,6 +37,17 @@ const DropDown: React.FC<dropdownProps> = ({
   isMulti,
   defaultValue,
 }) => {
+  const { setFieldValue, setFieldTouched } = useFormikContext();
+
+  const handleChange = (
+    newValue: MultiValue<Option> | SingleValue<Option>
+    // actionMeta: ActionMeta<Option>
+  ) => {
+    const value = isMulti ? newValue : (newValue as Option);
+    setFieldValue(field.name, value);
+    setFieldTouched(field.name, true, false);
+  };
+
   return (
     <>
       <p>
@@ -49,10 +61,12 @@ const DropDown: React.FC<dropdownProps> = ({
           isMulti={isMulti}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          onChange={handleChange}
         />
         {error && <p>{error}</p>}
       </div>
     </>
   );
 };
+
 export default DropDown;
