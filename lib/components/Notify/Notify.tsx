@@ -132,7 +132,6 @@ const Notify = ({
     textColorCloseBtn,
     borderColorCloseBtn,
   } = getIconAndStyles();
-  console.log(getIconAndStyles());
 
   const CustomToast: FC<CustomToastProps> = ({
     message,
