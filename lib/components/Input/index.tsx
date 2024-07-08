@@ -25,8 +25,8 @@ export interface InputProps {
   leftIcon?: ReactNode;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isRequiredField = (validationSchema: any, name: string) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, react-refresh/only-export-components
+export const isRequiredField = (validationSchema: any, name: string) => {
   return !!getIn(validationSchema.describe().fields, name)?.tests?.find(
     (obj: { name: string }) => obj.name === "required"
   );

@@ -7,6 +7,7 @@ interface buttonProps {
   buttonType?: "outlined";
   customStyle?: string;
   isDisabled?: boolean;
+  type?: string;
 }
 const Button: React.FC<buttonProps> = ({
   label,
@@ -14,23 +15,24 @@ const Button: React.FC<buttonProps> = ({
   buttonType,
   customStyle,
   isDisabled,
+  type,
 }) => {
   const customClasses = customStyle ? `${customStyle} ` : "";
-
   const buttonTypeClasses =
-    buttonType !== "outlined"
-      ? "bg-backgroundTheme border-none text-backgroundLight"
+    buttonType === "outlined"
+      ? isDisabled
+        ? "text-backgroundLight border-[1px] border-backgroundDark"
+        : "bg-backgroundLight border-backgroundDark text-backgroundDark border-[1px]"
       : isDisabled
-        ? "text-backgroundLight border-[1px] border-backgroundTheme"
-        : isDisabled && buttonType === "outlined"
-          ? "bg-disabledPrimaryBtn text-backgroundLight"
-          : "bg-backgroundLight border-backgroundTheme text-backgroundTheme border-[1px]";
+        ? "bg-disabledPrimaryBtn text-backgroundLight"
+        : "bg-backgroundDark border-none text-backgroundLight";
 
   return (
     <button
       onClick={onClick}
       className={`${customClasses}${styles.button} ${buttonTypeClasses}`}
       disabled={isDisabled}
+      type={type}
     >
       {label}
     </button>
