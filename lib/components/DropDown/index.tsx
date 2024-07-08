@@ -4,7 +4,7 @@ import makeAnimated from "react-select/animated";
 import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
 import { useFormikContext } from "formik";
-
+import styles from "../../assets/dropdown.module.scss";
 export interface Option {
   label: string;
   value: string;
@@ -54,17 +54,28 @@ const DropDown: React.FC<dropdownProps> = ({
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </p>
-      <div>
-        <Select
-          options={options}
-          components={animatedComponents}
-          isMulti={isMulti}
-          placeholder={placeholder}
-          defaultValue={defaultValue}
-          onChange={handleChange}
-        />
-        {error && <p>{error}</p>}
-      </div>
+      <Select
+        classNames={{
+          control: (state) =>
+            state.isFocused
+              ? `${styles.dropdownContainer}`
+              : `${styles.dropdownContainer}`,
+          option: (state) =>
+            state.isSelected
+              ? `${styles.active}`
+              : state.isFocused
+                ? `${styles.active}`
+                : "",
+          menuList: () => `${styles.active}`,
+        }}
+        options={options}
+        components={animatedComponents}
+        isMulti={isMulti}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        onChange={handleChange}
+      />
+      {error && <p>{error}</p>}
     </>
   );
 };
