@@ -8,7 +8,7 @@ function App() {
   const initialValues = {
     name: "",
     topic: [],
-    date: Date,
+    date: null,
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
