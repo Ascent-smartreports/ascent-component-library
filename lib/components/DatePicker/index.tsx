@@ -48,7 +48,7 @@ const FormikDateField: React.FC<formikDateProps> = ({
             maxDate={maxDate}
             showIcon
             wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
-            className=" rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%] my-2"
+            className=" rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%] my-2"
           />
           {error && <p>{error}</p>}
         </>
