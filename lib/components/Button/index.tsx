@@ -16,6 +16,7 @@ const Button: React.FC<buttonProps> = ({
   isDisabled,
 }) => {
   const customClasses = customStyle ? `${customStyle} ` : "";
+
   const buttonTypeClasses =
     buttonType !== "outlined"
       ? "bg-backgroundTheme border-none text-backgroundLight"
