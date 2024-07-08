@@ -3,6 +3,8 @@ import FormikField from "../lib/components/Input/FormikField";
 import { Button } from "../lib/main";
 import * as Yup from "yup";
 import DropdownField from "../lib/components/DropDown/DropdownField";
+import Notify from "../lib/components/Notify/Notify";
+import { ToastContainer } from "react-toastify";
 function App() {
   const initialValues = {
     name: "",
@@ -24,6 +26,7 @@ function App() {
     validationSchema,
     onSubmit: () => {
       console.log(formik.values);
+      Notify({ message: "clicked", type: "SUCCESS", toastType: "solid" });
     },
   });
 
@@ -35,6 +38,7 @@ function App() {
         marginTop: "5%",
       }}
     >
+      <ToastContainer />
       <FormikProvider value={formik}>
         <FormikField
           label="name"
@@ -61,6 +65,19 @@ function App() {
           buttonType="outlined"
         />
       </FormikProvider>
+      <Button
+        label={"Toast"}
+        type="submit"
+        // isDisabled={true}
+        onClick={() => {
+          Notify({
+            message: "This item has been deleted ",
+            type: "ERROR",
+            toastType: "solid",
+          });
+        }}
+        buttonType="outlined"
+      />
     </div>
   );
 }
