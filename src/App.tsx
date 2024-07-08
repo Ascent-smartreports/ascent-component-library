@@ -31,7 +31,7 @@ function App() {
           onClick={function (): void {
             throw new Error("Function not implemented.");
           }}
-          buttonType="outlined"
+          // buttonType="outlined"
         />
       </FormikProvider>
     </div>

@@ -17,13 +17,13 @@ const Button: React.FC<buttonProps> = ({
 }) => {
   const customClasses = customStyle ? `${customStyle} ` : "";
   const buttonTypeClasses =
-    buttonType === "outlined"
-      ? "bg-backgroundLight border-backgroundTheme text-backgroundTheme border-[1px]"
+    buttonType !== "outlined"
+      ? "bg-backgroundTheme border-none text-backgroundLight"
       : isDisabled
-        ? "bg-disabledPrimaryBtn text-backgroundLight"
-        : buttonType === "outlined" && isDisabled
-          ? "text-disabledSecondaryBtn border-[1px] border-backgroundTheme"
-          : "bg-backgroundTheme border-none text-backgroundLight";
+        ? "text-backgroundLight border-[1px] border-backgroundTheme"
+        : isDisabled && buttonType === "outlined"
+          ? "bg-disabledPrimaryBtn text-backgroundLight"
+          : "bg-backgroundLight border-backgroundTheme text-backgroundTheme border-[1px]";
 
   return (
     <button
