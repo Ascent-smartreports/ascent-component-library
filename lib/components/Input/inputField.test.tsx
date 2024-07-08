@@ -32,7 +32,7 @@ describe("formikfield component", () => {
         <FormikField
           name="name"
           label="name"
-          error={errors}
+          error={errors.name}
           validationSchema={validationSchema}
           type="text"
         />

@@ -37,7 +37,8 @@ function App() {
           validationSchema={validationSchema}
         />
         <DropdownField
-          options={[
+          options={[]}
+          defaultValue={[
             { label: "HTML", value: "html" },
             { label: "JavaScript", value: "js" },
           ]}

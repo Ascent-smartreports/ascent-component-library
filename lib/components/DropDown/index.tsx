@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Select, { MultiValue, SingleValue } from "react-select";
 import makeAnimated from "react-select/animated";
 import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
 import { useFormikContext } from "formik";
 import styles from "../../assets/dropdown.module.scss";
+
 export interface Option {
   label: string;
   value: string;
@@ -39,10 +40,13 @@ const DropDown: React.FC<dropdownProps> = ({
 }) => {
   const { setFieldValue, setFieldTouched } = useFormikContext();
 
-  const handleChange = (
-    newValue: MultiValue<Option> | SingleValue<Option>
-    // actionMeta: ActionMeta<Option>
-  ) => {
+  useEffect(() => {
+    if (defaultValue) {
+      setFieldValue(field.name, defaultValue);
+    }
+  }, [defaultValue, setFieldValue, field.name]);
+
+  const handleChange = (newValue: MultiValue<Option> | SingleValue<Option>) => {
     const value = isMulti ? newValue : (newValue as Option);
     setFieldValue(field.name, value);
     setFieldTouched(field.name, true, false);
