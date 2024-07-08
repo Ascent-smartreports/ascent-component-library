@@ -51,10 +51,16 @@ const DropDown: React.FC<dropdownProps> = ({
     setFieldValue(field.name, value);
     setFieldTouched(field.name, true, false);
   };
-
+  const customStyles = {
+    option: (_provided: unknown, state: { isFocused: boolean }) => ({
+      color: state.isFocused ? "#FFFFFF" : "#21294C",
+      fontSize: 16,
+      padding: 10,
+    }),
+  };
   return (
     <>
-      <p>
+      <p className={styles.label}>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </p>
@@ -64,22 +70,17 @@ const DropDown: React.FC<dropdownProps> = ({
             state.isFocused
               ? `${styles.dropdownContainer}`
               : `${styles.dropdownContainer}`,
-          option: (state) =>
-            state.isSelected
-              ? `${styles.active}`
-              : state.isFocused
-                ? `${styles.active}`
-                : "",
-          menuList: () => `${styles.active}`,
+          option: (state) => (state.isFocused ? `${styles.active}` : ""),
         }}
         options={options}
         components={animatedComponents}
         isMulti={isMulti}
+        styles={customStyles}
         placeholder={placeholder}
         defaultValue={defaultValue}
         onChange={handleChange}
       />
-      {error && <p>{error}</p>}
+      {error && <p className={styles.errorText}>{error}</p>}
     </>
   );
 };

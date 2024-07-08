@@ -28,7 +28,13 @@ function App() {
   });
 
   return (
-    <div style={{ width: 500, backgroundColor: "grey" }}>
+    <div
+      style={{
+        width: "50%",
+        marginLeft: "25%",
+        marginTop: "5%",
+      }}
+    >
       <FormikProvider value={formik}>
         <FormikField
           label="name"
@@ -37,8 +43,7 @@ function App() {
           validationSchema={validationSchema}
         />
         <DropdownField
-          options={[]}
-          defaultValue={[
+          options={[
             { label: "HTML", value: "html" },
             { label: "JavaScript", value: "js" },
           ]}
