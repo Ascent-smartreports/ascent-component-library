@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import success from "../../assets/images/toast_success.png";
 import error from "../../assets/images/toast_error.png";
 import warning from "../../assets/images/toast_warning.png";
-import "react-toastify/dist/ReactToastify.css";
+import "../../assets/ReactToastify.css";
 import { FC } from "react";
 
 export interface ToastProps {
