@@ -65,6 +65,7 @@ function App() {
           error={formik.errors.date as string}
           validationSchema={validationSchema}
           label={"Date"}
+          dateFormat="YYYY-MM-DD"
         />
         <Button
           label={"hello world"}

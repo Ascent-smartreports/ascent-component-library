@@ -34,6 +34,7 @@ describe("formikfield component", () => {
           label="DOB"
           error={errors.dob}
           validationSchema={validationSchema}
+          dateFormat="DD-MM-YYYY"
         />
       </Formik>
     );
