@@ -2,6 +2,7 @@ import { FormikProvider, useFormik } from "formik";
 import FormikField from "../lib/components/Input/FormikField";
 import { Button } from "../lib/main";
 import * as Yup from "yup";
+import FormikDateField from "../lib/components/DatePicker";
 import DropdownField from "../lib/components/DropDown/DropdownField";
 import Notify from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
@@ -9,6 +10,7 @@ function App() {
   const initialValues = {
     name: "",
     topic: [],
+    date: null,
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
@@ -20,6 +22,7 @@ function App() {
         })
       )
       .min(1, "Topics must be selected"),
+    date: Yup.date().required("define some date"),
   });
   const formik = useFormik({
     initialValues,
@@ -56,6 +59,12 @@ function App() {
           error={formik.errors.topic}
           validationSchema={validationSchema}
           isMulti
+        />
+        <FormikDateField
+          name={"date"}
+          error={formik.errors.date as string}
+          validationSchema={validationSchema}
+          label={"Date"}
         />
         <Button
           label={"hello world"}

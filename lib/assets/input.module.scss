@@ -1,5 +1,5 @@
 .input{
-   @apply  rounded-md h-[54px]   focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%]
+   @apply  rounded-md h-[54px] my-1 focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%]
 }
 .passwordIcon{
     @apply fixed left-[360px] -mt-10
@@ -8,10 +8,10 @@
     @apply fixed left-0 mt-5 
 }
 .label{
-    font-size: 18px;
+    font-size: 14px;
     @apply font-semibold my-2 text-textDark
 }
 .errorText{
-    font-size: 16px;
+    font-size: 12px;
     @apply text-errorText my-1 text-sm
 }
