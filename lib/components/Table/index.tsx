@@ -21,7 +21,6 @@ const Table: React.FC<tableProps> = ({ data, columns, searchText }) => {
   };
   return (
     <div>
-      <p>tabling is gonna come soon!!!</p>
       <DataTable data={getData()} columns={columns} pagination striped />
     </div>
   );
