@@ -3,6 +3,7 @@ import FormikField from "../lib/components/Input/FormikField";
 import { Button } from "../lib/main";
 import * as Yup from "yup";
 import FormikDateField from "../lib/components/DatePicker";
+import Table from "../lib/components/Table";
 import DropdownField from "../lib/components/DropDown/DropdownField";
 function App() {
   const initialValues = {
@@ -29,7 +30,31 @@ function App() {
       console.log(formik.values);
     },
   });
+  const data = [
+    {
+      id: 1,
+      title: "Beetlejuice",
+      year: "1988",
+    },
+    {
+      id: 2,
+      title: "Ghostbusters",
+      year: "1984",
+    },
+  ];
 
+  const columns = [
+    {
+      name: "Title",
+      selector: (row: { title: string }) => row.title,
+      sortable: true,
+    },
+    {
+      name: "Year",
+      selector: (row: { year: string }) => row.year,
+      sortable: true,
+    },
+  ];
   return (
     <div
       style={{
@@ -38,6 +63,7 @@ function App() {
         marginTop: "5%",
       }}
     >
+      <Table data={data} columns={columns} />
       <FormikProvider value={formik}>
         <FormikField
           label="name"
