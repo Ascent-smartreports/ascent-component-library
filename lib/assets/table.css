@@ -1,48 +1,13 @@
 .rdt_Table {
-border-color:#0000000D;
-border-width:0.15rem;
-
+  border-color: #0000000d;
+  border-width: 0.15rem;
 }
-
-.rdt_TableRow {
-  /* Your custom styles here */
-  /* border-radius:10px; */
-}
-
-.rdt_TableCol {
-  /* background-color:green; */
-
-}
-
-.rdt_TableCol_Sortable {
-}
-
 .rdt_TableCell {
-color:#464A53
+  color: #464a53;
 }
-
-.rdt_TableHeader {
-  background-color:cyan;
-}
-
-.rdt_TableFooter {
-  /* Your custom styles here */
-}
-
-.rdt_TableHead {
-}
-
 .rdt_TableHeadRow {
-background-color:green;
-font-weight:600;
-font-size:14px;
-color:#464A53;
-}
-
-.rdt_TableBody {
-
-}
-
-.rdt_ExpanderRow {
-  /* Your custom styles here */
+  background-color: green;
+  font-weight: 600;
+  font-size: 14px;
+  color: #464a53;
 }
