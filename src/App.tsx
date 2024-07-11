@@ -65,7 +65,6 @@ function App() {
     {
       name: "Year",
       selector: (row: { year: string }) => row.year,
-      sortable: true,
     },
   ];
   return (
@@ -76,7 +75,7 @@ function App() {
         marginTop: "5%",
       }}
     >
-      <Table data={data} columns={columns} />
+      <Table data={data} columns={columns} searchText="" />
       <ToastContainer />
       <FormikProvider value={formik}>
         <FormikField

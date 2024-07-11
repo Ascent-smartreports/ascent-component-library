@@ -5,12 +5,24 @@ import "../../assets/table.css";
 interface tableProps {
   data: any[];
   columns: any;
+  searchText?: string;
 }
-const Table: React.FC<tableProps> = ({ data, columns }) => {
+const Table: React.FC<tableProps> = ({ data, columns, searchText }) => {
+  const getData = () => {
+    if (searchText) {
+      const filteredItems = data.filter(
+        (item) =>
+          JSON.stringify(item)
+            .toLowerCase()
+            .indexOf(searchText.toLowerCase()) !== -1
+      );
+      return filteredItems;
+    } else return data;
+  };
   return (
     <div>
       <p>tabling is gonna come soon!!!</p>
-      <DataTable data={data} columns={columns} pagination striped />
+      <DataTable data={getData()} columns={columns} pagination striped />
     </div>
   );
 };
