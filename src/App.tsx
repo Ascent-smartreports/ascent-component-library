@@ -44,6 +44,16 @@ function App() {
       title: "Ghostbusters",
       year: "1984",
     },
+    {
+      id: 3,
+      title: "Ghostbusters",
+      year: "1984",
+    },
+    {
+      id: 4,
+      title: "Ghostbusters",
+      year: "1984",
+    },
   ];
 
   const columns = [

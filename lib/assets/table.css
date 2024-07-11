@@ -1,26 +1,28 @@
 .rdt_Table {
-  /* Your custom styles here */
+border-color:#0000000D;
+border-width:0.15rem;
+
 }
 
 .rdt_TableRow {
   /* Your custom styles here */
+  /* border-radius:10px; */
 }
 
 .rdt_TableCol {
-  /* Your custom styles here */
+  /* background-color:green; */
+
 }
 
 .rdt_TableCol_Sortable {
-  /* Your custom styles here */
 }
 
 .rdt_TableCell {
-  /* Your custom styles here */
-  background-color: blue;
+color:#464A53
 }
 
 .rdt_TableHeader {
-  /* Your custom styles here */
+  background-color:cyan;
 }
 
 .rdt_TableFooter {
@@ -28,15 +30,17 @@
 }
 
 .rdt_TableHead {
-  /* Your custom styles here */
 }
 
 .rdt_TableHeadRow {
-  /* Your custom styles here */
+background-color:green;
+font-weight:600;
+font-size:14px;
+color:#464A53;
 }
 
 .rdt_TableBody {
-  /* Your custom styles here */
+
 }
 
 .rdt_ExpanderRow {
