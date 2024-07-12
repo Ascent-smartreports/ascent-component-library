@@ -7,6 +7,7 @@ interface GroupRadioButtonInterface {
   data: { label: string; value: string }[];
   handleOptionChange: (label: string, value: string) => void;
   selectedValue: string;
+  testId: string;
 }
 
 export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
@@ -14,6 +15,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
   data,
   handleOptionChange,
   selectedValue,
+  testId,
 }) => {
   return (
     <div>
@@ -23,6 +25,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
           <div key={item.value} className={`${styles.radioInnerContainer}`}>
             <input
               type="radio"
+              data-testid={testId}
               className={styles.radioIcon}
               name={label}
               value={item.value}

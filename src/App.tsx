@@ -10,6 +10,12 @@ import Notify from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
 import { GroupRadio } from "../lib/components/GroupRadio";
 import { Heading, SubHeading, Label, Paragraph } from "../lib/components/Texts";
+ // eslint-disable-next-line react-refresh/only-export-components
+ export const groupRadioData = [
+   { label: "Male", value: "male" },
+   { label: "Female", value: "female" },
+   { label: "Others", value: "others" },
+ ];
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const initialValues = {
@@ -74,11 +80,7 @@ function App() {
       selector: (row: { year: string }) => row.year,
     },
   ];
-  const groupRadioData = [
-    { label: "Male", value: "male" },
-    { label: "Female", value: "female" },
-    { label: "Others", value: "others" },
-  ];
+ 
   return (
     <div
       style={{
@@ -88,6 +90,7 @@ function App() {
       }}
     >
       <GroupRadio
+        testId="gender"
         label="Gender"
         data={groupRadioData}
         handleOptionChange={handleOptionChange}
@@ -131,6 +134,7 @@ function App() {
           // isDisabled={true}
           onClick={formik.handleSubmit}
           buttonType="outlined"
+          testId="demo"
         />
       </FormikProvider>
       <Button
@@ -144,6 +148,7 @@ function App() {
             toastType: "solid",
           });
         }}
+        testId="toast"
         buttonType="outlined"
       />
     </div>

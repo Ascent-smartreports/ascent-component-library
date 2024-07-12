@@ -7,6 +7,7 @@ interface buttonProps {
   customStyle?: string;
   isDisabled?: boolean;
   type?: "button" | "submit" | "reset";
+  testId: string;
 }
 const Button: React.FC<buttonProps> = ({
   label,
@@ -15,6 +16,7 @@ const Button: React.FC<buttonProps> = ({
   customStyle,
   isDisabled,
   type,
+  testId,
 }) => {
   const customClasses = customStyle ? `${customStyle} ` : "";
   const buttonTypeClasses =
@@ -32,6 +34,7 @@ const Button: React.FC<buttonProps> = ({
       className={`${customClasses}${styles.button} ${buttonTypeClasses}`}
       disabled={isDisabled}
       type={type ? type : "submit"}
+      data-testid={testId}
     >
       {label}
     </button>
