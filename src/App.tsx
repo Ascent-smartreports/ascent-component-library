@@ -7,6 +7,8 @@ import Table from "../lib/components/Table";
 import DropdownField from "../lib/components/DropDown/DropdownField";
 import Notify from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
+import { GroupRadio } from "../lib/components/GroupRadio";
+import { Heading, SubHeading, Label, Paragraph } from "../lib/components/Texts";
 function App() {
   const initialValues = {
     name: "",
@@ -75,6 +77,11 @@ function App() {
         marginTop: "5%",
       }}
     >
+      <Heading>Hello</Heading>
+      <SubHeading>Waiting</SubHeading>
+      <Label>Labels</Label>
+      <Paragraph>Im a paragraph</Paragraph>
+      <GroupRadio label="gender" />
       <Table data={data} columns={columns} searchText="" />
       <ToastContainer />
       <FormikProvider value={formik}>
