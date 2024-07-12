@@ -1,3 +1,4 @@
+import React from "react";
 import { FormikProvider, useFormik } from "formik";
 import FormikField from "../lib/components/Input/FormikField";
 import { Button } from "../lib/main";
@@ -10,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import { GroupRadio } from "../lib/components/GroupRadio";
 import { Heading, SubHeading, Label, Paragraph } from "../lib/components/Texts";
 function App() {
+  const [selectedGender, setSelectedGender] = React.useState<string>("");
   const initialValues = {
     name: "",
     topic: [],
@@ -58,6 +60,9 @@ function App() {
     },
   ];
 
+  const handleOptionChange = (_label: string, value: string) => {
+    setSelectedGender(value);
+  };
   const columns = [
     {
       name: "Title",
@@ -82,10 +87,15 @@ function App() {
         marginTop: "5%",
       }}
     >
-      <GroupRadio label="Gender" data={groupRadioData} />
-      <Heading>Hello</Heading>
-      <SubHeading>Waiting</SubHeading>
-      <Label>Labels</Label>
+      <GroupRadio
+        label="Gender"
+        data={groupRadioData}
+        handleOptionChange={handleOptionChange}
+        selectedValue={selectedGender}
+      />
+      <Heading>Heading</Heading>
+      <SubHeading>sub heading</SubHeading>
+      <Label>Label</Label>
       <Paragraph>Im a paragraph</Paragraph>
 
       <Table data={data} columns={columns} searchText="" />
