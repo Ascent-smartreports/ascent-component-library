@@ -3,19 +3,17 @@
 }
 
 .modalContainer {
-  @apply rounded-lg shadow-xl transform transition-all w-[100%] max-w-lg bg-backgroundLight;
+  @apply rounded-lg shadow-xl transform transition-all bg-backgroundLight;
 }
 
-.modalHeading {
-  @apply px-6 py-4;
+.modalSm {
+  @apply w-1/3;
 }
 
-.modalHeadingText {
-  @apply text-xl font-bold;
+.modalMd {
+  @apply w-1/2;
 }
-.buttonsContainer {
-  @apply px-6 py-4 flex justify-center items-center  w-full;
-}
-.buttonsSubContainer {
-  @apply w-1/2 flex space-x-5;
+
+.modalLg {
+  @apply w-2/3;
 }

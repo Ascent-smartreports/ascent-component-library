@@ -10,6 +10,8 @@ import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 import Modal from "../lib/components/Modal/Modal";
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const initialValues = {
     name: "",
     topic: [],
@@ -69,7 +71,6 @@ function App() {
       selector: (row: { year: string }) => row.year,
     },
   ];
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -77,6 +78,10 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  function onSave(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div
       style={{
@@ -134,12 +139,7 @@ function App() {
         }}
         buttonType="outlined"
       />
-      <Modal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onSave={() => {}}
-        heading="Url Referrer"
-      >
+      <Modal isOpen={isModalOpen} size="sm">
         <div className="z-50">
           <label className="block text-sm font-medium text-gray-700">
             URL Name *
@@ -149,6 +149,43 @@ function App() {
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             placeholder="hrberry.com"
           />
+          <label className="block text-sm font-medium text-gray-700">
+            Name
+          </label>
+          <input
+            type="text"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="hrberry.com"
+          />
+          <label className="block text-sm font-medium text-gray-700">
+            Website
+          </label>
+          <input
+            type="text"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="hrberry.com"
+          />
+          <label className="block text-sm font-medium text-gray-700">
+            URL Name *
+          </label>
+          <input
+            type="text"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="hrberry.com"
+          />
+        </div>
+        <div className="px-6 py-4 flex justify-center items-center w-full">
+          <div className="w-1/2 flex space-x-5">
+            <Button
+              label={"close"}
+              type="submit"
+              onClick={() => {
+                closeModal();
+              }}
+              buttonType="outlined"
+            />
+            <Button label={"Save"} type="submit" onClick={onSave} />
+          </div>
         </div>
       </Modal>
     </div>

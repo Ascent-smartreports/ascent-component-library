@@ -1,42 +1,32 @@
 import React from "react";
-import Button from "../Button";
 import styles from "../../assets/modal.module.scss";
 
 interface ModalProps {
   children: React.ReactNode;
   isOpen: boolean;
-  onClose: () => void;
-  onSave: () => void;
-  heading: string;
+  size: "sm" | "lg" | "md";
 }
 
-const Modal: React.FC<ModalProps> = ({
-  children,
-  isOpen,
-  onClose,
-  onSave,
-  heading,
-}) => {
+const Modal: React.FC<ModalProps> = ({ children, isOpen, size }) => {
   if (!isOpen) return null;
+
+  const getSizeClass = (size: "sm" | "lg" | "md") => {
+    switch (size) {
+      case "sm":
+        return styles.modalSm;
+      case "md":
+        return styles.modalMd;
+      case "lg":
+        return styles.modalLg;
+      default:
+        return styles.modalMd;
+    }
+  };
 
   return (
     <div className={styles.modalScreen}>
-      <div className={styles.modalContainer}>
-        <div className={styles.modalHeading}>
-          <h2 className={styles.modalHeadingText}>{heading}</h2>
-        </div>
-        <div className={styles.modalHeading}>{children}</div>
-        <div className={styles.buttonsContainer}>
-          <div className={styles.buttonsSubContainer}>
-            <Button
-              label={"close"}
-              type="submit"
-              onClick={onClose}
-              buttonType="outlined"
-            />
-            <Button label={"Save"} type="submit" onClick={onSave} />
-          </div>
-        </div>
+      <div className={`${styles.modalContainer} ${getSizeClass(size)}`}>
+        <div className="px-6 py-4">{children}</div>
       </div>
     </div>
   );
