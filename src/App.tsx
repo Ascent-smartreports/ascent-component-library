@@ -69,6 +69,11 @@ function App() {
       selector: (row: { year: string }) => row.year,
     },
   ];
+  const groupRadioData = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+    { label: "Others", value: "others" },
+  ];
   return (
     <div
       style={{
@@ -77,11 +82,12 @@ function App() {
         marginTop: "5%",
       }}
     >
+      <GroupRadio label="Gender" data={groupRadioData} />
       <Heading>Hello</Heading>
       <SubHeading>Waiting</SubHeading>
       <Label>Labels</Label>
       <Paragraph>Im a paragraph</Paragraph>
-      <GroupRadio label="gender" />
+
       <Table data={data} columns={columns} searchText="" />
       <ToastContainer />
       <FormikProvider value={formik}>
