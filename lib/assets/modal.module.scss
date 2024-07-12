@@ -1,0 +1,21 @@
+.modalScreen {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-backgroundModal;
+}
+
+.modalContainer {
+  @apply rounded-lg shadow-xl transform transition-all w-[100%] max-w-lg bg-backgroundLight;
+}
+
+.modalHeading {
+  @apply px-6 py-4;
+}
+
+.modalHeadingText {
+  @apply text-xl font-bold;
+}
+.buttonsContainer {
+  @apply px-6 py-4 flex justify-center items-center  w-full;
+}
+.buttonsSubContainer {
+  @apply w-1/2 flex space-x-5;
+}

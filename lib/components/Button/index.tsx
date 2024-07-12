@@ -25,7 +25,7 @@ const Button: React.FC<buttonProps> = ({
         : "bg-backgroundLight border-backgroundDark text-backgroundDark border-[1px]"
       : isDisabled
         ? "bg-disabledPrimaryBtn text-backgroundLight"
-        : "bg-backgroundDark border-none text-backgroundLight";
+        : "bg-backgroundTheme border-none text-backgroundLight";
 
   return (
     <button

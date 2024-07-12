@@ -7,6 +7,8 @@ import Table from "../lib/components/Table";
 import DropdownField from "../lib/components/DropDown/DropdownField";
 import Notify from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
+import { useState } from "react";
+import Modal from "../lib/components/Modal/Modal";
 function App() {
   const initialValues = {
     name: "",
@@ -67,6 +69,14 @@ function App() {
       selector: (row: { year: string }) => row.year,
     },
   ];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div
       style={{
@@ -111,7 +121,7 @@ function App() {
         />
       </FormikProvider>
       <Button
-        label={"Toast"}
+        label={"Model"}
         type="submit"
         // isDisabled={true}
         onClick={() => {
@@ -120,9 +130,27 @@ function App() {
             type: "ERROR",
             toastType: "solid",
           });
+          openModal();
         }}
         buttonType="outlined"
       />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onSave={() => {}}
+        heading="Url Referrer"
+      >
+        <div className="z-50">
+          <label className="block text-sm font-medium text-gray-700">
+            URL Name *
+          </label>
+          <input
+            type="text"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="hrberry.com"
+          />
+        </div>
+      </Modal>
     </div>
   );
 }
