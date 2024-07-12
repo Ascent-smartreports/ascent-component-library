@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../../assets/button.module.scss";
-
 interface buttonProps {
   label: string;
   onClick: () => void;

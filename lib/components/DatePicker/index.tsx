@@ -5,7 +5,7 @@ import { Field, FieldProps, useFormikContext } from "formik";
 import { isRequiredField } from "../Input";
 import "../../assets/datePickers.css";
 import moment from "moment";
-import styles from "../../assets/common.module.scss";
+import { Label, Paragraph } from "../Texts";
 interface formikDateProps {
   name: string;
   error: string | undefined;
@@ -35,10 +35,10 @@ const FormikDateField: React.FC<formikDateProps> = ({
     <Field name={name}>
       {({ field }: FieldProps) => (
         <>
-          <p className={styles.label}>
+          <Label>
             {label}
             {isRequiredField(validationSchema, field.name) && "*"}
-          </p>
+          </Label>
           <DatePicker
             autoFocus={autoFocus}
             disabled={disabled}
@@ -54,7 +54,7 @@ const FormikDateField: React.FC<formikDateProps> = ({
             wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
             className="rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%] my-2"
           />
-          {error && <p className={styles.errorText}>{error}</p>}
+          {error && <Paragraph type="error">{error}</Paragraph>}
         </>
       )}
     </Field>

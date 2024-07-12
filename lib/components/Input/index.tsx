@@ -3,7 +3,7 @@ import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { getIn, useFormikContext } from "formik";
-
+import { Label, Paragraph } from "../Texts";
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
   label: string;
@@ -56,10 +56,10 @@ const InputField: React.FC<InputProps> = ({
 
   return (
     <>
-      <p className={styles.label}>
+      <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
-      </p>
+      </Label>
       <div>
         {leftIcon && <div className={styles.leftIcon}>{leftIcon}</div>}
         <input
@@ -96,7 +96,7 @@ const InputField: React.FC<InputProps> = ({
           <div className={styles.passwordIcon}>{rightIcon}</div>
         ) : null}
       </div>
-      {error && <p className={styles.errorText}>{error}</p>}
+      {error && <Paragraph type="error">{error}</Paragraph>}
     </>
   );
 };

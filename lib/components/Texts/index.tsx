@@ -1,37 +1,42 @@
 import React from "react";
-import "../../assets/texts.css";
-interface textProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: any;
+import styles from "../../assets/texts.module.scss";
+
+interface TextProps {
+  children: React.ReactNode;
   className?: string;
+  type?: "error";
 }
-export const Heading: React.FC<textProps> = ({ children, className }) => {
+
+export const Heading: React.FC<TextProps> = ({ children, className }) => {
   return (
-    <h2 className={className} style={{ fontWeight: "bold" }}>
+    <h2 className={className || styles.heading} style={{ fontWeight: "bold" }}>
       {children}
     </h2>
   );
 };
 
-export const SubHeading: React.FC<textProps> = ({ children, className }) => {
+export const SubHeading: React.FC<TextProps> = ({ children, className }) => {
   return (
-    <h4 className={className} style={{ fontWeight: "bold" }}>
+    <h4
+      className={className || styles.subHeading}
+      style={{ fontWeight: "bold" }}
+    >
       {children}
     </h4>
   );
 };
 
-export const Label: React.FC<textProps> = ({ children, className }) => {
-  return (
-    <h6 className={className} style={{ fontWeight: "normal" }}>
-      {children}
-    </h6>
-  );
+export const Label: React.FC<TextProps> = ({ children, className }) => {
+  return <h6 className={className || styles.label}>{children}</h6>;
 };
 
-export const Paragraph: React.FC<textProps> = ({ children, className }) => {
+export const Paragraph: React.FC<TextProps> = ({
+  children,
+  className,
+  type,
+}) => {
   return (
-    <p className={className} style={{ fontWeight: "lighter" }}>
+    <p className={className || type ? styles.errorText : styles.paragraph}>
       {children}
     </p>
   );
