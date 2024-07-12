@@ -1,3 +1,4 @@
+import React from "react";
 import { FormikProvider, useFormik } from "formik";
 import FormikField from "../lib/components/Input/FormikField";
 import { Button } from "../lib/main";
@@ -7,9 +8,18 @@ import Table from "../lib/components/Table";
 import DropdownField from "../lib/components/DropDown/DropdownField";
 import Notify from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
+import { GroupRadio } from "../lib/components/GroupRadio";
+import { Heading, SubHeading, Label, Paragraph } from "../lib/components/Texts";
+// eslint-disable-next-line react-refresh/only-export-components
+export const groupRadioData = [
+  { label: "Male", value: "male" },
+  { label: "Female", value: "female" },
+  { label: "Others", value: "others" },
+];
 import { useState } from "react";
 import Modal from "../lib/components/Modal/Modal";
 function App() {
+  const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const initialValues = {
@@ -60,6 +70,9 @@ function App() {
     },
   ];
 
+  const handleOptionChange = (_label: string, value: string) => {
+    setSelectedGender(value);
+  };
   const columns = [
     {
       name: "Title",
@@ -90,6 +103,18 @@ function App() {
         marginTop: "5%",
       }}
     >
+      <GroupRadio
+        testId="gender"
+        label="Gender"
+        data={groupRadioData}
+        handleOptionChange={handleOptionChange}
+        selectedValue={selectedGender}
+      />
+      <Heading>Heading</Heading>
+      <SubHeading>sub heading</SubHeading>
+      <Label>Label</Label>
+      <Paragraph>Im a paragraph</Paragraph>
+
       <Table data={data} columns={columns} searchText="" />
       <ToastContainer />
       <FormikProvider value={formik}>
@@ -123,6 +148,7 @@ function App() {
           // isDisabled={true}
           onClick={formik.handleSubmit}
           buttonType="outlined"
+          testId="demo"
         />
       </FormikProvider>
       <Button
@@ -137,6 +163,7 @@ function App() {
           });
           openModal();
         }}
+        testId="toast"
         buttonType="outlined"
       />
       <Modal isOpen={isModalOpen} size="sm">
@@ -183,8 +210,14 @@ function App() {
                 closeModal();
               }}
               buttonType="outlined"
+              testId={"closeBtn"}
             />
-            <Button label={"Save"} type="submit" onClick={onSave} />
+            <Button
+              label={"Save"}
+              type="submit"
+              onClick={onSave}
+              testId="saveBtn"
+            />
           </div>
         </div>
       </Modal>
