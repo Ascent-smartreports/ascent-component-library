@@ -7,6 +7,7 @@ import Table from "../lib/components/Table";
 import DropdownField from "../lib/components/DropDown/DropdownField";
 import Notify from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
+import AccordionMenu from "../lib/components/AccordionMenu";
 function App() {
   const initialValues = {
     name: "",
@@ -75,6 +76,7 @@ function App() {
         marginTop: "5%",
       }}
     >
+      <AccordionMenu />
       <Table data={data} columns={columns} searchText="" />
       <ToastContainer />
       <FormikProvider value={formik}>
