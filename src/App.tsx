@@ -1,6 +1,7 @@
 import React from "react";
 import { FormikProvider, useFormik } from "formik";
 import FormikField from "../lib/components/Input/FormikField";
+import { Card } from "../lib/components/Card";
 import Button from "../lib/components/Button";
 import * as Yup from "yup";
 import { AiFillAlipayCircle } from "react-icons/ai";
@@ -95,7 +96,6 @@ function App() {
   function onSave(): void {
     throw new Error("Function not implemented.");
   }
-
   return (
     <div
       style={{
@@ -104,125 +104,71 @@ function App() {
         marginTop: "5%",
       }}
     >
-      <GroupRadio
-        testId="gender"
-        label="Gender"
-        data={groupRadioData}
-        handleOptionChange={handleOptionChange}
-        selectedValue={selectedGender}
-      />
-      <Heading>Heading</Heading>
-      <SubHeading>sub heading</SubHeading>
-      <Label>Label</Label>
-      <Paragraph>Im a paragraph</Paragraph>
-
-      <Table data={data} columns={columns} searchText="" />
-      <ToastContainer />
-      <FormikProvider value={formik}>
-        <FormikField
-          label="name"
-          name={"name"}
-          error={formik.errors.name}
-          validationSchema={validationSchema}
-        />
-        <DropdownField
-          options={[
-            { label: "HTML", value: "html" },
-            { label: "JavaScript", value: "js" },
-          ]}
-          name={"topic"}
-          label={"Topic"}
-          error={formik.errors.topic}
-          validationSchema={validationSchema}
-          isMulti
-        />
-        <FormikDateField
-          name={"date"}
-          error={formik.errors.date as string}
-          validationSchema={validationSchema}
-          label={"Date"}
-          dateFormat="YYYY-MM-DD"
-        />
-        <Button
-          label={"hello world"}
-          type="submit"
-          // isDisabled={true}
-          onClick={formik.handleSubmit}
-          buttonType="outlined"
-          testId="demo"
-          icon={<AiFillAlipayCircle />}
-        />
-      </FormikProvider>
-      <Button
-        label={"Model"}
-        type="submit"
-        // isDisabled={true}
-        onClick={() => {
-          Notify({
-            message: "This item has been deleted ",
-            type: "ERROR",
-            toastType: "solid",
-          });
-          openModal();
-        }}
-        testId="toast"
-        buttonType="outlined"
-      />
-      <Modal isOpen={isModalOpen} size="md" closeModal={closeModal}>
-        <div className="z-50">
-          <label className="block text-sm font-medium text-gray-700">
-            URL Name *
-          </label>
-          <input
-            type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="hrberry.com"
+      <Card>
+        <>
+          <GroupRadio
+            testId="gender"
+            label="Gender"
+            data={groupRadioData}
+            handleOptionChange={handleOptionChange}
+            selectedValue={selectedGender}
           />
-          <label className="block text-sm font-medium text-gray-700">
-            Name
-          </label>
-          <input
-            type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="hrberry.com"
-          />
-          <label className="block text-sm font-medium text-gray-700">
-            Website
-          </label>
-          <input
-            type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="hrberry.com"
-          />
-          <label className="block text-sm font-medium text-gray-700">
-            URL Name *
-          </label>
-          <input
-            type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="hrberry.com"
-          />
-        </div>
-        <div className="px-6 py-4 flex justify-center items-center w-full">
-          <div className="w-1/2 flex space-x-5">
+          <Heading>Heading</Heading>
+          <SubHeading>sub heading</SubHeading>
+          <Label>Label</Label>
+          <Paragraph>Im a paragraph</Paragraph>
+          <Table data={data} columns={columns} searchText="" />
+          <ToastContainer />
+          <FormikProvider value={formik}>
+            <FormikField
+              label="name"
+              name={"name"}
+              error={formik.errors.name}
+              validationSchema={validationSchema}
+            />
+            <DropdownField
+              options={[
+                { label: "HTML", value: "html" },
+                { label: "JavaScript", value: "js" },
+              ]}
+              name={"topic"}
+              label={"Topic"}
+              error={formik.errors.topic}
+              validationSchema={validationSchema}
+              isMulti
+            />
+            <FormikDateField
+              name={"date"}
+              error={formik.errors.date as string}
+              validationSchema={validationSchema}
+              label={"Date"}
+              dateFormat="YYYY-MM-DD"
+            />
             <Button
-              label={"close"}
+              label={"hello world"}
               type="submit"
-              onClick={() => {
-                closeModal();
-              }}
+              // isDisabled={true}
+              onClick={formik.handleSubmit}
               buttonType="outlined"
-              testId={"closeBtn"}
+              testId="demo"
             />
-            <Button
-              label={"Save"}
-              type="submit"
-              onClick={onSave}
-              testId="saveBtn"
-            />
-          </div>
-        </div>
-      </Modal>
+          </FormikProvider>
+          <Button
+            label={"Toast"}
+            type="submit"
+            // isDisabled={true}
+            onClick={() => {
+              Notify({
+                message: "This item has been deleted ",
+                type: "ERROR",
+                toastType: "solid",
+              });
+            }}
+            testId="toast"
+            buttonType="outlined"
+          />
+        </>
+      </Card>
     </div>
   );
 }

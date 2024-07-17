@@ -24,6 +24,7 @@ export default {
       backgroundDarkRed: "#FD6868",
       backgroundLightYellow: "#FEEAC9",
       backgroundDarkYellow: "#FFAC2A",
+      mainBackground: "#FAFAFA",
       backgroundModal: "#000000BF",
     },
     extend: {},
