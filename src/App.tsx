@@ -2,6 +2,7 @@ import React from "react";
 import { FormikProvider, useFormik } from "formik";
 import FormikField from "../lib/components/Input/FormikField";
 import { Button } from "../lib/main";
+import { Card } from "../lib/components/Card";
 import * as Yup from "yup";
 import FormikDateField from "../lib/components/DatePicker";
 import Table from "../lib/components/Table";
@@ -10,12 +11,12 @@ import Notify from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
 import { GroupRadio } from "../lib/components/GroupRadio";
 import { Heading, SubHeading, Label, Paragraph } from "../lib/components/Texts";
- // eslint-disable-next-line react-refresh/only-export-components
- export const groupRadioData = [
-   { label: "Male", value: "male" },
-   { label: "Female", value: "female" },
-   { label: "Others", value: "others" },
- ];
+// eslint-disable-next-line react-refresh/only-export-components
+export const groupRadioData = [
+  { label: "Male", value: "male" },
+  { label: "Female", value: "female" },
+  { label: "Others", value: "others" },
+];
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const initialValues = {
@@ -80,7 +81,7 @@ function App() {
       selector: (row: { year: string }) => row.year,
     },
   ];
- 
+
   return (
     <div
       style={{
@@ -89,68 +90,72 @@ function App() {
         marginTop: "5%",
       }}
     >
-      <GroupRadio
-        testId="gender"
-        label="Gender"
-        data={groupRadioData}
-        handleOptionChange={handleOptionChange}
-        selectedValue={selectedGender}
-      />
-      <Heading>Heading</Heading>
-      <SubHeading>sub heading</SubHeading>
-      <Label>Label</Label>
-      <Paragraph>Im a paragraph</Paragraph>
+      <Card>
+        <>
+          <GroupRadio
+            testId="gender"
+            label="Gender"
+            data={groupRadioData}
+            handleOptionChange={handleOptionChange}
+            selectedValue={selectedGender}
+          />
+          <Heading>Heading</Heading>
+          <SubHeading>sub heading</SubHeading>
+          <Label>Label</Label>
+          <Paragraph>Im a paragraph</Paragraph>
 
-      <Table data={data} columns={columns} searchText="" />
-      <ToastContainer />
-      <FormikProvider value={formik}>
-        <FormikField
-          label="name"
-          name={"name"}
-          error={formik.errors.name}
-          validationSchema={validationSchema}
-        />
-        <DropdownField
-          options={[
-            { label: "HTML", value: "html" },
-            { label: "JavaScript", value: "js" },
-          ]}
-          name={"topic"}
-          label={"Topic"}
-          error={formik.errors.topic}
-          validationSchema={validationSchema}
-          isMulti
-        />
-        <FormikDateField
-          name={"date"}
-          error={formik.errors.date as string}
-          validationSchema={validationSchema}
-          label={"Date"}
-          dateFormat="YYYY-MM-DD"
-        />
-        <Button
-          label={"hello world"}
-          type="submit"
-          // isDisabled={true}
-          onClick={formik.handleSubmit}
-          buttonType="outlined"
-          testId="demo"
-        />
-      </FormikProvider>
-      <Button
-        label={"Toast"}
-        type="submit"
-        // isDisabled={true}
-        onClick={() => {
-          Notify({
-            message: "This item has been deleted ",
-            type: "ERROR",
-            toastType: "solid",
-          });
-        }}
-        testId="toast"
-        buttonType="outlined"
-      />
+          <Table data={data} columns={columns} searchText="" />
+          <ToastContainer />
+          <FormikProvider value={formik}>
+            <FormikField
+              label="name"
+              name={"name"}
+              error={formik.errors.name}
+              validationSchema={validationSchema}
+            />
+            <DropdownField
+              options={[
+                { label: "HTML", value: "html" },
+                { label: "JavaScript", value: "js" },
+              ]}
+              name={"topic"}
+              label={"Topic"}
+              error={formik.errors.topic}
+              validationSchema={validationSchema}
+              isMulti
+            />
+            <FormikDateField
+              name={"date"}
+              error={formik.errors.date as string}
+              validationSchema={validationSchema}
+              label={"Date"}
+              dateFormat="YYYY-MM-DD"
+            />
+            <Button
+              label={"hello world"}
+              type="submit"
+              // isDisabled={true}
+              onClick={formik.handleSubmit}
+              buttonType="outlined"
+              testId="demo"
+            />
+          </FormikProvider>
+          <Button
+            label={"Toast"}
+            type="submit"
+            // isDisabled={true}
+            onClick={() => {
+              Notify({
+                message: "This item has been deleted ",
+                type: "ERROR",
+                toastType: "solid",
+              });
+            }}
+            testId="toast"
+            buttonType="outlined"
+          />
+        </>
+      </Card>
     </div>
   );
 }
