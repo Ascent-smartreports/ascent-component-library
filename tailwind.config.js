@@ -12,6 +12,7 @@ export default {
       tableBackground: "#0000A",
       tableBorder: "#0000000D",
       borderLight: "#E4E5E9",
+      buttonDisabled:"#8D91A3"
     },
     extend: {},
   },
