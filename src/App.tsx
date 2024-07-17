@@ -1,8 +1,9 @@
 import React from "react";
 import { FormikProvider, useFormik } from "formik";
 import FormikField from "../lib/components/Input/FormikField";
-import { Button } from "../lib/main";
+import Button from "../lib/components/Button";
 import * as Yup from "yup";
+import { AiFillAlipayCircle } from "react-icons/ai";
 import FormikDateField from "../lib/components/DatePicker";
 import Table from "../lib/components/Table";
 import DropdownField from "../lib/components/DropDown/DropdownField";
@@ -149,6 +150,7 @@ function App() {
           onClick={formik.handleSubmit}
           buttonType="outlined"
           testId="demo"
+          icon={<AiFillAlipayCircle />}
         />
       </FormikProvider>
       <Button
@@ -224,4 +226,8 @@ function App() {
     </div>
   );
 }
+
 export default App;
+
+
+

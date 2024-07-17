@@ -8,6 +8,7 @@ interface buttonProps {
   isDisabled?: boolean;
   type?: "button" | "submit" | "reset";
   testId: string;
+  icon?: React.ReactNode;
 }
 const Button: React.FC<buttonProps> = ({
   label,
@@ -17,9 +18,10 @@ const Button: React.FC<buttonProps> = ({
   isDisabled,
   type,
   testId,
+  icon
 }) => {
   const customClasses = customStyle ? `${customStyle} ` : "";
-  const buttonTypeClasses =
+  let buttonTypeClasses =
     buttonType === "outlined"
       ? isDisabled
         ? "text-backgroundLight border-[1px] border-backgroundDark"
@@ -27,6 +29,11 @@ const Button: React.FC<buttonProps> = ({
       : isDisabled
         ? "bg-disabledPrimaryBtn text-backgroundLight"
         : "bg-backgroundTheme border-none text-backgroundLight";
+
+
+  if (isDisabled) {
+    buttonTypeClasses = "bg-buttonDisabled border-'backgroundTheme' text-'backgroundTheme' cursor-not-allowed";
+  }
 
   return (
     <button
@@ -37,7 +44,12 @@ const Button: React.FC<buttonProps> = ({
       data-testid={testId}
     >
       {label}
+      {icon && <span className="ml-2">{icon}</span>}
     </button>
   );
 };
+
 export default Button;
+
+
+
