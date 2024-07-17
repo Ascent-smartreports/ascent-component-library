@@ -656,7 +656,7 @@ h2.react-datepicker__current-month {
 }
 
 .react-datepicker__view-calendar-icon input {
-  padding: 6px 10px 5px 25px;
+  padding: 10px 10px 10px 10px;
 }
 
 .react-datepicker__year-read-view,

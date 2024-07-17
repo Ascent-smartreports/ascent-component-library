@@ -15,6 +15,7 @@ interface formikDateProps {
   autoFocus?: boolean;
   minDate?: Date;
   maxDate?: Date;
+  dateFormat: "DD-MM-YYYY" | "YYYY-MM-DD" | "DD/MM/YYYY" | "YYYY/MM/DD";
 }
 
 const FormikDateField: React.FC<formikDateProps> = ({
@@ -26,6 +27,7 @@ const FormikDateField: React.FC<formikDateProps> = ({
   disabled,
   minDate,
   maxDate,
+  dateFormat,
 }) => {
   const { setFieldValue } = useFormikContext();
 
@@ -45,7 +47,7 @@ const FormikDateField: React.FC<formikDateProps> = ({
             placeholderText="test"
             value={moment(new Date(field.value)).format("DD/MM/YYYY")}
             onChange={(date: Date | null) => {
-              setFieldValue(field.name, date);
+              setFieldValue(field.name, moment(date).format(dateFormat));
             }}
             maxDate={maxDate}
             showIcon
