@@ -4,11 +4,3 @@
 .active{
     @apply text-backgroundLight bg-backgroundTheme h-[100%] w-[100%]
 }
-.errorText{
-    font-size: 12px;
-    @apply text-errorText my-1 text-sm
-}
-.label{
-    font-size: 14px;
-    @apply font-semibold my-2 text-textDark
-}

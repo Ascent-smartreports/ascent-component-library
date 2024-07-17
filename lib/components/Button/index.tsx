@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../../assets/button.module.scss";
-
 interface buttonProps {
   label: string;
   onClick: () => void;
@@ -8,6 +7,7 @@ interface buttonProps {
   customStyle?: string;
   isDisabled?: boolean;
   type?: "button" | "submit" | "reset";
+  testId: string;
 }
 const Button: React.FC<buttonProps> = ({
   label,
@@ -16,6 +16,7 @@ const Button: React.FC<buttonProps> = ({
   customStyle,
   isDisabled,
   type,
+  testId,
 }) => {
   const customClasses = customStyle ? `${customStyle} ` : "";
   const buttonTypeClasses =
@@ -25,7 +26,7 @@ const Button: React.FC<buttonProps> = ({
         : "bg-backgroundLight border-backgroundDark text-backgroundDark border-[1px]"
       : isDisabled
         ? "bg-disabledPrimaryBtn text-backgroundLight"
-        : "bg-backgroundDark border-none text-backgroundLight";
+        : "bg-backgroundTheme border-none text-backgroundLight";
 
   return (
     <button
@@ -33,6 +34,7 @@ const Button: React.FC<buttonProps> = ({
       className={`${customClasses}${styles.button} ${buttonTypeClasses}`}
       disabled={isDisabled}
       type={type ? type : "submit"}
+      data-testid={testId}
     >
       {label}
     </button>

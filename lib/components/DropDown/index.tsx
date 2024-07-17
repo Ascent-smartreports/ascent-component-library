@@ -5,7 +5,7 @@ import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
 import { useFormikContext } from "formik";
 import styles from "../../assets/dropdown.module.scss";
-
+import { Label, Paragraph } from "../Texts";
 export interface Option {
   label: string;
   value: string;
@@ -60,10 +60,10 @@ const DropDown: React.FC<dropdownProps> = ({
   };
   return (
     <>
-      <p className={styles.label}>
+      <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
-      </p>
+      </Label>
       <Select
         classNames={{
           control: (state) =>
@@ -80,7 +80,7 @@ const DropDown: React.FC<dropdownProps> = ({
         defaultValue={defaultValue}
         onChange={handleChange}
       />
-      {error && <p className={styles.errorText}>{error}</p>}
+      {error && <Paragraph type="error">{error}</Paragraph>}
     </>
   );
 };

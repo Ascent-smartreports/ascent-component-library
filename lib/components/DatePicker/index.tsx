@@ -4,8 +4,9 @@ import { AnyObject, AnySchema } from "yup";
 import { Field, FieldProps, useFormikContext } from "formik";
 import { isRequiredField } from "../Input";
 import "../../assets/datePickers.css";
+import CalendarIcon from "../../assets/images/calendar.png";
 import moment from "moment";
-import styles from "../../assets/common.module.scss";
+import { Label, Paragraph } from "../Texts";
 interface formikDateProps {
   name: string;
   error: string | undefined;
@@ -17,7 +18,7 @@ interface formikDateProps {
   maxDate?: Date;
   dateFormat: "DD-MM-YYYY" | "YYYY-MM-DD" | "DD/MM/YYYY" | "YYYY/MM/DD";
 }
-
+ 
 const FormikDateField: React.FC<formikDateProps> = ({
   name,
   error,
@@ -30,18 +31,19 @@ const FormikDateField: React.FC<formikDateProps> = ({
   dateFormat,
 }) => {
   const { setFieldValue } = useFormikContext();
-
+ 
   return (
     <Field name={name}>
       {({ field }: FieldProps) => (
         <>
-          <p className={styles.label}>
+          <Label>
             {label}
             {isRequiredField(validationSchema, field.name) && "*"}
-          </p>
+          </Label>
           <DatePicker
             autoFocus={autoFocus}
             disabled={disabled}
+            icon={<img src={CalendarIcon} alt="Custom Icon" className="w-4 h-4 mr-4" />}
             dateFormat={"dd/MM/yyyy"}
             minDate={minDate}
             placeholderText="test"
@@ -54,11 +56,11 @@ const FormikDateField: React.FC<formikDateProps> = ({
             wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
             className="rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%] my-2"
           />
-          {error && <p className={styles.errorText}>{error}</p>}
+          {error && <Paragraph type="error">{error}</Paragraph>}
         </>
       )}
     </Field>
   );
 };
-
+ 
 export default FormikDateField;
