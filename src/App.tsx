@@ -166,7 +166,7 @@ function App() {
         testId="toast"
         buttonType="outlined"
       />
-      <Modal isOpen={isModalOpen} size="sm">
+      <Modal isOpen={isModalOpen} size="md" closeModal={closeModal}>
         <div className="z-50">
           <label className="block text-sm font-medium text-gray-700">
             URL Name *
