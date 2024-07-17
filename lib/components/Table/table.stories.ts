@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import "../../assets/button.module.scss";
-import Table from ".";
+import { Table } from ".";
 
 const meta: Meta<typeof Table> = {
   component: Table,

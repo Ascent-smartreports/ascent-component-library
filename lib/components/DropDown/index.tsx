@@ -28,7 +28,7 @@ interface dropdownProps {
 
 const animatedComponents = makeAnimated();
 
-const DropDown: React.FC<dropdownProps> = ({
+export const DropDown: React.FC<dropdownProps> = ({
   placeholder,
   options,
   validationSchema,
@@ -84,5 +84,3 @@ const DropDown: React.FC<dropdownProps> = ({
     </>
   );
 };
-
-export default DropDown;

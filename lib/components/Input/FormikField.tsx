@@ -1,5 +1,5 @@
 import { Field, FieldProps } from "formik";
-import InputField from ".";
+import { InputField } from ".";
 import { AnyObject, AnySchema } from "yup";
 import React, { ReactNode } from "react";
 
@@ -19,7 +19,7 @@ export interface FormikFieldProps {
   onBlur?: () => void;
 }
 
-const FormikField: React.FC<FormikFieldProps> = ({
+export const FormikField: React.FC<FormikFieldProps> = ({
   name,
   error,
   validationSchema,
@@ -56,5 +56,3 @@ const FormikField: React.FC<FormikFieldProps> = ({
     </Field>
   );
 };
-
-export default FormikField;

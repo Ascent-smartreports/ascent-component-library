@@ -10,7 +10,7 @@ interface buttonProps {
   testId: string;
   icon?: React.ReactNode;
 }
-const Button: React.FC<buttonProps> = ({
+export const Button: React.FC<buttonProps> = ({
   label,
   onClick,
   buttonType,
@@ -18,7 +18,7 @@ const Button: React.FC<buttonProps> = ({
   isDisabled,
   type,
   testId,
-  icon
+  icon,
 }) => {
   const customClasses = customStyle ? `${customStyle} ` : "";
   let buttonTypeClasses =
@@ -30,9 +30,9 @@ const Button: React.FC<buttonProps> = ({
         ? "bg-disabledPrimaryBtn text-backgroundLight"
         : "bg-backgroundTheme border-none text-backgroundLight";
 
-
   if (isDisabled) {
-    buttonTypeClasses = "bg-buttonDisabled border-'backgroundTheme' text-'backgroundTheme' cursor-not-allowed";
+    buttonTypeClasses =
+      "bg-buttonDisabled border-'backgroundTheme' text-'backgroundTheme' cursor-not-allowed";
   }
 
   return (
@@ -48,8 +48,3 @@ const Button: React.FC<buttonProps> = ({
     </button>
   );
 };
-
-export default Button;
-
-
-

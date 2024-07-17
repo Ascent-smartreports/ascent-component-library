@@ -1,5 +1,5 @@
 import { Field, FieldProps } from "formik";
-import DropDown, { Option } from ".";
+import { Option, DropDown } from ".";
 import { AnyObject, AnySchema } from "yup";
 import React from "react";
 
@@ -14,7 +14,7 @@ interface DropdownFieldProps {
   defaultValue?: Option[];
 }
 
-const DropdownField: React.FC<DropdownFieldProps> = ({
+export const DropdownField: React.FC<DropdownFieldProps> = ({
   name,
   error,
   validationSchema,
@@ -39,5 +39,3 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
     </Field>
   );
 };
-
-export default DropdownField;

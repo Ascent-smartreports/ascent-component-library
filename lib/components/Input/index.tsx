@@ -32,7 +32,7 @@ export const isRequiredField = (validationSchema: any, name: string) => {
   );
 };
 
-const InputField: React.FC<InputProps> = ({
+export const InputField: React.FC<InputProps> = ({
   label,
   validationSchema,
   type = "text",
@@ -100,5 +100,3 @@ const InputField: React.FC<InputProps> = ({
     </>
   );
 };
-
-export default InputField;

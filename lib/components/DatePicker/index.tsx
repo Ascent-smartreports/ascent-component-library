@@ -19,7 +19,7 @@ interface formikDateProps {
   dateFormat: "DD-MM-YYYY" | "YYYY-MM-DD" | "DD/MM/YYYY" | "YYYY/MM/DD";
 }
  
-const FormikDateField: React.FC<formikDateProps> = ({
+export const FormikDateField: React.FC<formikDateProps> = ({
   name,
   error,
   validationSchema,
@@ -31,7 +31,7 @@ const FormikDateField: React.FC<formikDateProps> = ({
   dateFormat,
 }) => {
   const { setFieldValue } = useFormikContext();
- 
+
   return (
     <Field name={name}>
       {({ field }: FieldProps) => (
@@ -43,7 +43,13 @@ const FormikDateField: React.FC<formikDateProps> = ({
           <DatePicker
             autoFocus={autoFocus}
             disabled={disabled}
-            icon={<img src={CalendarIcon} alt="Custom Icon" className="w-4 h-4 mr-4" />}
+            icon={
+              <img
+                src={CalendarIcon}
+                alt="Custom Icon"
+                className="w-4 h-4 mr-4"
+              />
+            }
             dateFormat={"dd/MM/yyyy"}
             minDate={minDate}
             placeholderText="test"
@@ -63,4 +69,3 @@ const FormikDateField: React.FC<formikDateProps> = ({
   );
 };
  
-export default FormikDateField;

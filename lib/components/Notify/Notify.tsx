@@ -28,7 +28,7 @@ interface CustomToastProps {
   closeToast: () => void;
 }
 
-const Notify = ({
+export const Notify = ({
   message,
   type,
   position = "top-right",
@@ -182,5 +182,3 @@ const Notify = ({
     }
   );
 };
-
-export default Notify;

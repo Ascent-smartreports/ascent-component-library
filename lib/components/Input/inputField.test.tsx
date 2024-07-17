@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import FormikField from "./FormikField";
+import { FormikField } from "./FormikField";
 import * as Yup from "yup";
 import { Formik, useFormikContext } from "formik";
 

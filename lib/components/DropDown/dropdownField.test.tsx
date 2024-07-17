@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import * as Yup from "yup";
 import { Formik, useFormikContext } from "formik";
-import DropdownField from "./DropdownField";
+import { DropdownField } from "./DropdownField";
 
 jest.mock("formik", () => ({
   ...jest.requireActual("formik"),
