@@ -1,0 +1,19 @@
+.modalScreen {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-backgroundModal;
+}
+
+.modalContainer {
+  @apply rounded-lg shadow-xl transform transition-all bg-backgroundLight;
+}
+
+.modalSm {
+  @apply w-1/3;
+}
+
+.modalMd {
+  @apply w-1/2;
+}
+
+.modalLg {
+  @apply w-2/3;
+}

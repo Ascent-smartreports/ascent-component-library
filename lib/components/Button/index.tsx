@@ -1,31 +1,34 @@
-import React from 'react';
-
-type ButtonProps = {
-  text: string;
-  icon?: React.ReactNode;
+import React from "react";
+import styles from "../../assets/button.module.scss";
+interface buttonProps {
+  label: string;
   onClick: () => void;
   buttonType?: "outlined";
   customStyle?: string;
-  className?: string;
   isDisabled?: boolean;
-  testId?: string;
-};
-
-const Button: React.FC<ButtonProps> = ({
-  text,
-  icon,
+  type?: "button" | "submit" | "reset";
+  testId: string;
+  icon: React.ReactNode;
+}
+const Button: React.FC<buttonProps> = ({
+  label,
   onClick,
-  customStyle,
   buttonType,
-  className,
-  isDisabled = false,
+  customStyle,
+  isDisabled,
+  type,
   testId,
+  icon
 }) => {
   const customClasses = customStyle ? `${customStyle} ` : "";
   let buttonTypeClasses =
     buttonType === "outlined"
-      ? "bg-backgroundLight border-backgroundTheme text-backgroundTheme border-[2px]"
-      : "bg-backgroundTheme border-none text-backgroundLight";
+      ? isDisabled
+        ? "text-backgroundLight border-[1px] border-backgroundDark"
+        : "bg-backgroundLight border-backgroundDark text-backgroundDark border-[1px]"
+      : isDisabled
+        ? "bg-disabledPrimaryBtn text-backgroundLight"
+        : "bg-backgroundTheme border-none text-backgroundLight";
 
 
   if (isDisabled) {
@@ -35,11 +38,12 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center justify-center p-2 px-8 rounded ${customClasses} ${buttonTypeClasses} ${className}`}
+      className={`${customClasses}${styles.button} ${buttonTypeClasses}`}
       disabled={isDisabled}
+      type={type ? type : "submit"}
       data-testid={testId}
     >
-      {text}
+      {label}
       {icon && <span className="ml-2">{icon}</span>}
     </button>
   );
