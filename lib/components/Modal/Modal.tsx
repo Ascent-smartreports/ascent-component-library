@@ -5,9 +5,15 @@ interface ModalProps {
   children: React.ReactNode;
   isOpen: boolean;
   size: "sm" | "lg" | "md";
+  closeModal: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, isOpen, size }) => {
+const Modal: React.FC<ModalProps> = ({
+  children,
+  isOpen,
+  size,
+  closeModal,
+}) => {
   if (!isOpen) return null;
 
   const getSizeClass = (size: "sm" | "lg" | "md") => {
@@ -24,8 +30,17 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen, size }) => {
   };
 
   return (
-    <div className={styles.modalScreen}>
-      <div className={`${styles.modalContainer} ${getSizeClass(size)}`}>
+    <div className={styles.container}>
+      <div
+        className={styles.modalScreen}
+        onClick={() => {
+          closeModal();
+        }}
+      ></div>
+      <div
+        className={`${styles.modalContainer} ${getSizeClass(size)}`}
+        onClick={() => {}}
+      >
         <div className="px-6 py-4">{children}</div>
       </div>
     </div>
