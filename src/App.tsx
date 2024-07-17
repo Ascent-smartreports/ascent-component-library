@@ -3,6 +3,7 @@ import { FormikProvider, useFormik } from "formik";
 import FormikField from "../lib/components/Input/FormikField";
 import Button from "../lib/components/Button";
 import * as Yup from "yup";
+import { AiFillAlipayCircle } from "react-icons/ai";
 import FormikDateField from "../lib/components/DatePicker";
 import Table from "../lib/components/Table";
 import DropdownField from "../lib/components/DropDown/DropdownField";
@@ -148,7 +149,9 @@ function App() {
           // isDisabled={true}
           onClick={formik.handleSubmit}
           buttonType="outlined"
-          testId="demo" icon={undefined}        />
+          testId="demo"
+          icon={<AiFillAlipayCircle />}
+        />
       </FormikProvider>
       <Button
         label={"Model"}
@@ -161,9 +164,10 @@ function App() {
             toastType: "solid",
           });
           openModal();
-        } }
+        }}
         testId="toast"
-        buttonType="outlined" icon={undefined}      />
+        buttonType="outlined"
+      />
       <Modal isOpen={isModalOpen} size="sm">
         <div className="z-50">
           <label className="block text-sm font-medium text-gray-700">
@@ -206,14 +210,16 @@ function App() {
               type="submit"
               onClick={() => {
                 closeModal();
-              } }
+              }}
               buttonType="outlined"
-              testId={"closeBtn"} icon={undefined}            />
+              testId={"closeBtn"}
+            />
             <Button
               label={"Save"}
               type="submit"
               onClick={onSave}
-              testId="saveBtn" icon={undefined}            />
+              testId="saveBtn"
+            />
           </div>
         </div>
       </Modal>

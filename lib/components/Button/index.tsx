@@ -8,7 +8,7 @@ interface buttonProps {
   isDisabled?: boolean;
   type?: "button" | "submit" | "reset";
   testId: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
 }
 const Button: React.FC<buttonProps> = ({
   label,
