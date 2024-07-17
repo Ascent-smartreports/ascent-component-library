@@ -1,17 +1,23 @@
 import React from "react";
 import { FormikProvider, useFormik } from "formik";
-import { FormikField } from "../lib/components/Input/FormikField";
-import { Card } from "../lib/components/Card";
-import { Button } from "../lib/components/Button";
+import {
+  FormikField,
+  Card,
+  Button,
+  FormikDateField,
+  Table,
+  DropdownField,
+  Notify,
+  GroupRadio,
+  Heading,
+  SubHeading,
+  Label,
+  Paragraph,
+  Modal,
+} from "ascent-component-library";
 import * as Yup from "yup";
 import { AiFillAlipayCircle } from "react-icons/ai";
-import { FormikDateField } from "../lib/components/DatePicker";
-import { Table } from "../lib/components/Table";
-import { DropdownField } from "../lib/components/DropDown/DropdownField";
-import { Notify } from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
-import { GroupRadio } from "../lib/components/GroupRadio";
-import { Heading, SubHeading, Label, Paragraph } from "../lib/components/Texts";
 // eslint-disable-next-line react-refresh/only-export-components
 export const groupRadioData = [
   { label: "Male", value: "male" },
@@ -19,7 +25,6 @@ export const groupRadioData = [
   { label: "Others", value: "others" },
 ];
 import { useState } from "react";
-import { Modal } from "../lib/components/Modal/Modal";
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -245,6 +250,3 @@ function App() {
 }
 
 export default App;
-
-
-
