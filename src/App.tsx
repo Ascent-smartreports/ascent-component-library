@@ -1,9 +1,10 @@
 import React from "react";
 import { FormikProvider, useFormik } from "formik";
 import FormikField from "../lib/components/Input/FormikField";
-import { Button } from "../lib/main";
 import { Card } from "../lib/components/Card";
+import Button from "../lib/components/Button";
 import * as Yup from "yup";
+import { AiFillAlipayCircle } from "react-icons/ai";
 import FormikDateField from "../lib/components/DatePicker";
 import Table from "../lib/components/Table";
 import DropdownField from "../lib/components/DropDown/DropdownField";
@@ -17,8 +18,12 @@ export const groupRadioData = [
   { label: "Female", value: "female" },
   { label: "Others", value: "others" },
 ];
+import { useState } from "react";
+import Modal from "../lib/components/Modal/Modal";
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const initialValues = {
     name: "",
     topic: [],
@@ -82,6 +87,15 @@ function App() {
     },
   ];
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  function onSave(): void {
+    throw new Error("Function not implemented.");
+  }
   return (
     <div
       style={{
@@ -103,7 +117,6 @@ function App() {
           <SubHeading>sub heading</SubHeading>
           <Label>Label</Label>
           <Paragraph>Im a paragraph</Paragraph>
-
           <Table data={data} columns={columns} searchText="" />
           <ToastContainer />
           <FormikProvider value={formik}>
@@ -159,4 +172,8 @@ function App() {
     </div>
   );
 }
+
 export default App;
+
+
+

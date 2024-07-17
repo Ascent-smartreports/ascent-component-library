@@ -36,6 +36,8 @@
     "@storybook/react": "^8.1.5",
     "@storybook/react-vite": "^8.1.5",
     "@storybook/test": "^8.1.5",
+    "@swc/cli": "^0.4.0",
+    "@swc/core": "^1.6.13",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",

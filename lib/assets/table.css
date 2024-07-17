@@ -2,8 +2,16 @@
   border-color: #0000000d;
   border-width: 0.15rem;
 }
+.rdt_TableCol {
+  justify-content: center;
+}
 .rdt_TableCell {
   color: #464a53;
+  justify-content: center;
+}
+.rdt_TableCol_Sortable {
+  justify-content: center;
+  align-items: center;
 }
 .rdt_TableHeadRow {
   background-color: green;
