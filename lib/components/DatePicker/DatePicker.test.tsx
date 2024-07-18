@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
-import FormikDateField from ".";
+import { FormikDateField } from ".";
 import * as Yup from "yup";
-import { Formik, useFormikContext } from "formik";
+import { Field, FieldProps, Formik, useFormikContext } from "formik";
 
 jest.mock("formik", () => ({
   ...jest.requireActual("formik"),
@@ -29,13 +29,19 @@ describe("formikfield component", () => {
         validationSchema={validationSchema}
         onSubmit={() => {}}
       >
-        <FormikDateField
-          name="dob"
-          label="DOB"
-          error={errors.dob}
-          validationSchema={validationSchema}
-          dateFormat="DD-MM-YYYY"
-        />
+        <Field name="dob">
+          {({ field, form }: FieldProps) => (
+            <FormikDateField
+              form={form}
+              name="dob"
+              label="DOB"
+              error={errors.dob}
+              validationSchema={validationSchema}
+              field={field}
+              dateFormat="DD-MM-YYYY"
+            />
+          )}
+        </Field>
       </Formik>
     );
     expect(errors.dob).not.toBeDefined();

@@ -7,7 +7,7 @@ interface tableProps {
   columns: any;
   searchText?: string;
 }
-const Table: React.FC<tableProps> = ({ data, columns, searchText }) => {
+export const Table: React.FC<tableProps> = ({ data, columns, searchText }) => {
   const getData = () => {
     if (searchText) {
       const filteredItems = data.filter(
@@ -25,4 +25,3 @@ const Table: React.FC<tableProps> = ({ data, columns, searchText }) => {
     </div>
   );
 };
-export default Table;

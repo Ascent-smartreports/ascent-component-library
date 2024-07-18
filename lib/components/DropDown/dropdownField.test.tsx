@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import * as Yup from "yup";
-import { Formik, useFormikContext } from "formik";
-import DropdownField from "./DropdownField";
+import { Field, FieldProps, Formik, useFormikContext } from "formik";
+import { DropDown } from ".";
 
 jest.mock("formik", () => ({
   ...jest.requireActual("formik"),
@@ -38,19 +38,24 @@ describe("DropdownField component", () => {
         validationSchema={validationSchema}
         onSubmit={() => {}}
       >
-        <DropdownField
-          name="topic"
-          label="Topic"
-          error={errors.topic}
-          validationSchema={validationSchema}
-          options={[
-            {
-              label: "React Native",
-              value: "RN",
-            },
-            { label: "React JS", value: "React" },
-          ]}
-        />
+        <Field name="topic">
+          {({ field, form }: FieldProps) => (
+            <DropDown
+              form={form}
+              label="Topic"
+              error={errors.topic}
+              validationSchema={validationSchema}
+              field={field}
+              options={[
+                {
+                  label: "React Native",
+                  value: "RN",
+                },
+                { label: "React JS", value: "React" },
+              ]}
+            />
+          )}
+        </Field>
       </Formik>
     );
   });
@@ -72,20 +77,25 @@ describe("DropdownField component", () => {
         validationSchema={validationSchema}
         onSubmit={() => {}}
       >
-        <DropdownField
-          name="topic"
-          label="Topic"
-          error={errors.topic}
-          validationSchema={validationSchema}
-          options={[
-            {
-              label: "React Native",
-              value: "RN",
-            },
-            { label: "React JS", value: "React" },
-          ]}
-          defaultValue={[{ label: "React JS", value: "React" }]}
-        />
+        <Field name="topic">
+          {({ field, form }: FieldProps) => (
+            <DropDown
+              form={form}
+              field={field}
+              label="Topic"
+              error={errors.topic}
+              validationSchema={validationSchema}
+              options={[
+                {
+                  label: "React Native",
+                  value: "RN",
+                },
+                { label: "React JS", value: "React" },
+              ]}
+              defaultValue={[{ label: "React JS", value: "React" }]}
+            />
+          )}
+        </Field>
       </Formik>
     );
   });

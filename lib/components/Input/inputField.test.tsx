@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
-import FormikField from "./FormikField";
+import { InputField } from ".";
 import * as Yup from "yup";
-import { Formik, useFormikContext } from "formik";
+import { Field, FieldProps, Formik, useFormikContext } from "formik";
 
 jest.mock("formik", () => ({
   ...jest.requireActual("formik"),
@@ -29,13 +29,18 @@ describe("formikfield component", () => {
         validationSchema={validationSchema}
         onSubmit={() => {}}
       >
-        <FormikField
-          name="name"
-          label="name"
-          error={errors.name}
-          validationSchema={validationSchema}
-          type="text"
-        />
+        <Field name="name">
+          {({ field, form }: FieldProps) => (
+            <InputField
+              form={form}
+              label="name"
+              field={field}
+              error={errors.name}
+              validationSchema={validationSchema}
+              type="text"
+            />
+          )}
+        </Field>
       </Formik>
     );
   });

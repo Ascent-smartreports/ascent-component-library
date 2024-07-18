@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from "react";
 import Select, { MultiValue, SingleValue } from "react-select";
 import makeAnimated from "react-select/animated";
 import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
-import { useFormikContext } from "formik";
+// import { useFormikContext } from "formik";
 import styles from "../../assets/dropdown.module.scss";
-
+import { Label, Paragraph } from "../Texts";
 export interface Option {
   label: string;
   value: string;
@@ -20,6 +21,18 @@ interface dropdownProps {
     name: string;
     value: string | Option | Option[];
   };
+  form: {
+    setFieldValue: (
+      field: string,
+      value: any,
+      shouldValidate?: boolean
+    ) => void;
+    setFieldTouched: (
+      field: string,
+      isTouched?: boolean,
+      shouldValidate?: boolean
+    ) => void;
+  };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   isMulti?: boolean;
@@ -28,7 +41,7 @@ interface dropdownProps {
 
 const animatedComponents = makeAnimated();
 
-const DropDown: React.FC<dropdownProps> = ({
+export const DropDown: React.FC<dropdownProps> = ({
   placeholder,
   options,
   validationSchema,
@@ -37,19 +50,18 @@ const DropDown: React.FC<dropdownProps> = ({
   error,
   isMulti,
   defaultValue,
+  form,
 }) => {
-  const { setFieldValue, setFieldTouched } = useFormikContext();
-
   useEffect(() => {
     if (defaultValue) {
-      setFieldValue(field.name, defaultValue);
+      form.setFieldValue(field.name, defaultValue);
     }
-  }, [defaultValue, setFieldValue, field.name]);
+  }, [defaultValue, field.name, form]);
 
   const handleChange = (newValue: MultiValue<Option> | SingleValue<Option>) => {
     const value = isMulti ? newValue : (newValue as Option);
-    setFieldValue(field.name, value);
-    setFieldTouched(field.name, true, false);
+    form.setFieldValue(field.name, value);
+    form.setFieldTouched(field.name, true, false);
   };
   const customStyles = {
     option: (_provided: unknown, state: { isFocused: boolean }) => ({
@@ -60,10 +72,10 @@ const DropDown: React.FC<dropdownProps> = ({
   };
   return (
     <>
-      <p className={styles.label}>
+      <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
-      </p>
+      </Label>
       <Select
         classNames={{
           control: (state) =>
@@ -80,9 +92,7 @@ const DropDown: React.FC<dropdownProps> = ({
         defaultValue={defaultValue}
         onChange={handleChange}
       />
-      {error && <p className={styles.errorText}>{error}</p>}
+      {error && <Paragraph type="error">{error}</Paragraph>}
     </>
   );
 };
-
-export default DropDown;
