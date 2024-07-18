@@ -32,11 +32,13 @@ function App() {
 
   const initialValues = {
     name: "",
-    // topic: [],
+    topic: [],
+    description: "",
     date: null,
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
+    description: Yup.string().required("description is required"),
     topic: Yup.array()
       .of(
         Yup.object().shape({
@@ -138,13 +140,13 @@ function App() {
                 />
               )}
             </Field>
-            <Field name={"Description"}>
+            <Field name={"description"}>
               {({ field, form }: FieldProps) => (
                 <TextAreaField
-                  label={"desc"}
+                  label={"Description"}
                   field={field}
                   form={form}
-                  error={formik.errors.name}
+                  error={formik.errors.description}
                   validationSchema={validationSchema}
                   height={"150px"}
                 />
@@ -160,8 +162,9 @@ function App() {
                   form={form}
                   label={"Topic"}
                   field={field}
-                  error={""}
+                  error={formik.errors.topic}
                   validationSchema={validationSchema}
+                  isMulti
                 />
               )}
             </Field>
