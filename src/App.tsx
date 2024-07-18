@@ -1,17 +1,9 @@
 import React from "react";
-import { FormikProvider, useFormik } from "formik";
-import { FormikField } from "../lib/components/Input/FormikField";
-import { Card } from "../lib/components/Card";
-import { Button } from "../lib/components/Button";
+import { Field, FieldProps, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { AiFillAlipayCircle } from "react-icons/ai";
 import { FormikDateField } from "../lib/components/DatePicker";
-import { Table } from "../lib/components/Table";
-import { DropdownField } from "../lib/components/DropDown/DropdownField";
-import { Notify } from "../lib/components/Notify/Notify";
 import { ToastContainer } from "react-toastify";
-import { GroupRadio } from "../lib/components/GroupRadio";
-import { Heading, SubHeading, Label, Paragraph } from "../lib/components/Texts";
 // eslint-disable-next-line react-refresh/only-export-components
 export const groupRadioData = [
   { label: "Male", value: "male" },
@@ -19,28 +11,42 @@ export const groupRadioData = [
   { label: "Others", value: "others" },
 ];
 import { useState } from "react";
-import { Modal } from "../lib/components/Modal/Modal";
+import {
+  DropDown,
+  Table,
+  Button,
+  Heading,
+  Label,
+  Paragraph,
+  SubHeading,
+  GroupRadio,
+  Card,
+  Notify,
+  Modal,
+  InputField,
+} from "../lib/main";
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const initialValues = {
     name: "",
-    topic: [],
+    // topic: [],
     date: null,
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
-    topic: Yup.array()
-      .of(
-        Yup.object().shape({
-          label: Yup.string().required(),
-          value: Yup.string().required(),
-        })
-      )
-      .min(1, "Topics must be selected"),
+    // topic: Yup.array()
+    //   .of(
+    //     Yup.object().shape({
+    //       label: Yup.string().required(),
+    //       value: Yup.string().required(),
+    //     })
+    //   )
+    //   .min(1, "Topics must be selected"),
     date: Yup.date().required("define some date"),
   });
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -120,30 +126,45 @@ function App() {
           <Table data={data} columns={columns} searchText="" />
           <ToastContainer />
           <FormikProvider value={formik}>
-            <FormikField
-              label="name"
-              name={"name"}
-              error={formik.errors.name}
-              validationSchema={validationSchema}
-            />
-            <DropdownField
-              options={[
-                { label: "HTML", value: "html" },
-                { label: "JavaScript", value: "js" },
-              ]}
-              name={"topic"}
-              label={"Topic"}
-              error={formik.errors.topic}
-              validationSchema={validationSchema}
-              isMulti
-            />
-            <FormikDateField
-              name={"date"}
-              error={formik.errors.date as string}
-              validationSchema={validationSchema}
-              label={"Date"}
-              dateFormat="YYYY-MM-DD"
-            />
+            <Field name={"name"}>
+              {({ field, form }: FieldProps) => (
+                <InputField
+                  label={"Name"}
+                  field={field}
+                  form={form}
+                  error={formik.errors.name}
+                  validationSchema={validationSchema}
+                />
+              )}
+            </Field>
+            <Field name={"topic"}>
+              {({ field, form }: FieldProps) => (
+                <DropDown
+                  options={[
+                    { label: "HTML", value: "html" },
+                    { label: "JavaScript", value: "js" },
+                  ]}
+                  form={form}
+                  label={"Topic"}
+                  field={field}
+                  error={""}
+                  validationSchema={validationSchema}
+                />
+              )}
+            </Field>
+            <Field name={"date"}>
+              {({ field, form }: FieldProps) => (
+                <FormikDateField
+                  form={form}
+                  name={"date"}
+                  error={formik.errors.date}
+                  validationSchema={validationSchema}
+                  label={"DOB"}
+                  field={field}
+                  dateFormat={"YYYY-MM-DD"}
+                />
+              )}
+            </Field>
             <Button
               label={"hello world"}
               type="submit"

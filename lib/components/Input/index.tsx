@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, ReactNode, useState } from "react";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import { getIn, useFormikContext } from "formik";
+import { getIn } from "formik";
 import { Label, Paragraph } from "../Texts";
+// import { FieldProps } from "formik";
+
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
   label: string;
@@ -12,6 +15,14 @@ export interface InputProps {
     name: string;
     value: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
+  };
+  form: {
+    setFieldValue: (
+      field: string,
+      value: any,
+      shouldValidate?: boolean
+    ) => void;
   };
   error: string | undefined;
   autoFocus?: boolean;
@@ -21,11 +32,10 @@ export interface InputProps {
   isPassword?: boolean;
   maxLength?: number;
   rightIcon?: ReactNode;
-  onBlur?: () => void;
   leftIcon?: ReactNode;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, react-refresh/only-export-components
+// eslint-disable-next-line react-refresh/only-export-components
 export const isRequiredField = (validationSchema: any, name: string) => {
   return !!getIn(validationSchema.describe().fields, name)?.tests?.find(
     (obj: { name: string }) => obj.name === "required"
@@ -37,6 +47,7 @@ export const InputField: React.FC<InputProps> = ({
   validationSchema,
   type = "text",
   field,
+  form,
   autoFocus,
   error,
   placeholder,
@@ -44,14 +55,13 @@ export const InputField: React.FC<InputProps> = ({
   isPassword,
   maxLength,
   rightIcon,
-  onBlur,
+  // onBlur,
   leftIcon,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const { handleChange } = useFormikContext();
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(field.name)(e);
+    form.setFieldValue(field.name, e.target.value);
   };
 
   return (
@@ -65,16 +75,15 @@ export const InputField: React.FC<InputProps> = ({
         <input
           type={isPassword && !isPasswordVisible ? "password" : type}
           autoFocus={!!autoFocus}
-          security="true"
           value={field.value}
           onChange={onChangeText}
           placeholder={placeholder}
           disabled={disabled}
           maxLength={maxLength}
-          autoComplete="none"
-          onBlur={onBlur}
+          autoComplete="off"
+          onBlur={field.onBlur}
           className={`${styles.input} ${leftIcon ? "px-8" : "px-2"}`}
-          onFocus={onBlur}
+          onFocus={field.onBlur}
         />
         {isPassword ? (
           <>

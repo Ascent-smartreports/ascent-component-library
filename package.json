@@ -1,10 +1,14 @@
 {
   "name": "ascent-component-library",
+  "author": {
+    "name": "Ascent-HR"
+  },
+  "license": "MIT",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.5",
   "type": "module",
   "main": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "types": "dist/lib/main.d.ts",
   "sideEffects": [
     "**/*.css"
   ],
@@ -74,6 +78,8 @@
   "dependencies": {
     "@types/css-modules": "^1.0.5",
     "formik": "^2.4.6",
+    "import-lazy": "^4.0.0",
+    "jju": "^1.4.0",
     "moment": "^2.30.1",
     "next-mdx-remote": "^5.0.0",
     "react-data-table-component": "^7.6.2",
