@@ -25,6 +25,7 @@ import {
   Modal,
   InputField,
 } from "../lib/main";
+import { TextAreaField } from "../lib/components/TextAreaInput";
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,14 +37,14 @@ function App() {
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
-    // topic: Yup.array()
-    //   .of(
-    //     Yup.object().shape({
-    //       label: Yup.string().required(),
-    //       value: Yup.string().required(),
-    //     })
-    //   )
-    //   .min(1, "Topics must be selected"),
+    topic: Yup.array()
+      .of(
+        Yup.object().shape({
+          label: Yup.string().required(),
+          value: Yup.string().required(),
+        })
+      )
+      .min(1, "Topics must be selected"),
     date: Yup.date().required("define some date"),
   });
 
@@ -134,6 +135,18 @@ function App() {
                   form={form}
                   error={formik.errors.name}
                   validationSchema={validationSchema}
+                />
+              )}
+            </Field>
+            <Field name={"Description"}>
+              {({ field, form }: FieldProps) => (
+                <TextAreaField
+                  label={"desc"}
+                  field={field}
+                  form={form}
+                  error={formik.errors.name}
+                  validationSchema={validationSchema}
+                  height={"150px"}
                 />
               )}
             </Field>
@@ -266,6 +279,3 @@ function App() {
 }
 
 export default App;
-
-
-
