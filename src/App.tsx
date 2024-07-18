@@ -25,25 +25,28 @@ import {
   Modal,
   InputField,
 } from "../lib/main";
+import { TextAreaField } from "../lib/components/TextAreaInput";
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const initialValues = {
     name: "",
-    // topic: [],
+    topic: [],
+    description: "",
     date: null,
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
-    // topic: Yup.array()
-    //   .of(
-    //     Yup.object().shape({
-    //       label: Yup.string().required(),
-    //       value: Yup.string().required(),
-    //     })
-    //   )
-    //   .min(1, "Topics must be selected"),
+    description: Yup.string().required("description is required"),
+    topic: Yup.array()
+      .of(
+        Yup.object().shape({
+          label: Yup.string().required(),
+          value: Yup.string().required(),
+        })
+      )
+      .min(1, "Topics must be selected"),
     date: Yup.date().required("define some date"),
   });
 
@@ -137,6 +140,18 @@ function App() {
                 />
               )}
             </Field>
+            <Field name={"description"}>
+              {({ field, form }: FieldProps) => (
+                <TextAreaField
+                  label={"Description"}
+                  field={field}
+                  form={form}
+                  error={formik.errors.description}
+                  validationSchema={validationSchema}
+                  height={"150px"}
+                />
+              )}
+            </Field>
             <Field name={"topic"}>
               {({ field, form }: FieldProps) => (
                 <DropDown
@@ -147,8 +162,9 @@ function App() {
                   form={form}
                   label={"Topic"}
                   field={field}
-                  error={""}
+                  error={formik.errors.topic}
                   validationSchema={validationSchema}
+                  isMulti
                 />
               )}
             </Field>
