@@ -24,6 +24,7 @@ import {
   Notify,
   Modal,
   InputField,
+  AccordionMenu,
 } from "../lib/main";
 import { TextAreaField } from "../lib/components/TextAreaInput";
 function App() {
@@ -105,14 +106,33 @@ function App() {
   function onSave(): void {
     throw new Error("Function not implemented.");
   }
+  const menu = [
+    { label: "Bank Advice", value: "Bank Advice" },
+    { label: "Compliance Reports", value: "Compliance Reports" },
+    { label: "Variance Reports", value: "Variance Reports" },
+  ];
+  const subMenu = [
+    { label: "Bank Advice-Active", value: "Bank advice-active" },
+    { label: "Bank Advice Consolidated", value: "Bank Adivce consilidated" },
+    {
+      label: "ctc reports",
+      value: "CTC Reports",
+    },
+  ];
   return (
-    <div
-      style={{
-        width: "50%",
-        marginLeft: "25%",
-        marginTop: "5%",
-      }}
-    >
+    <>
+      <Card className="my-10 p-10">
+        <AccordionMenu
+          menu={menu}
+          handleSelectedMenu={(_label: string, value: string) => {
+            console.log(value, "accordian value...........");
+          }}
+          subMenu={subMenu}
+          handleSelectedSubMenu={(_label: string, value: string) => {
+            console.log(value, "sub menu selected option");
+          }}
+        />
+      </Card>
       <Card>
         <>
           <GroupRadio
@@ -187,6 +207,7 @@ function App() {
               // isDisabled={true}
               onClick={formik.handleSubmit}
               buttonType="outlined"
+              customStyle="my-4"
               testId="demo"
             />
           </FormikProvider>
@@ -277,7 +298,7 @@ function App() {
           </Modal>
         </>
       </Card>
-    </div>
+    </>
   );
 }
 

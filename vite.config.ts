@@ -18,7 +18,7 @@ export default defineConfig({
       ],
       input: Object.fromEntries(
         glob
-          .sync("lib/**/*.{ts,tsx}", {
+          .sync("lib/**/*.{ts,tsx,scss,css}", {
             ignore: ["lib/**/*.d.ts"],
           })
           .map((file) => [
@@ -31,7 +31,7 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
           "react/jsx-runtime": "JSX",
-          tailwindcss: "tailwindcss",
+          // tailwindcss: "tailwindcss",
         },
         assetFileNames: "assets/[name][extname]",
         entryFileNames: "[name].js",
@@ -49,5 +49,10 @@ export default defineConfig({
     postcss: {
       plugins: [tailwindcss],
     },
+    // preprocessorOptions: {
+    //   scss: {
+    //     additionalData:
+    //   }
+    // },
   },
 });

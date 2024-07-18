@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./lib/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./lib/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./index.html",
+  ],
   theme: {
     colors: {
       backgroundTheme: "#21294C",
@@ -13,7 +17,7 @@ export default {
       tableBackground: "#0000A",
       tableBorder: "#0000000D",
       borderLight: "#E4E5E9",
-      buttonDisabled:"#8D91A3",
+      buttonDisabled: "#8D91A3",
       border: "#E4E5E9",
       errorText: "#FD6868",
       disabledPrimaryBtn: "#7F879E",
