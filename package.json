@@ -1,7 +1,11 @@
 {
   "name": "ascent-component-library",
+  "author": {
+    "name": "Ascent-HR"
+  },
+  "license": "MIT",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/lib/main.d.ts",
@@ -73,7 +77,6 @@
   },
   "dependencies": {
     "@types/css-modules": "^1.0.5",
-    "ascent-component-library": "^0.0.4",
     "formik": "^2.4.6",
     "import-lazy": "^4.0.0",
     "jju": "^1.4.0",
