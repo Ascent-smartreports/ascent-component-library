@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
-import { TextAreaField } from ".";
+import { TextAreaInput } from ".";
 import * as Yup from "yup";
 import { Field, FieldProps, Formik, useFormikContext } from "formik";
 import "@testing-library/jest-dom";
@@ -17,7 +17,7 @@ const errors = {
   description: "Description value is required",
 };
 
-describe("TextAreaField component", () => {
+describe("TextAreaInput component", () => {
   const mockContextValues = {
     values: { description: "" },
     errors: { description: "" },
@@ -38,7 +38,7 @@ describe("TextAreaField component", () => {
       >
         <Field name="description">
           {({ field, form }: FieldProps) => (
-            <TextAreaField
+            <TextAreaInput
               form={form}
               label="Description"
               field={field}
@@ -66,7 +66,7 @@ describe("TextAreaField component", () => {
       >
         <Field name="description">
           {({ field, form }: FieldProps) => (
-            <TextAreaField
+            <TextAreaInput
               form={form}
               label="Description"
               field={field}
@@ -95,7 +95,7 @@ describe("TextAreaField component", () => {
       >
         <Field name="description">
           {({ field, form }: FieldProps) => (
-            <TextAreaField
+            <TextAreaInput
               form={form}
               label="Description"
               field={field}
