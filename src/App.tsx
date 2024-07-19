@@ -25,7 +25,7 @@ import {
   Modal,
   InputField,
 } from "../lib/main";
-import { TextAreaField } from "../lib/components/TextAreaInput";
+import { TextAreaInput } from "../lib/components/TextAreaInput";
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -142,7 +142,7 @@ function App() {
             </Field>
             <Field name={"description"}>
               {({ field, form }: FieldProps) => (
-                <TextAreaField
+                <TextAreaInput
                   label={"Description"}
                   field={field}
                   form={form}

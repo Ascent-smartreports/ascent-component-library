@@ -36,7 +36,7 @@ export const isRequiredField = (validationSchema: any, name: string) => {
   );
 };
 
-export const TextAreaField: React.FC<TextAreaProps> = ({
+export const TextAreaInput: React.FC<TextAreaProps> = ({
   label,
   validationSchema,
   field,
