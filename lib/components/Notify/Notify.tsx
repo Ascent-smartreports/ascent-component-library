@@ -144,7 +144,7 @@ export const Notify = ({
     closeToast,
   }) => (
     <div
-      className={`flex flex-row items-center w-full ${bgColor} ${borderColor} rounded-[4px] p-2 h-14`}
+      className={`flex flex-row items-center w-full ${bgColor} ${borderColor} rounded-[6px] p-2 h-14`}
     >
       <div className="flex flex-row items-center flex-grow">
         <img src={iconSrc} alt="Custom Icon" className="w-5 h-5 mr-4" />
@@ -176,7 +176,7 @@ export const Notify = ({
     ),
     {
       position: position,
-      autoClose: 3000,
+      autoClose: 300000,
       hideProgressBar: true,
       closeButton: false,
     }

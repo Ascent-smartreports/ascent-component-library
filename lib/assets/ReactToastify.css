@@ -124,7 +124,7 @@
   position: relative;
   -ms-touch-action: none;
   touch-action: none;
-  min-height: var(--toastify-toast-min-height);
+  /* min-height: var(--toastify-toast-min-height); */
   box-sizing: border-box;
   /* margin-bottom: 1rem; */
   /* padding: 8px; */
@@ -239,7 +239,7 @@
   color: var(--toastify-text-color-dark);
 }
 .Toastify__toast-theme--light {
-  background: var(--toastify-color-light);
+  /* background: var(--toastify-color-light); */
   color: var(--toastify-text-color-light);
 }
 .Toastify__toast-theme--colored.Toastify__toast--default {
