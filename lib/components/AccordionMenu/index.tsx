@@ -30,24 +30,29 @@ export const AccordionMenu: React.FC<AccordionProps> = ({
       {menu.map((item) => (
         <div key={item.value} className="w-full">
           <div
-            className={` cursor-pointer  w-min-72 ${customStyle}`}
+            className={` cursor-pointer flex items-center  w-min-72 ${customStyle}`}
             onClick={() => handleMenuClick(item.value, item.label)}
           >
             {item.value === selectedOption ? (
               <>
-                <img
-                  src={DownArrow}
-                  alt="down arrow"
-                  className="h-5 w-5 mx-1"
-                />
+                <div className="w-[28px]">
+                  <img
+                    src={DownArrow}
+                    alt="down arrow"
+                    className="h-5 w-5 mx-1"
+                  />
+                </div>
+
                 <div className="bg-backgroundTheme h-[10px] w-[10px] absolute ml-[31px]" />
               </>
             ) : (
-              <img
-                src={RightArrow}
-                alt="right arrow"
-                className="h-3 w-3 mx-1"
-              />
+              <div className="w-[28px]">
+                <img
+                  src={RightArrow}
+                  alt="right arrow"
+                  className="h-3 w-3 mx-1"
+                />
+              </div>
             )}
             <div className="h-4 w-4 rounded-[3px] border-backgroundTheme border-2 mr-2" />
             <Label>{item.label}</Label>
