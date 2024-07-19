@@ -1,18 +1,31 @@
-# ascent-component-library
- Ascent Components Library
+# Ascent Component Library
 
-All the components should be written inside lib directory since we're bundling the app to release as a library. All the styles should be under /lib/assets directory
+The Ascent Component Library is a collection of reusable React components designed for building modern web applications. The library includes a variety of UI components, all styled with Tailwind CSS and bundled with Vite.
 
-**npm run test** 
-to run the test cases 
+## Directory Structure
 
+- **lib**: All components should be written inside the `lib` directory since we're bundling the app to release as a library.
+- **lib/assets**: All styles should be placed under the `/lib/assets` directory.
 
-**npm run storybook**
-to run the storybook
+## Available Scripts
 
+### `npm run test`
 
-**npm run build**
-to build the app, should be done before raising the PR
+Runs the test cases for the components.
 
-**npm run dev**
-for running in dev mode
+### `npm run storybook`
+
+Starts Storybook to visualize and interact with your components in an isolated environment.
+
+### `npm run build`
+
+Builds the app. This should be done before raising a Pull Request.
+
+## Getting Started
+
+To get started with the Ascent Component Library, clone the repository and install the dependencies:
+
+```sh
+git clone <repository-url>
+cd ascent-component-library
+npm install
