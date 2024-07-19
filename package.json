@@ -5,15 +5,16 @@
   },
   "license": "MIT",
   "private": false,
-  "version": "0.0.5",
+  "version": "0.1.0",
   "type": "module",
   "main": "dist/main.js",
-  "types": "dist/lib/main.d.ts",
+  "types": "dist/main.d.ts",
   "sideEffects": [
     "**/*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "dev": "vite",
@@ -30,7 +31,6 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "1.5.0",
     "@storybook/addon-essentials": "^8.1.5",
     "@storybook/addon-interactions": "^8.1.5",
     "@storybook/addon-links": "^8.1.5",

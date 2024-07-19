@@ -2,7 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react";
 import "../../assets/groupRadio.module.scss";
 import "../../assets/texts.module.scss";
 import { GroupRadio } from ".";
-import { groupRadioData } from "../../../src/App";
+ const groupRadioData = [
+   { label: "Male", value: "male" },
+   { label: "Female", value: "female" },
+   { label: "Others", value: "others" },
+ ];
 
 const meta: Meta<typeof GroupRadio> = {
   component: GroupRadio,
