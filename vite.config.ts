@@ -31,7 +31,7 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
           "react/jsx-runtime": "JSX",
-          // tailwindcss: "tailwindcss",
+          tailwindcss: "tailwindcss",
         },
         assetFileNames: "assets/[name][extname]",
         entryFileNames: "[name].js",

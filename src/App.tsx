@@ -121,7 +121,7 @@ function App() {
   ];
   return (
     <>
-      <Card className="my-10 p-10">
+      <Card className="my-10 p-10 bg-backgroundDarkGreen">
         <AccordionMenu
           menu={menu}
           handleSelectedMenu={(_label: string, value: string) => {
