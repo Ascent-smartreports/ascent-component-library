@@ -2,7 +2,7 @@
 export default {
   content: [
     "./lib/**/*.{js,ts,jsx,tsx}",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    // "./src/**/*.{js,jsx,ts,tsx}",
     "./index.html",
   ],
   theme: {

@@ -9,7 +9,7 @@ import { Notify } from "./components/Notify/Notify";
 import { Table } from "./components/Table";
 import { AccordionMenu } from "./components/AccordionMenu";
 import { InputField } from "./components/Input";
-// import "../src/index.css";
+import "./index.css";
 export {
   Button,
   Paragraph,
