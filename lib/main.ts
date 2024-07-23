@@ -8,6 +8,7 @@ import { Modal } from "./components/Modal/Modal";
 import { Notify } from "./components/Notify/Notify";
 import { Table } from "./components/Table";
 import { InputField } from "./components/Input";
+import { CustomCheckbox } from "./components/Checkbox";
 import "./index.css";
 export {
   Button,
@@ -23,4 +24,5 @@ export {
   Modal,
   Notify,
   Table,
+  CustomCheckbox,
 };
