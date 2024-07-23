@@ -84,9 +84,10 @@ export const CustomCheckbox = ({
   const labelStyle: CSSProperties = {
     position: "relative",
     cursor: "pointer",
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: "14px",
     paddingRight: "10px",
+    marginBottom: "3px",
   };
 
   const getBoxStyle = (): CSSProperties => {
