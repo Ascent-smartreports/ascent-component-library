@@ -17,6 +17,6 @@ export const NormalCard: Story = {
 export const CardWithStyles: Story = {
   args: {
     children: <div>card with custom styles</div>,
-    className: "bg-backgroundLight",
+    className: "bg-backgroundTheme text-backgroundLight",
   },
 };
