@@ -26,6 +26,7 @@ export interface TextAreaProps {
   placeholder?: string;
   disabled?: boolean;
   height: string;
+  testId: string;
   maxLength?: number;
 }
 
@@ -47,6 +48,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
   disabled = false,
   height = "100px",
   maxLength,
+  testId,
 }) => {
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     form.setFieldValue(field.name, e.target.value);
@@ -70,6 +72,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
           className={styles.input}
           autoFocus={!!autoFocus}
           style={{ height }}
+          data-testid={testId}
         />
       </div>
       {error && <Paragraph type="error">{error}</Paragraph>}

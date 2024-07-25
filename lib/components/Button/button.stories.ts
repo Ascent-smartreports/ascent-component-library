@@ -34,7 +34,6 @@ export const CustomStyled: Story = {
     onClick: () => {
       alert("Im a custom button");
     },
-    customStyle:
-      "bg-backgroundLight py-6 px-3 border-2  shadow-broundTheme shadow-md rounded-md",
+    customStyle: " py-6 px-3 border-2  shadow-broundTheme shadow-md rounded-md",
   },
 };

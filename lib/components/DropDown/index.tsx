@@ -17,6 +17,7 @@ interface dropdownProps {
   options: Option[];
   validationSchema?: AnySchema<AnyObject> | undefined;
   label: string;
+  disabled?: boolean;
   field: {
     name: string;
     value: string | Option | Option[];
@@ -37,6 +38,7 @@ interface dropdownProps {
   error: any;
   isMulti?: boolean;
   defaultValue?: Option[];
+  testId: string;
 }
 
 const animatedComponents = makeAnimated();
@@ -51,6 +53,8 @@ export const DropDown: React.FC<dropdownProps> = ({
   isMulti,
   defaultValue,
   form,
+  disabled,
+  testId,
 }) => {
   useEffect(() => {
     if (defaultValue) {
@@ -59,9 +63,11 @@ export const DropDown: React.FC<dropdownProps> = ({
   }, [defaultValue, field.name, form]);
 
   const handleChange = (newValue: MultiValue<Option> | SingleValue<Option>) => {
-    const value = isMulti ? newValue : (newValue as Option);
-    form.setFieldValue(field.name, value);
-    form.setFieldTouched(field.name, true, false);
+    if (!disabled) {
+      const value = isMulti ? newValue : (newValue as Option);
+      form.setFieldValue(field.name, value);
+      form.setFieldTouched(field.name, true, false);
+    }
   };
   const customStyles = {
     option: (_provided: unknown, state: { isFocused: boolean }) => ({
@@ -87,6 +93,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         options={options}
         components={animatedComponents}
         isMulti={isMulti}
+        data-testid={testId}
         styles={customStyles}
         placeholder={placeholder}
         defaultValue={defaultValue}

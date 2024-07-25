@@ -42,6 +42,7 @@ describe("DropdownField component", () => {
           {({ field, form }: FieldProps) => (
             <DropDown
               form={form}
+              testId="topic"
               label="Topic"
               error={errors.topic}
               validationSchema={validationSchema}
@@ -81,6 +82,7 @@ describe("DropdownField component", () => {
           {({ field, form }: FieldProps) => (
             <DropDown
               form={form}
+              testId="topic"
               field={field}
               label="Topic"
               error={errors.topic}

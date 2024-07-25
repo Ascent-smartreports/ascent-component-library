@@ -1066,17 +1066,6 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@chromatic-com/storybook@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/@chromatic-com/storybook/-/storybook-1.5.0.tgz"
-  integrity sha512-LkLKv7SWu/6kGep1ft2HA1T/cm14wU0zoW71gE4cZRcgUoRQJtyhITFTLHrjqAxz6bVqNgqzQtd5oBZ2nK3L3g==
-  dependencies:
-    chromatic "^11.4.0"
-    filesize "^10.0.12"
-    jsonfile "^6.1.0"
-    react-confetti "^6.1.0"
-    strip-ansi "^7.1.0"
-
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
   resolved "https://registry.npmjs.org/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz"
@@ -3897,11 +3886,6 @@ chownr@^2.0.0:
   resolved "https://registry.npmjs.org/chownr/-/chownr-2.0.0.tgz"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
 
-chromatic@^11.4.0:
-  version "11.5.5"
-  resolved "https://registry.npmjs.org/chromatic/-/chromatic-11.5.5.tgz"
-  integrity sha512-YS0GJwegF0vpMbwZE68/xJlI4SlUGMqI78V2ATAF19YwTHaq8jGP1CPQGKUSlgWUhzPtyu3ELy6Dvv/owYljAg==
-
 ci-info@^3.2.0:
   version "3.9.0"
   resolved "https://registry.npmjs.org/ci-info/-/ci-info-3.9.0.tgz"
@@ -5064,11 +5048,6 @@ filenamify@^5.0.2:
     filename-reserved-regex "^3.0.0"
     strip-outer "^2.0.0"
     trim-repeated "^2.0.0"
-
-filesize@^10.0.12:
-  version "10.1.4"
-  resolved "https://registry.npmjs.org/filesize/-/filesize-10.1.4.tgz"
-  integrity sha512-ryBwPIIeErmxgPnm6cbESAzXjuEFubs+yKYLBZvg3CaiNcmkJChoOGcBSrZ6IwkMwPABwPpVXE6IlNdGJJrvEg==
 
 fill-range@^7.1.1:
   version "7.1.1"
@@ -6676,7 +6655,7 @@ jsonfile@^4.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-jsonfile@^6.0.1, jsonfile@^6.1.0:
+jsonfile@^6.0.1:
   version "6.1.0"
   resolved "https://registry.npmjs.org/jsonfile/-/jsonfile-6.1.0.tgz"
   integrity sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==
@@ -9143,13 +9122,6 @@ strip-ansi@^7.0.1:
   dependencies:
     ansi-regex "^6.0.1"
 
-strip-ansi@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.1.0.tgz"
-  integrity sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==
-  dependencies:
-    ansi-regex "^6.0.1"
-
 strip-bom@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/strip-bom/-/strip-bom-3.0.0.tgz"
@@ -9662,10 +9634,6 @@ uglify-js@^3.1.4:
   version "3.19.0"
   resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.19.0.tgz"
   integrity sha512-wNKHUY2hYYkf6oSFfhwwiHo4WCHzHmzcXsqXYTN9ja3iApYIFbb2U6ics9hBcYLHcYGQoAlwnZlTrf3oF+BL/Q==
-
-"ui@file:../react-storybook-tailwind":
-  version "0.0.0"
-  resolved "file:../react-storybook-tailwind"
 
 undici-types@~5.26.4:
   version "5.26.5"

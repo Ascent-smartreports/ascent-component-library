@@ -30,6 +30,7 @@ export const ModalChildComp = () => {
               <InputField
                 label={"Name"}
                 field={field}
+                testId="name"
                 form={form}
                 error={formik.errors.name}
                 validationSchema={validationSchema}
