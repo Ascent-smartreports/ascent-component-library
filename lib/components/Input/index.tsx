@@ -24,6 +24,7 @@ export interface InputProps {
       shouldValidate?: boolean
     ) => void;
   };
+  testId: string;
   error: string | undefined;
   autoFocus?: boolean;
   placeholder?: string;
@@ -57,6 +58,7 @@ export const InputField: React.FC<InputProps> = ({
   rightIcon,
   // onBlur,
   leftIcon,
+  testId,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
@@ -82,6 +84,7 @@ export const InputField: React.FC<InputProps> = ({
           maxLength={maxLength}
           autoComplete="off"
           onBlur={field.onBlur}
+          data-testid={testId}
           className={`${styles.input} ${leftIcon ? "px-8" : "px-2"}`}
           onFocus={field.onBlur}
         />

@@ -10,6 +10,7 @@ export interface CheckboxProps {
   isDisabled?: boolean;
   isChecked?: boolean;
   clickType?: "double" | "quadruple";
+  testId: string;
   onStateChange?: (
     newState: "unselected" | "selected" | "mandatory" | "uneditable"
   ) => void;
@@ -22,6 +23,7 @@ export const CustomCheckbox = ({
   uncheckedColor = "#E4E5E9",
   clickType = "double",
   isDisabled,
+  testId,
   onStateChange,
 }: CheckboxProps) => {
   const [state, setState] = useState<
@@ -215,6 +217,7 @@ export const CustomCheckbox = ({
         id={name}
         checked={state !== "unselected"}
         onChange={handleChange}
+        data-testid={testId}
         style={checkboxStyle}
         disabled={state === "uneditable"}
       />

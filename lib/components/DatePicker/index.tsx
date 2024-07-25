@@ -19,6 +19,7 @@ interface formikDateProps {
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   };
+  testId: string;
   form: {
     setFieldValue: (
       field: string,
@@ -43,6 +44,7 @@ export const FormikDateField: React.FC<formikDateProps> = ({
   dateFormat,
   field,
   form,
+  testId,
 }) => {
   return (
     <>
@@ -53,6 +55,7 @@ export const FormikDateField: React.FC<formikDateProps> = ({
       <DatePicker
         autoFocus={autoFocus}
         disabled={disabled}
+        data-testid={testId}
         icon={
           <img src={CalendarIcon} alt="Custom Icon" className="w-4 h-4 mr-4" />
         }
