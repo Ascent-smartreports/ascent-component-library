@@ -40,6 +40,7 @@ describe("TextAreaInput component", () => {
           {({ field, form }: FieldProps) => (
             <TextAreaInput
               form={form}
+              testId="descr"
               label="Description"
               field={field}
               error={errors.description}
@@ -69,6 +70,7 @@ describe("TextAreaInput component", () => {
             <TextAreaInput
               form={form}
               label="Description"
+              testId="desc"
               field={field}
               error={mockContextValues.errors.description}
               validationSchema={validationSchema}
@@ -98,6 +100,7 @@ describe("TextAreaInput component", () => {
             <TextAreaInput
               form={form}
               label="Description"
+              testId="description"
               field={field}
               error={errors.description}
               validationSchema={validationSchema}
