@@ -36,6 +36,7 @@ describe("formikfield component", () => {
               name="dob"
               label="DOB"
               error={errors.dob}
+              testId="dob"
               validationSchema={validationSchema}
               field={field}
               dateFormat="DD-MM-YYYY"

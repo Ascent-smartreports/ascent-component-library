@@ -33,6 +33,7 @@ describe("formikfield component", () => {
           {({ field, form }: FieldProps) => (
             <InputField
               form={form}
+              testId="name"
               label="name"
               field={field}
               error={errors.name}
