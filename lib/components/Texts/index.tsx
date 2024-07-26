@@ -60,8 +60,8 @@ export const Paragraph: React.FC<TextProps> = ({
 }) => {
   return (
     <p
-      className={className || type ? styles.errorText : styles.paragraph}
-      onClick={() => onTextClick}
+      className={type ? styles.errorText : className || styles.paragraph}
+      onClick={onTextClick}
     >
       {children}
     </p>

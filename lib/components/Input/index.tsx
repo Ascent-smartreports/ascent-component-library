@@ -11,6 +11,7 @@ export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
   label: string;
   type?: string;
+  className?: string;
   field: {
     name: string;
     value: string;
@@ -56,7 +57,7 @@ export const InputField: React.FC<InputProps> = ({
   isPassword,
   maxLength,
   rightIcon,
-  // onBlur,
+  className,
   leftIcon,
   testId,
 }) => {
@@ -67,7 +68,7 @@ export const InputField: React.FC<InputProps> = ({
   };
 
   return (
-    <>
+    <div className={className || "my-5"}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
@@ -79,7 +80,7 @@ export const InputField: React.FC<InputProps> = ({
           autoFocus={!!autoFocus}
           value={field.value}
           onChange={onChangeText}
-          placeholder={placeholder}
+          placeholder={placeholder ? placeholder : `Enter ${label}`}
           disabled={disabled}
           maxLength={maxLength}
           autoComplete="off"
@@ -109,6 +110,6 @@ export const InputField: React.FC<InputProps> = ({
         ) : null}
       </div>
       {error && <Paragraph type="error">{error}</Paragraph>}
-    </>
+    </div>
   );
 };
