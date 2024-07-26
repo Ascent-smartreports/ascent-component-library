@@ -14,6 +14,7 @@ export interface TextAreaProps {
     onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
     onBlur: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   };
+  className?: string;
   form: {
     setFieldValue: (
       field: string,
@@ -49,13 +50,14 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
   height = "100px",
   maxLength,
   testId,
+  className,
 }) => {
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     form.setFieldValue(field.name, e.target.value);
   };
 
   return (
-    <>
+    <div className={className || "my-4"}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
@@ -76,6 +78,6 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
         />
       </div>
       {error && <Paragraph type="error">{error}</Paragraph>}
-    </>
+    </div>
   );
 };

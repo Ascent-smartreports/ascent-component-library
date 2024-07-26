@@ -16,6 +16,6 @@ export const ParagraphText: Story = {
 export const ParagraphWithStyles: Story = {
   args: {
     children: "Hello i'm a paragraph with styles",
-    className: "text-backgroundDarkGreen",
+    className: "text-backgroundDarkGreen  text-4xl ",
   },
 };

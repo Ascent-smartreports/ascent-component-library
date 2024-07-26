@@ -13,6 +13,7 @@ interface formikDateProps {
   validationSchema: AnySchema<AnyObject>;
   label: string;
   disabled?: boolean;
+  className?: string;
   field: {
     name: string;
     value: string;
@@ -45,9 +46,10 @@ export const FormikDateField: React.FC<formikDateProps> = ({
   field,
   form,
   testId,
+  className,
 }) => {
   return (
-    <>
+    <div className={className || "my-4"}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
@@ -72,6 +74,6 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         className="rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%] my-2"
       />
       {error && <Paragraph type="error">{error}</Paragraph>}
-    </>
+    </div>
   );
 };

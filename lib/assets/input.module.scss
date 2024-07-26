@@ -1,9 +1,9 @@
 .input{
-   @apply  rounded-md h-[54px] my-1 focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%]
+   @apply  rounded-md h-[54px] my-2 focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%]
 }
 .passwordIcon{
     @apply fixed right-8 -mt-10
 }
 .leftIcon{
-    @apply fixed left-0 mt-5 
+    @apply absolute left-10 mt-[24px]
 }

@@ -18,6 +18,7 @@ interface dropdownProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
   label: string;
   disabled?: boolean;
+  className?: string;
   field: {
     name: string;
     value: string | Option | Option[];
@@ -55,6 +56,7 @@ export const DropDown: React.FC<dropdownProps> = ({
   form,
   disabled,
   testId,
+  className,
 }) => {
   useEffect(() => {
     if (defaultValue) {
@@ -77,10 +79,10 @@ export const DropDown: React.FC<dropdownProps> = ({
     }),
   };
   return (
-    <>
+    <div className={className || "my-4"}>
       <Label>
         {label}
-        {isRequiredField(validationSchema, field.name) && "*"}
+        {isRequiredField(validationSchema, field.name) && " *"}
       </Label>
       <Select
         classNames={{
@@ -95,11 +97,11 @@ export const DropDown: React.FC<dropdownProps> = ({
         isMulti={isMulti}
         data-testid={testId}
         styles={customStyles}
-        placeholder={placeholder}
+        placeholder={placeholder ? placeholder : `Enter ${label}`}
         defaultValue={defaultValue}
         onChange={handleChange}
       />
       {error && <Paragraph type="error">{error}</Paragraph>}
-    </>
+    </div>
   );
 };

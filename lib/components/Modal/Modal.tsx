@@ -3,6 +3,7 @@ import styles from "../../assets/modal.module.scss";
 
 interface ModalProps {
   children: React.ReactNode;
+  className?: string;
   isOpen: boolean;
   size: "sm" | "lg" | "md";
   closeModal: () => void;
@@ -13,6 +14,7 @@ export const Modal: React.FC<ModalProps> = ({
   isOpen,
   size,
   closeModal,
+  className,
 }) => {
   if (!isOpen) return null;
 
@@ -30,7 +32,7 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${(styles.container, className)}`}>
       <div
         className={styles.modalScreen}
         onClick={() => {

@@ -49,7 +49,7 @@ export default defineConfig({
     react(),
     libInjectCss(),
     dts({
-      include: ["lib"],
+      include: ["lib", "src"],
       exclude: ["lib/**/*.{test,spec,stories}.{ts,tsx}"],
     }),
   ],
