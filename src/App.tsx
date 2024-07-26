@@ -26,10 +26,12 @@ import {
   Modal,
   InputField,
   TextAreaInput,
+  CustomCheckbox,
 } from "../lib/main";
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [checkBoxState, setCheckBoxState] = useState<string>("unselected");
 
   const initialValues = {
     name: "",
@@ -128,6 +130,17 @@ function App() {
             data={groupRadioData}
             handleOptionChange={handleOptionChange}
             selectedValue={selectedGender}
+          />
+          <CustomCheckbox
+            labelText={"Double CheckBox"}
+            clickType="double"
+            testId={""}
+            customStyleLabel="bg-backgroundLightRed"
+          />
+          <CustomCheckbox
+            labelText="4 click"
+            clickType="quadruple"
+            testId={""}
           />
           <Heading>Heading</Heading>
           <SubHeading>sub heading</SubHeading>

@@ -10,6 +10,8 @@ export interface CheckboxProps {
   isDisabled?: boolean;
   isChecked?: boolean;
   clickType?: "double" | "quadruple";
+  customStyleCheckBox?: string;
+  customStyleLabel?: string;
   testId: string;
   onStateChange?: (
     newState: "unselected" | "selected" | "mandatory" | "uneditable"
@@ -21,6 +23,8 @@ export const CustomCheckbox = ({
   name,
   checkedColor = "#344054",
   uncheckedColor = "#E4E5E9",
+  customStyleCheckBox,
+  customStyleLabel,
   clickType = "double",
   isDisabled,
   testId,
@@ -57,7 +61,7 @@ export const CustomCheckbox = ({
         default:
           return currentState;
       }
-    } else if (clickType === "quadruple" && isDisabled) {
+    } else if (clickType === "quadruple" && !isDisabled) {
       switch (currentState) {
         case "unselected":
           return "selected";
@@ -221,11 +225,19 @@ export const CustomCheckbox = ({
         style={checkboxStyle}
         disabled={state === "uneditable"}
       />
-      <div onClick={handleBoxClick} style={getBoxStyle()}>
+      <div
+        onClick={handleBoxClick}
+        className={`${customStyleCheckBox}`}
+        style={getBoxStyle()}
+      >
         {state === "selected" && <span style={backgroundStyle}></span>}
         <span style={getIconStyle()}></span>
       </div>
-      <label htmlFor={name} style={labelStyle}>
+      <label
+        htmlFor={name}
+        style={labelStyle}
+        className={`${customStyleLabel}`}
+      >
         {labelText}
       </label>
     </div>
