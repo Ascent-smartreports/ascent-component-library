@@ -68,7 +68,7 @@ export const InputField: React.FC<InputProps> = ({
   };
 
   return (
-    <div className={className || "my-5"}>
+    <div className={className || "my-4"}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
