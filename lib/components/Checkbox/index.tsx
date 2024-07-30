@@ -10,6 +10,8 @@ export interface CheckboxProps {
   isDisabled?: boolean;
   isChecked?: boolean;
   clickType?: "double" | "quadruple";
+  customStyleCheckBox?: string;
+  customStyleLabel?: string;
   testId: string;
   onStateChange?: (
     newState: "unselected" | "selected" | "mandatory" | "uneditable"
@@ -21,6 +23,8 @@ export const CustomCheckbox = ({
   name,
   checkedColor = "#344054",
   uncheckedColor = "#E4E5E9",
+  customStyleCheckBox,
+  customStyleLabel,
   clickType = "double",
   isDisabled,
   testId,
@@ -31,12 +35,10 @@ export const CustomCheckbox = ({
   >("unselected");
 
   const handleChange = () => {
-    if (state !== "uneditable") {
-      const newState = getNextState(state, clickType);
-      setState(newState ? newState : "unselected");
-      if (onStateChange) {
-        onStateChange(newState ? newState : "unselected");
-      }
+    const newState = getNextState(state, clickType);
+    setState(newState ? newState : "unselected");
+    if (onStateChange) {
+      onStateChange(newState ? newState : "unselected");
     }
   };
 
@@ -54,10 +56,12 @@ export const CustomCheckbox = ({
           return "selected";
         case "selected":
           return "unselected";
+        case "uneditable":
+          return "unselected"; // Allow transition from uneditable to unselected
         default:
           return currentState;
       }
-    } else if (clickType === "quadruple" && isDisabled) {
+    } else if (clickType === "quadruple" && !isDisabled) {
       switch (currentState) {
         case "unselected":
           return "selected";
@@ -66,7 +70,7 @@ export const CustomCheckbox = ({
         case "mandatory":
           return "uneditable";
         case "uneditable":
-          return "unselected";
+          return "unselected"; // Allow transition from uneditable to unselected
         default:
           return currentState;
       }
@@ -85,8 +89,7 @@ export const CustomCheckbox = ({
 
   const labelStyle: CSSProperties = {
     position: "relative",
-    cursor: "pointer",
-    fontWeight: 600,
+    fontWeight: 400,
     fontSize: "14px",
     paddingRight: "10px",
     marginBottom: "3px",
@@ -103,7 +106,7 @@ export const CustomCheckbox = ({
           display: "inline-block",
           position: "relative",
           verticalAlign: "middle",
-          cursor: "not-allowed",
+          cursor: "pointer", // Changed to pointer
           borderRadius: "4px",
           marginRight: "6px",
           marginBottom: "3px",
@@ -221,11 +224,19 @@ export const CustomCheckbox = ({
         style={checkboxStyle}
         disabled={state === "uneditable"}
       />
-      <div onClick={handleBoxClick} style={getBoxStyle()}>
+      <div
+        onClick={handleBoxClick}
+        className={`${customStyleCheckBox}`}
+        style={getBoxStyle()}
+      >
         {state === "selected" && <span style={backgroundStyle}></span>}
         <span style={getIconStyle()}></span>
       </div>
-      <label htmlFor={name} style={labelStyle}>
+      <label
+        htmlFor={name}
+        style={labelStyle}
+        className={`${customStyleLabel}`}
+      >
         {labelText}
       </label>
     </div>
