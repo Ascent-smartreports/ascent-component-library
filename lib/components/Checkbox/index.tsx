@@ -35,12 +35,10 @@ export const CustomCheckbox = ({
   >("unselected");
 
   const handleChange = () => {
-    if (state !== "uneditable") {
-      const newState = getNextState(state, clickType);
-      setState(newState ? newState : "unselected");
-      if (onStateChange) {
-        onStateChange(newState ? newState : "unselected");
-      }
+    const newState = getNextState(state, clickType);
+    setState(newState ? newState : "unselected");
+    if (onStateChange) {
+      onStateChange(newState ? newState : "unselected");
     }
   };
 
@@ -58,6 +56,8 @@ export const CustomCheckbox = ({
           return "selected";
         case "selected":
           return "unselected";
+        case "uneditable":
+          return "unselected"; // Allow transition from uneditable to unselected
         default:
           return currentState;
       }
@@ -70,7 +70,7 @@ export const CustomCheckbox = ({
         case "mandatory":
           return "uneditable";
         case "uneditable":
-          return "unselected";
+          return "unselected"; // Allow transition from uneditable to unselected
         default:
           return currentState;
       }
@@ -89,8 +89,7 @@ export const CustomCheckbox = ({
 
   const labelStyle: CSSProperties = {
     position: "relative",
-    cursor: "pointer",
-    fontWeight: 600,
+    fontWeight: 400,
     fontSize: "14px",
     paddingRight: "10px",
     marginBottom: "3px",
@@ -107,7 +106,7 @@ export const CustomCheckbox = ({
           display: "inline-block",
           position: "relative",
           verticalAlign: "middle",
-          cursor: "not-allowed",
+          cursor: "pointer", // Changed to pointer
           borderRadius: "4px",
           marginRight: "6px",
           marginBottom: "3px",

@@ -31,7 +31,7 @@ import {
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [checkBoxState, setCheckBoxState] = useState<string>("unselected");
+  const [checkboxState, setCheckBoxState] = useState<string>("unselected");
 
   const initialValues = {
     name: "",
@@ -135,6 +135,10 @@ function App() {
             labelText={"Double CheckBox"}
             clickType="double"
             testId={""}
+            onStateChange={(state) => {
+              console.log(checkboxState);
+              setCheckBoxState(state);
+            }}
             customStyleLabel="bg-backgroundLightRed"
           />
           <CustomCheckbox
