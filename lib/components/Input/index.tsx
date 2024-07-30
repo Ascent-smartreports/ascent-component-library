@@ -74,7 +74,7 @@ export const InputField: React.FC<InputProps> = ({
         {isRequiredField(validationSchema, field.name) && "*"}
       </Label>
       <div>
-        {leftIcon && <div className={styles.leftIcon}>{leftIcon}</div>}
+        {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
         <input
           type={isPassword && !isPasswordVisible ? "password" : type}
           autoFocus={!!autoFocus}

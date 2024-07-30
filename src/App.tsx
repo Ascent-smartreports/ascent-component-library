@@ -155,16 +155,18 @@ function App() {
           <FormikProvider value={formik}>
             <Field name={"name"}>
               {({ field, form }: FieldProps) => (
-                <InputField
-                  label={"Name"}
-                  field={field}
-                  form={form}
-                  leftIcon={<MdOutlineEmail />}
-                  className="my-24 bg-backgroundDarkYellow"
-                  testId="name"
-                  error={formik.errors.name}
-                  validationSchema={validationSchema}
-                />
+                <div className="flex items-center justify-center">
+                  <InputField
+                    label={"Name"}
+                    field={field}
+                    form={form}
+                    leftIcon={<MdOutlineEmail color="red" />}
+                    className="my-24 bg-backgroundDarkYellow "
+                    testId="name"
+                    error={formik.errors.name}
+                    validationSchema={validationSchema}
+                  />
+                </div>
               )}
             </Field>
             <Field name={"description"}>

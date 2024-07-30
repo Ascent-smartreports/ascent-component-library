@@ -2,8 +2,8 @@
    @apply  rounded-md h-[54px]  focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%]
 }
 .passwordIcon{
-    @apply fixed right-7 -mt-[40px]
+    @apply absolute right-7 -mt-[40px]
 }
 .leftIcon{
-    @apply fixed left-7 mt-[16px]
+    @apply absolute left-7 mt-[16px]
 }

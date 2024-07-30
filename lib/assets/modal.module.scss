@@ -1,6 +1,4 @@
-.container{
-  @apply flex justify-center self-center items-center;
-}
+
 .modalScreen {
   @apply fixed inset-0 z-40 flex items-center justify-center bg-backgroundModal ;
 }
