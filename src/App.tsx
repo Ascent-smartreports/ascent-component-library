@@ -161,6 +161,7 @@ function App() {
                     field={field}
                     form={form}
                     leftIcon={<MdOutlineEmail color="red" />}
+                    rightIcon={<MdOutlineEmail color="red" />}
                     className="my-24 bg-backgroundDarkYellow "
                     testId="name"
                     error={formik.errors.name}
