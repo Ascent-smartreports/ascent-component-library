@@ -651,7 +651,6 @@ h2.react-datepicker__current-month {
 }
 .react-datepicker__input-container .react-datepicker__calendar-icon {
   position: absolute;
-  padding: 0.5rem;
   box-sizing: content-box;
 }
 
