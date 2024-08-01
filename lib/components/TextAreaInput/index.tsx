@@ -54,6 +54,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
 }) => {
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     form.setFieldValue(field.name, e.target.value);
+    field.onChange(e);
   };
 
   return (
