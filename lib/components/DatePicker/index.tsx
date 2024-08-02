@@ -32,6 +32,7 @@ interface formikDateProps {
   minDate?: Date;
   maxDate?: Date;
   dateFormat: "DD-MM-YYYY" | "YYYY-MM-DD" | "DD/MM/YYYY" | "YYYY/MM/DD";
+  handleOnChange?: (date: Date | null) => void;
 }
 
 export const FormikDateField: React.FC<formikDateProps> = ({
@@ -47,7 +48,9 @@ export const FormikDateField: React.FC<formikDateProps> = ({
   form,
   testId,
   className,
+  handleOnChange,
 }) => {
+  const selectedDate = moment(field.value, dateFormat).toDate();
   return (
     <div className={className || "my-4"}>
       <Label>
@@ -61,12 +64,15 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         icon={
           <img src={CalendarIcon} alt="Custom Icon" className="w-4 h-4 mr-4" />
         }
-        dateFormat={"dd/MM/yyyy"}
+        dateFormat={"DD/MM/YYYY"}
         minDate={minDate}
-        placeholderText="test"
-        value={moment(new Date(field.value)).format("DD/MM/YYYY")}
+        placeholderText="DD/MM/YYYY"
+        value={selectedDate ? moment(selectedDate).format("DD/MM/YYYY") : ""}
         onChange={(date: Date | null) => {
           form.setFieldValue(field.name, moment(date).format(dateFormat));
+          if (handleOnChange) {
+            handleOnChange(date);
+          }
         }}
         maxDate={maxDate}
         showIcon
