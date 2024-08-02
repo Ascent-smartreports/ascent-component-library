@@ -50,7 +50,9 @@ export const FormikDateField: React.FC<formikDateProps> = ({
   className,
   handleOnChange,
 }) => {
-  const selectedDate = moment(field.value, dateFormat).toDate();
+  const selectedDate = field.value
+    ? moment(field.value, dateFormat).toDate()
+    : "";
   return (
     <div className={className || "my-4"}>
       <Label>
