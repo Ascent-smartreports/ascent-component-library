@@ -32,8 +32,31 @@ interface formikDateProps {
   minDate?: Date;
   maxDate?: Date;
   dateFormat: "DD-MM-YYYY" | "YYYY-MM-DD" | "DD/MM/YYYY" | "YYYY/MM/DD";
-  handleOnChange?: (date: Date | null) => void;
+  handleOnChange?: (date: string) => void;
 }
+
+const CustomInput = React.forwardRef<HTMLInputElement, any>(
+  ({ value, onClick, onChange, autoFocus, disabled }, ref) => (
+    <div className="relative w-[100%] border-border text-textLightGray border-[1.5px] rounded-md">
+      <input
+        ref={ref}
+        value={value}
+        onClick={onClick}
+        onChange={onChange}
+        placeholder={"DD/MM/YYYY"}
+        autoFocus={autoFocus}
+        disabled={disabled}
+        className="rounded-md h-[54px] focus:outline-none border-none text-textLightGray w-[100%] pl-4"
+      />
+      <img
+        src={CalendarIcon}
+        alt="Calendar Icon"
+        className="absolute right-4 top-4 w-4 h-5 cursor-pointer"
+        onClick={onClick}
+      />
+    </div>
+  )
+);
 
 export const FormikDateField: React.FC<formikDateProps> = ({
   error,
@@ -52,7 +75,8 @@ export const FormikDateField: React.FC<formikDateProps> = ({
 }) => {
   const selectedDate = field.value
     ? moment(field.value, dateFormat).toDate()
-    : "";
+    : null;
+
   return (
     <div className={className || "my-4"}>
       <Label>
@@ -63,21 +87,17 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         autoFocus={autoFocus}
         disabled={disabled}
         data-testid={testId}
-        icon={
-          <img src={CalendarIcon} alt="Custom Icon" className="w-4 h-4 mr-4" />
-        }
-        dateFormat={"DD/MM/YYYY"}
+        dateFormat={"dd/MM/yyyy"}
         minDate={minDate}
-        placeholderText="DD/MM/YYYY"
-        value={selectedDate ? moment(selectedDate).format("DD/MM/YYYY") : ""}
+        maxDate={maxDate}
+        selected={selectedDate}
         onChange={(date: Date | null) => {
           form.setFieldValue(field.name, moment(date).format(dateFormat));
           if (handleOnChange) {
-            handleOnChange(date);
+            handleOnChange(moment(date).format(dateFormat));
           }
         }}
-        maxDate={maxDate}
-        showIcon
+        customInput={<CustomInput />}
         wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
         className="rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%]"
       />
