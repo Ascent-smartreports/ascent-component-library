@@ -65,6 +65,7 @@ export const InputField: React.FC<InputProps> = ({
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue(field.name, e.target.value);
+    field.onChange(e);
   };
 
   return (
