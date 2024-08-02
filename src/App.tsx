@@ -50,7 +50,7 @@ function App() {
         })
       )
       .min(1, "Topics must be selected"),
-    date: Yup.date().required("define some date"),
+    date: Yup.string().required("define some date"),
   });
 
   const formik = useFormik({
