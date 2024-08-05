@@ -28,6 +28,14 @@ import {
   TextAreaInput,
   CustomCheckbox,
 } from "../lib/main";
+import AccordionMenu3 from "./components/AccordianMenu3";
+// import { menu, subMenu } from "./components/menu";
+// import { modifiedData } from "./components/responseObject";
+// import { modifiedData2 } from "./components/roleResponseObj";
+import { buildMenuTree } from "./components/roleResponseObj";
+import { response as res } from "./components/responseObject";
+import { response2 } from "./components/roleResponseObj";
+
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -108,20 +116,50 @@ function App() {
   function onSave(): void {
     throw new Error("Function not implemented.");
   }
+  // const [response, setResponse] = useState([{ reportId: "", sortId: 1 }]);
+  // console.log(response, "response");
+  // console.log(modifiedData, "**********************");
+  // console.log(modifiedData2, "9999999999999");
+  const [response, setResponse] = useState<Yup.AnyObject>([]);
+  // const[]
+  const { menuTreeArray: array1, menuMap: map1 } = buildMenuTree(res.data, {
+    menuId: "id",
+    parentId: "parentId",
+    isChecked: "isChecked",
+    isExpanded: "isExpanded",
+    menuName: "name",
+  });
+  const { menuTreeArray: array2, menuMap: map2 } = buildMenuTree(
+    response2.data.rolePermissions,
+    {
+      menuId: "menuId",
+      parentId: "parentId",
+      isChecked: "isCheckedId",
+      isExpanded: "expanded",
+      menuName: "menuName",
+    }
+  );
+
   return (
     <>
-      {/* <Card className="my-10 p-10 bg-backgroundDarkGreen">
-        <AccordionMenu
-          menu={menu}
-          handleSelectedMenu={(_label: string, value: string) => {
-            console.log(value, "accordian value...........");
-          }}
-          subMenu={subMenu}
-          handleSelectedSubMenu={(_label: string, value: string) => {
-            console.log(value, "sub menu selected option");
-          }}
-        />
-      </Card> */}
+      <div className="flex">
+        <Card className="my-10 p-10 bg-backgroundDarkGreen">
+          <AccordionMenu3
+            menu={array1}
+            setResponse={setResponse}
+            response={response}
+            menuMap={map1}
+          />
+        </Card>
+        <Card className="my-10 p-10 bg-errorText">
+          <AccordionMenu3
+            menu={array2}
+            setResponse={setResponse}
+            response={response}
+            menuMap={map2}
+          />
+        </Card>
+      </div>
       <Card>
         <>
           <GroupRadio
@@ -153,36 +191,69 @@ function App() {
           <Table data={data} columns={columns} searchText="" />
           <ToastContainer />
           <FormikProvider value={formik}>
-            <Field name={"name"}>
-              {({ field, form }: FieldProps) => (
-                <div className="flex items-center justify-center">
-                  <InputField
-                    label={"Name"}
+            <div className="flex flex-row">
+              <Field name={"name"}>
+                {({ field, form }: FieldProps) => (
+                  <div className="">
+                    <InputField
+                      label={"Name"}
+                      field={field}
+                      form={form}
+                      leftIcon={<MdOutlineEmail color="red" />}
+                      rightIcon={<MdOutlineEmail color="red" />}
+                      className="my-24 bg-backgroundDarkYellow "
+                      testId="name"
+                      error={formik.errors.name}
+                      validationSchema={validationSchema}
+                    />
+                  </div>
+                )}
+              </Field>
+              <Field name={"description"}>
+                {({ field, form }: FieldProps) => (
+                  <TextAreaInput
+                    label={"Description"}
                     field={field}
                     form={form}
-                    leftIcon={<MdOutlineEmail color="red" />}
-                    rightIcon={<MdOutlineEmail color="red" />}
-                    className="my-24 bg-backgroundDarkYellow "
-                    testId="name"
-                    error={formik.errors.name}
+                    error={formik.errors.description}
                     validationSchema={validationSchema}
+                    height={"150px"}
+                    testId="desc"
                   />
-                </div>
-              )}
-            </Field>
-            <Field name={"description"}>
-              {({ field, form }: FieldProps) => (
-                <TextAreaInput
-                  label={"Description"}
-                  field={field}
-                  form={form}
-                  error={formik.errors.description}
-                  validationSchema={validationSchema}
-                  height={"150px"}
-                  testId="desc"
-                />
-              )}
-            </Field>
+                )}
+              </Field>
+              <Field name={"topic"}>
+                {({ field, form }: FieldProps) => (
+                  <DropDown
+                    testId="topic"
+                    options={[
+                      { label: "HTML", value: "html" },
+                      { label: "JavaScript", value: "js" },
+                    ]}
+                    form={form}
+                    label={"Topic"}
+                    field={field}
+                    error={formik.errors.topic}
+                    validationSchema={validationSchema}
+                    isMulti
+                  />
+                )}
+              </Field>
+              <Field name={"date"}>
+                {({ field, form }: FieldProps) => (
+                  <FormikDateField
+                    form={form}
+                    testId="date"
+                    name={"date"}
+                    error={formik.errors.date}
+                    validationSchema={validationSchema}
+                    label={"DOB"}
+                    field={field}
+                    dateFormat={"YYYY-MM-DD"}
+                  />
+                )}
+              </Field>
+            </div>
             <Field name={"topic"}>
               {({ field, form }: FieldProps) => (
                 <DropDown
