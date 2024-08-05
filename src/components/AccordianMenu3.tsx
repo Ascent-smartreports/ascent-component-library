@@ -84,25 +84,34 @@ const AccordionMenu3: React.FC<AccordionProps> = ({
     });
   };
 
-  const handleMenuClick = (path: string[]) => {
+  const handleMenuClick = (path: string[], isSelected: boolean) => {
     const selectedMenu = getNestedProperty(menuState, path);
     setMenuState((prevState) =>
       updateNestedState(prevState, path, {
-        isChecked: !selectedMenu?.isChecked,
+        isChecked: isSelected,
       })
     );
 
     if (!isObjectEmpty(selectedMenu.subMenu)) {
       Object.keys(selectedMenu.subMenu).map((key) => {
-        handleMenuClick([...path, key]);
+        handleMenuClick([...path, key], isSelected);
       });
     } else {
-      if (selectedMenu.isChecked) {
+      if (!isSelected) {
         setResponse((prevState) => {
-          return prevState.filter((menu) => menu.value === selectedMenu.value);
+          return prevState.filter((menu) => menu.id !== selectedMenu.value);
         });
       } else {
-        setResponse((prevState) => [...prevState, { id: selectedMenu.value }]);
+        setResponse((prevState) => {
+          const isAlreadyPresent = prevState.some(
+            (menu) => menu.id === selectedMenu.value
+          );
+          if (!isAlreadyPresent) {
+            return [...prevState, { id: selectedMenu.value }];
+          } else {
+            return prevState;
+          }
+        });
       }
     }
   };
@@ -136,7 +145,7 @@ const AccordionMenu3: React.FC<AccordionProps> = ({
             <input
               type="checkbox"
               checked={menuItem.isChecked}
-              onChange={() => handleMenuClick(currentPath)}
+              onChange={() => handleMenuClick(currentPath, !menuItem.isChecked)}
               className="mr-2"
             />
             <Label>{menuItem.label}</Label>
