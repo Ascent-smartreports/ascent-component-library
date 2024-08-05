@@ -1,9 +1,15 @@
-.input{
-   @apply  rounded-md h-[54px] my-2 focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%]
+.inputWrapper {
+  @apply flex items-center relative;
 }
-.passwordIcon{
-    @apply fixed right-8 -mt-10
+
+.input {
+  @apply flex-grow rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%] px-8;
 }
-.leftIcon{
-    @apply absolute left-10 mt-[24px]
+
+.leftIcon {
+  @apply absolute left-3;
+}
+
+.rightIcon {
+  @apply absolute right-3;
 }

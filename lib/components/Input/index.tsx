@@ -5,7 +5,6 @@ import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { getIn } from "formik";
 import { Label, Paragraph } from "../Texts";
-// import { FieldProps } from "formik";
 
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
@@ -74,8 +73,8 @@ export const InputField: React.FC<InputProps> = ({
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </Label>
-      <div>
-        {leftIcon && <div className={styles.leftIcon}>{leftIcon}</div>}
+      <div className={styles.inputWrapper}>
+        {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
         <input
           type={isPassword && !isPasswordVisible ? "password" : type}
           autoFocus={!!autoFocus}
@@ -87,27 +86,27 @@ export const InputField: React.FC<InputProps> = ({
           autoComplete="off"
           onBlur={field.onBlur}
           data-testid={testId}
-          className={`${styles.input} ${leftIcon ? "px-8" : "px-2"}`}
+          className={styles.input}
           onFocus={field.onBlur}
         />
         {isPassword ? (
           <>
             {!isPasswordVisible ? (
               <IoEyeOutline
-                className={styles.passwordIcon}
+                className={styles.rightIcon}
                 size={22}
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
               />
             ) : (
               <IoEyeOffOutline
-                className={styles.passwordIcon}
+                className={styles.rightIcon}
                 size={22}
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
               />
             )}
           </>
         ) : rightIcon ? (
-          <div className={styles.passwordIcon}>{rightIcon}</div>
+          <div className={styles.rightIcon}>{rightIcon}</div>
         ) : null}
       </div>
       {error && <Paragraph type="error">{error}</Paragraph>}
