@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Field, FieldProps, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { AiFillAlipayCircle } from "react-icons/ai";
@@ -219,6 +219,10 @@ function App() {
       menuName: "menuName",
     }
   );
+
+  useEffect(() => {
+    console.log(response, "**************");
+  }, [response]);
 
   return (
     <>

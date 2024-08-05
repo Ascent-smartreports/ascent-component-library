@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Label } from "../../lib/main";
 import DownArrow from "../../lib/assets/images/down-arrow.svg";
 import { AnyObject } from "yup";
+import { response } from "./responseObject";
 
 interface MenuObject {
   value: number;
@@ -70,7 +71,7 @@ const updateNestedState = (
 const AccordionMenu3: React.FC<AccordionProps> = ({
   menu,
   //   response,
-  //   setResponse,
+  setResponse,
   //   customStyle,
   // menuMap,
 }) => {
@@ -85,11 +86,26 @@ const AccordionMenu3: React.FC<AccordionProps> = ({
   };
 
   const handleMenuClick = (path: string[]) => {
+    const selectedMenu = getNestedProperty(menuState, path);
     setMenuState((prevState) =>
       updateNestedState(prevState, path, {
-        isChecked: !getNestedProperty(prevState, path)?.isChecked,
+        isChecked: !selectedMenu?.isChecked,
       })
     );
+
+    if (!isObjectEmpty(selectedMenu.subMenu)) {
+      Object.keys(selectedMenu.subMenu).map((key) => {
+        handleMenuClick([...path, key]);
+      });
+    } else {
+      if (selectedMenu.isChecked) {
+        setResponse((prevState) => {
+          return prevState.filter((menu) => menu.value === selectedMenu.value);
+        });
+      } else {
+        setResponse((prevState) => [...prevState, { id: selectedMenu.value }]);
+      }
+    }
   };
 
   const renderMenuItems = (menu: AnyObject, path: string[] = []) =>
