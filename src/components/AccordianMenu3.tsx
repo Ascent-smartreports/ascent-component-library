@@ -31,10 +31,16 @@ const isObjectEmpty = (obj: AnyObject): boolean => {
 };
 
 const getNestedProperty = (obj: AnyObject, path: string[]): AnyObject => {
-  return path.reduce(
-    (acc, key) => (acc && acc[key] ? acc[key].subMenu : {}),
-    obj
-  );
+  let menuObj: AnyObject = {};
+  Object.assign(menuObj, obj);
+  path.map((p) => {
+    if (p === path[path.length - 1]) {
+      menuObj = menuObj[p];
+    } else {
+      Object.assign(menuObj, menuObj[p].subMenu);
+    }
+  });
+  return menuObj;
 };
 
 const updateNestedState = (
@@ -66,22 +72,14 @@ const AccordionMenu3: React.FC<AccordionProps> = ({
   //   response,
   //   setResponse,
   //   customStyle,
-  menuMap,
+  // menuMap,
 }) => {
   const [menuState, setMenuState] = useState(menu);
 
   const toggleAccordion = (path: string[]) => {
     setMenuState((prevState) => {
-      const currentMenu = menuMap.get(path[path.length - 1])!;
-      menuMap.set(path[path.length - 1], {
-        ...currentMenu,
-        isAccordianOpen: !getNestedProperty(prevState, path),
-      });
-
       return updateNestedState(prevState, path, {
-        isAccordianOpen: getNestedProperty(prevState, path)
-          ? !getNestedProperty(prevState, path)
-          : false,
+        isAccordianOpen: !getNestedProperty(prevState, path)?.isAccordianOpen,
       });
     });
   };
@@ -89,7 +87,7 @@ const AccordionMenu3: React.FC<AccordionProps> = ({
   const handleMenuClick = (path: string[]) => {
     setMenuState((prevState) =>
       updateNestedState(prevState, path, {
-        isChecked: !path.reduce((acc, key) => acc[key], prevState)?.isChecked,
+        isChecked: !getNestedProperty(prevState, path)?.isChecked,
       })
     );
   };
