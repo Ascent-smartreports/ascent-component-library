@@ -188,7 +188,13 @@ function App() {
           <SubHeading>sub heading</SubHeading>
           <Label>Label</Label>
           <Paragraph>Im a paragraph</Paragraph>
-          <Table data={data} columns={columns} searchText="" />
+          <Table
+            data={data}
+            columns={columns}
+            searchText=""
+            defaultRowsPerPage={5}
+            paginationTableRowsPerPageOptions={[5, 10, 15, 20]}
+          />
           <ToastContainer />
           <FormikProvider value={formik}>
             <div className="flex flex-row">
