@@ -7,6 +7,7 @@ interface TableProps {
   data: any[];
   columns: any;
   searchText?: string;
+  totalRows: number;
   defaultRowsPerPage?: number;
   handleTablePageChange?: (page: number) => void;
   handleTableRowsPerPageChange?: (newRowsPerPage: number, page: number) => void;
@@ -17,6 +18,7 @@ export const Table: React.FC<TableProps> = ({
   data,
   columns,
   searchText,
+  totalRows,
   defaultRowsPerPage = 10,
   handleTablePageChange,
   handleTableRowsPerPageChange,
@@ -65,7 +67,7 @@ export const Table: React.FC<TableProps> = ({
         columns={columns}
         pagination
         paginationServer
-        paginationTotalRows={getData().length}
+        paginationTotalRows={totalRows}
         paginationDefaultPage={currentPage}
         paginationPerPage={rowsPerPage}
         onChangePage={handlePageChange}

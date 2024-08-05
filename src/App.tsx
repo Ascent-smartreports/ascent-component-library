@@ -273,6 +273,7 @@ function App() {
             columns={columns}
             searchText=""
             defaultRowsPerPage={5}
+            totalRows={55}
             paginationTableRowsPerPageOptions={[5, 10, 15, 20]}
           />
           <ToastContainer />
