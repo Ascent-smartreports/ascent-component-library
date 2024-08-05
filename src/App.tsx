@@ -72,22 +72,102 @@ function App() {
   const data = [
     {
       id: 1,
-      title: "Beetlejuice",
+      title: "Beetlejuice1",
       year: "1988",
     },
     {
       id: 2,
-      title: "Ghostbusters",
+      title: "Beetlejuice2",
       year: "1984",
     },
     {
       id: 3,
-      title: "Ghostbusters",
+      title: "Beetlejuice3",
       year: "1984",
     },
     {
       id: 4,
-      title: "Ghostbusters",
+      title: "Beetlejuice4",
+      year: "1984",
+    },
+    {
+      id: 5,
+      title: "Beetlejuice5",
+      year: "1988",
+    },
+    {
+      id: 6,
+      title: "Beetlejuice6",
+      year: "1984",
+    },
+    {
+      id: 7,
+      title: "Beetlejuice7",
+      year: "1984",
+    },
+    {
+      id: 8,
+      title: "Beetlejuice8",
+      year: "1984",
+    },
+    {
+      id: 9,
+      title: "Beetlejuice9",
+      year: "1988",
+    },
+    {
+      id: 10,
+      title: "Beetlejuice10",
+      year: "1984",
+    },
+    {
+      id: 11,
+      title: "Beetlejuice11",
+      year: "1984",
+    },
+    {
+      id: 12,
+      title: "Beetlejuice12",
+      year: "1984",
+    },
+    {
+      id: 13,
+      title: "Beetlejuice13",
+      year: "1988",
+    },
+    {
+      id: 14,
+      title: "Beetlejuice14",
+      year: "1984",
+    },
+    {
+      id: 15,
+      title: "Beetlejuice15",
+      year: "1984",
+    },
+    {
+      id: 16,
+      title: "Beetlejuice16",
+      year: "1984",
+    },
+    {
+      id: 17,
+      title: "Beetlejuice17",
+      year: "1988",
+    },
+    {
+      id: 18,
+      title: "Beetlejuice18",
+      year: "1984",
+    },
+    {
+      id: 19,
+      title: "Beetlejuice19",
+      year: "1984",
+    },
+    {
+      id: 20,
+      title: "Beetlejuice20",
       year: "1984",
     },
   ];

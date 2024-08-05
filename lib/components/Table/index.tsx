@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import DataTable from "react-data-table-component";
 import "../../assets/table.css";
 
@@ -25,7 +25,7 @@ export const Table: React.FC<TableProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage);
 
-  const getData = () => {
+  const getData = useCallback(() => {
     if (searchText) {
       const filteredItems = data.filter(
         (item) =>
@@ -35,7 +35,13 @@ export const Table: React.FC<TableProps> = ({
       );
       return filteredItems;
     } else return data;
-  };
+  }, [data, searchText]);
+
+  const paginatedData = useMemo(() => {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    return getData().slice(startIndex, endIndex);
+  }, [currentPage, rowsPerPage, getData]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -55,7 +61,7 @@ export const Table: React.FC<TableProps> = ({
   return (
     <div>
       <DataTable
-        data={getData()}
+        data={paginatedData}
         columns={columns}
         pagination
         paginationServer
