@@ -2,7 +2,6 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Label } from "../../lib/main";
 import DownArrow from "../../lib/assets/images/down-arrow.svg";
 import { AnyObject } from "yup";
-import { response } from "./responseObject";
 
 interface MenuObject {
   value: number;
