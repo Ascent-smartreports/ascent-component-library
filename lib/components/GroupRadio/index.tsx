@@ -8,6 +8,7 @@ interface GroupRadioButtonInterface {
   handleOptionChange: (label: string, value: string) => void;
   selectedValue: string;
   testId: string;
+  disabled?: boolean;
 }
 
 export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
@@ -16,6 +17,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
   handleOptionChange,
   selectedValue,
   testId,
+  disabled = false,
 }) => {
   return (
     <div>
@@ -31,7 +33,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
               value={item.value}
               checked={selectedValue === item.value}
               onChange={() => {
-                handleOptionChange(item.label, item.value);
+                if (!disabled) handleOptionChange(item.label, item.value);
               }}
             />
             <Label className={`${(textStyles.label, "mx-2 mb-1 mr-24")}`}>

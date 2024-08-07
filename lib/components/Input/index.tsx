@@ -5,6 +5,7 @@ import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { getIn } from "formik";
 import { Label, Paragraph } from "../Texts";
+import { twMerge } from "tailwind-merge";
 
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
@@ -62,6 +63,11 @@ export const InputField: React.FC<InputProps> = ({
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
+  const finalCustomInputClass = twMerge(
+    `${styles.input} ${leftIcon ? "px-9" : ""}`,
+    className
+  );
+
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue(field.name, e.target.value);
     field.onChange(e);
@@ -86,7 +92,7 @@ export const InputField: React.FC<InputProps> = ({
           autoComplete="off"
           onBlur={field.onBlur}
           data-testid={testId}
-          className={styles.input}
+          className={finalCustomInputClass}
           onFocus={field.onBlur}
         />
         {isPassword ? (
@@ -109,7 +115,9 @@ export const InputField: React.FC<InputProps> = ({
           <div className={styles.rightIcon}>{rightIcon}</div>
         ) : null}
       </div>
-      {error && <Paragraph type="error">{error}</Paragraph>}
+      <div className="my-2 h-8">
+        {error && <Paragraph type="error">{error}</Paragraph>}
+      </div>
     </div>
   );
 };
