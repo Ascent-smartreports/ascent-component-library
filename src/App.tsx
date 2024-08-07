@@ -28,7 +28,7 @@ import {
   TextAreaInput,
   CustomCheckbox,
 } from "../lib/main";
-import AccordionMenu3 from "./components/AccordianMenu3";
+import AccordionMenu from "./components/AccordianMenu";
 // import { menu, subMenu } from "./components/menu";
 // import { modifiedData } from "./components/responseObject";
 // import { modifiedData2 } from "./components/roleResponseObj";
@@ -228,7 +228,7 @@ function App() {
     <>
       <div className="flex">
         <Card className="my-10 p-10 bg-backgroundDarkGreen">
-          <AccordionMenu3
+          <AccordionMenu
             menu={array1}
             setResponse={setResponse}
             response={response}
@@ -236,7 +236,7 @@ function App() {
           />
         </Card>
         <Card className="my-10 p-10 bg-errorText">
-          <AccordionMenu3
+          <AccordionMenu
             menu={array2}
             setResponse={setResponse}
             response={response}
@@ -246,13 +246,49 @@ function App() {
       </div>
       <Card>
         <>
-          <GroupRadio
-            testId="gender"
-            label="Gender"
-            data={groupRadioData}
-            handleOptionChange={handleOptionChange}
-            selectedValue={selectedGender}
-          />
+          {/* <div>
+            <Field name={"topic"}>
+              {({ field, form }: FieldProps) => (
+                <DropDown
+                  testId="topic"
+                  options={[
+                    { label: "HTML", value: "html" },
+                    { label: "JavaScript", value: "js" },
+                  ]}
+                  form={form}
+                  label={"Topic"}
+                  field={field}
+                  error={formik.errors.topic}
+                  validationSchema={validationSchema}
+                  isMulti
+                />
+              )}
+            </Field>
+            <Field name={"name"}>
+              {({ field, form }: FieldProps) => (
+                <div className="">
+                  <InputField
+                    label={"Name"}
+                    field={field}
+                    form={form}
+                    leftIcon={<MdOutlineEmail color="red" />}
+                    rightIcon={<MdOutlineEmail color="red" />}
+                    className="my-24 bg-backgroundDarkYellow "
+                    testId="name"
+                    error={formik.errors.name}
+                    validationSchema={validationSchema}
+                  />
+                </div>
+              )}
+            </Field>
+            <GroupRadio
+              testId="gender"
+              label="Gender"
+              data={groupRadioData}
+              handleOptionChange={handleOptionChange}
+              selectedValue={selectedGender}
+            />
+          </div> */}
           <CustomCheckbox
             labelText={"Double CheckBox"}
             clickType="double"
@@ -282,6 +318,62 @@ function App() {
           />
           <ToastContainer />
           <FormikProvider value={formik}>
+            <div className="flex gap-x-1">
+              <Field name={"name"}>
+                {({ field, form }: FieldProps) => (
+                  <div className="">
+                    <InputField
+                      label={"Name"}
+                      field={field}
+                      form={form}
+                      leftIcon={<MdOutlineEmail color="red" />}
+                      rightIcon={<MdOutlineEmail color="red" />}
+                      // className="my-24 bg-backgroundDarkYellow "
+                      testId="name"
+                      error={formik.errors.name}
+                      validationSchema={validationSchema}
+                    />
+                  </div>
+                )}
+              </Field>
+              <Field name={"topic"}>
+                {({ field, form }: FieldProps) => (
+                  <DropDown
+                    testId="topic"
+                    options={[
+                      { label: "HTML", value: "html" },
+                      { label: "JavaScript", value: "js" },
+                    ]}
+                    form={form}
+                    label={"Topic"}
+                    field={field}
+                    error={formik.errors.topic}
+                    validationSchema={validationSchema}
+                    isMulti
+                  />
+                )}
+              </Field>
+              {/* <Field name={"description"}>
+                {({ field, form }: FieldProps) => (
+                  <TextAreaInput
+                    label={"Description"}
+                    field={field}
+                    form={form}
+                    error={formik.errors.description}
+                    validationSchema={validationSchema}
+                    height={"150px"}
+                    testId="desc"
+                  />
+                )}
+              </Field> */}
+              <GroupRadio
+                testId="gender"
+                label="Gender"
+                data={groupRadioData}
+                handleOptionChange={handleOptionChange}
+                selectedValue={selectedGender}
+              />
+            </div>
             <div className="flex flex-row">
               <Field name={"name"}>
                 {({ field, form }: FieldProps) => (
