@@ -293,6 +293,7 @@ function App() {
             labelText={"Double CheckBox"}
             clickType="double"
             testId={""}
+            isChecked={true}
             onStateChange={(state) => {
               console.log(checkboxState);
               setCheckBoxState(state);
