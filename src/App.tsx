@@ -202,20 +202,28 @@ function App() {
   // console.log(modifiedData2, "9999999999999");
   const [response, setResponse] = useState<Yup.AnyObject>([]);
   // const[]
-  const menuTreeArray1 = buildMenuTree(res.data, {
-    menuId: "id",
-    parentId: "parentId",
-    isChecked: "isChecked",
-    isExpanded: "isExpanded",
-    menuName: "name",
-  });
-  const menuTreeArray2 = buildMenuTree(response2.data.rolePermissions, {
-    menuId: "menuId",
-    parentId: "parentId",
-    isChecked: "isCheckedId",
-    isExpanded: "expanded",
-    menuName: "menuName",
-  });
+  const menuTreeArray1 = buildMenuTree(
+    res.data,
+    {
+      menuId: "id",
+      parentId: "parentId",
+      isChecked: "isChecked",
+      isExpanded: "isExpanded",
+      menuName: "name",
+    },
+    0
+  );
+  const menuTreeArray2 = buildMenuTree(
+    response2.data.rolePermissions,
+    {
+      menuId: "menuId",
+      parentId: "parentId",
+      isChecked: "isCheckedId",
+      isExpanded: "expanded",
+      menuName: "menuName",
+    },
+    0
+  );
 
   useEffect(() => {
     console.log(response, "**************");

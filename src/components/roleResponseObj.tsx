@@ -2019,7 +2019,8 @@ export const buildMenuTree = (
     parentId: string;
     isChecked: string;
     isExpanded: string;
-  }
+  },
+  rootParentId: number
 ) => {
   const menuMap = new Map();
   const menuTreeObject: AnyObject = {};
@@ -2050,7 +2051,7 @@ export const buildMenuTree = (
     const { [options.menuId]: menuId, [options.parentId]: parentId } = menu;
     const currentMenu = menuMap.get(String(menuId));
 
-    if (parentId === 0) {
+    if (parentId === rootParentId) {
       menuTreeObject[String(menuId)] = currentMenu!;
     } else {
       const parentMenu = menuMap.get(String(parentId));
@@ -2155,22 +2156,30 @@ export const buildMenuTree = (
 //     expanded: true,
 //   },
 // ];
-export const menu3 = buildMenuTree(response2.data.rolePermissions, {
-  menuId: "menuId",
-  parentId: "parentId",
-  isChecked: "isCheckedId",
-  isExpanded: "expanded",
-  menuName: "menuName",
-});
+export const menu3 = buildMenuTree(
+  response2.data.rolePermissions,
+  {
+    menuId: "menuId",
+    parentId: "parentId",
+    isChecked: "isCheckedId",
+    isExpanded: "expanded",
+    menuName: "menuName",
+  },
+  0
+);
 
 // export const menu4 = buildMenuTree4(menuData);
-export const menu5 = buildMenuTree(resObj.data, {
-  menuId: "id",
-  parentId: "parentId",
-  isChecked: "isChecked",
-  isExpanded: "isExpanded",
-  menuName: "name",
-});
+export const menu5 = buildMenuTree(
+  resObj.data,
+  {
+    menuId: "id",
+    parentId: "parentId",
+    isChecked: "isChecked",
+    isExpanded: "isExpanded",
+    menuName: "name",
+  },
+  0
+);
 
 // console.log(JSON.stringify(menu3, null, 3), "000000000000000000000000000000");
 // console.log(JSON.stringify(menu3, null, 5), "33333333333333");
