@@ -7,7 +7,7 @@ import { FC } from "react";
 
 export interface ToastProps {
   message: string;
-  type: "SUCCESS" | "ERROR" | "LOADING";
+  type: "SUCCESS" | "ERROR" | "WARNING";
   position?:
     | "top-right"
     | "top-center"
@@ -15,7 +15,8 @@ export interface ToastProps {
     | "bottom-right"
     | "bottom-center"
     | "bottom-left";
-  toastType: "solid" | "outlined";
+  toastType?: "solid" | "outlined";
+  duration?: number;
 }
 interface CustomToastProps {
   message: string;
@@ -32,7 +33,8 @@ export const Notify = ({
   message,
   type,
   position = "top-right",
-  toastType,
+  toastType = "solid",
+  duration = 3000,
 }: ToastProps) => {
   const getIconAndStyles = () => {
     switch (type) {
@@ -86,7 +88,7 @@ export const Notify = ({
               ? "text-backgroundTheme"
               : "text-backgroundLight",
         };
-      case "LOADING":
+      case "WARNING":
         return {
           iconSrc: warning,
           bgColor:
@@ -176,9 +178,56 @@ export const Notify = ({
     ),
     {
       position: position,
-      autoClose: 3000,
+      autoClose: duration,
       hideProgressBar: true,
       closeButton: false,
     }
   );
+};
+
+const toastFlexiDuration = (msg: string) => {
+  const msgLength = msg.length;
+  return msgLength * 0.09 * 1000 > 3000 ? msgLength * 0.09 * 1000 : 3000;
+};
+
+export const NotifySuccess = (
+  message: string,
+  duration?: number,
+  toastType?: "solid" | "outlined"
+) => {
+  Notify({
+    message,
+    type: "SUCCESS",
+    position: "top-right",
+    toastType: toastType ? toastType : "solid",
+    duration: duration ? duration : toastFlexiDuration(message),
+  });
+};
+
+export const NotifyError = (
+  message: string,
+  duration?: number,
+  toastType?: "solid" | "outlined"
+) => {
+  Notify({
+    message,
+    type: "ERROR",
+    position: "top-right",
+    toastType: toastType ? toastType : "solid",
+    duration: duration ? duration : toastFlexiDuration(message),
+  });
+};
+
+export const NotifyWarning = (
+  message: string,
+  duration?: number,
+  toastType?: "solid" | "outlined"
+) => {
+  Notify({
+    message,
+    type: "WARNING",
+    position: "top-right",
+    toastType: toastType ? toastType : "solid",
+    duration: duration ? duration : toastFlexiDuration(message),
+  });
 };

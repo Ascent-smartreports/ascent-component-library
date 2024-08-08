@@ -1,5 +1,5 @@
 import React from "react";
-import { Label, SubHeading } from "../Texts";
+import { Label } from "../Texts";
 import styles from "../../assets/groupRadio.module.scss";
 import textStyles from "../../assets/texts.module.scss";
 interface GroupRadioButtonInterface {
@@ -20,8 +20,10 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
   disabled = false,
 }) => {
   return (
-    <div>
-      <SubHeading>{label}</SubHeading>
+    <div className="flex flex-col items-start justify-start align-bottom m-4 gap-y-2">
+      <div className="flex justify-start">
+        <Label>{label}</Label>
+      </div>
       <div className={styles.radioInnerContainer}>
         {data.map((item) => (
           <div key={item.value} className={`${styles.radioInnerContainer}`}>
