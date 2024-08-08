@@ -5,7 +5,7 @@ interface ModalProps {
   children: React.ReactNode;
   className?: string;
   isOpen: boolean;
-  size: "sm" | "lg" | "md";
+  size: "xs" | "sm" | "lg" | "md";
   closeModal: () => void;
 }
 
@@ -18,8 +18,10 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const getSizeClass = (size: "sm" | "lg" | "md") => {
+  const getSizeClass = (size: "xs" | "sm" | "lg" | "md") => {
     switch (size) {
+      case "xs":
+        return styles.modalXs;
       case "sm":
         return styles.modalSm;
       case "md":
