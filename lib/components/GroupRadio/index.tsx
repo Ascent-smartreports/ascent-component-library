@@ -1,5 +1,5 @@
 import React from "react";
-import { Label, SubHeading } from "../Texts";
+import { Label } from "../Texts";
 import styles from "../../assets/groupRadio.module.scss";
 import textStyles from "../../assets/texts.module.scss";
 interface GroupRadioButtonInterface {
@@ -8,6 +8,7 @@ interface GroupRadioButtonInterface {
   handleOptionChange: (label: string, value: string) => void;
   selectedValue: string;
   testId: string;
+  disabled?: boolean;
 }
 
 export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
@@ -16,10 +17,13 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
   handleOptionChange,
   selectedValue,
   testId,
+  disabled = false,
 }) => {
   return (
-    <div>
-      <SubHeading>{label}</SubHeading>
+    <div className="flex flex-col items-start justify-start align-bottom m-4 gap-y-2">
+      <div className="flex justify-start">
+        <Label>{label}</Label>
+      </div>
       <div className={styles.radioInnerContainer}>
         {data.map((item) => (
           <div key={item.value} className={`${styles.radioInnerContainer}`}>
@@ -31,7 +35,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
               value={item.value}
               checked={selectedValue === item.value}
               onChange={() => {
-                handleOptionChange(item.label, item.value);
+                if (!disabled) handleOptionChange(item.label, item.value);
               }}
             />
             <Label className={`${(textStyles.label, "mx-2 mb-1 mr-24")}`}>

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../../assets/button.module.scss";
+import { twMerge } from "tailwind-merge";
 interface buttonProps {
   label: string;
   onClick: () => void;
@@ -35,10 +36,15 @@ export const Button: React.FC<buttonProps> = ({
       "bg-buttonDisabled border-'backgroundTheme' text-'backgroundTheme' cursor-not-allowed";
   }
 
+  const finalCustomButtonClass = twMerge(
+    `${styles.button} ${buttonTypeClasses}`,
+    customClasses
+  );
+
   return (
     <button
       onClick={onClick}
-      className={`${customClasses}${styles.button} ${buttonTypeClasses}`}
+      className={finalCustomButtonClass}
       disabled={isDisabled}
       type={type ? type : "submit"}
       data-testid={testId}
