@@ -1780,7 +1780,7 @@ export const response={
             "name": "Perk Report",
             "displayName": null,
             "code": "PRKRPT",
-            "isChecked": false,
+            "isChecked": true,
             "isExpanded": false,
             "enableBackUp": false,
             "sprite": null,

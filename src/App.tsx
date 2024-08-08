@@ -202,23 +202,20 @@ function App() {
   // console.log(modifiedData2, "9999999999999");
   const [response, setResponse] = useState<Yup.AnyObject>([]);
   // const[]
-  const { menuTreeArray: array1, menuMap: map1 } = buildMenuTree(res.data, {
+  const menuTreeArray1 = buildMenuTree(res.data, {
     menuId: "id",
     parentId: "parentId",
     isChecked: "isChecked",
     isExpanded: "isExpanded",
     menuName: "name",
   });
-  const { menuTreeArray: array2, menuMap: map2 } = buildMenuTree(
-    response2.data.rolePermissions,
-    {
-      menuId: "menuId",
-      parentId: "parentId",
-      isChecked: "isCheckedId",
-      isExpanded: "expanded",
-      menuName: "menuName",
-    }
-  );
+  const menuTreeArray2 = buildMenuTree(response2.data.rolePermissions, {
+    menuId: "menuId",
+    parentId: "parentId",
+    isChecked: "isCheckedId",
+    isExpanded: "expanded",
+    menuName: "menuName",
+  });
 
   useEffect(() => {
     console.log(response, "**************");
@@ -228,20 +225,10 @@ function App() {
     <>
       <div className="flex">
         <Card className="my-10 p-10 bg-backgroundDarkGreen">
-          <AccordionMenu
-            menu={array1}
-            setResponse={setResponse}
-            response={response}
-            menuMap={map1}
-          />
+          <AccordionMenu menu={menuTreeArray1} setResponse={setResponse} />
         </Card>
         <Card className="my-10 p-10 bg-errorText">
-          <AccordionMenu
-            menu={array2}
-            setResponse={setResponse}
-            response={response}
-            menuMap={map2}
-          />
+          <AccordionMenu menu={menuTreeArray2} setResponse={setResponse} />
         </Card>
       </div>
       <Card>

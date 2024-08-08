@@ -3,21 +3,9 @@ import { Label } from "../../lib/main";
 import DownArrow from "../../lib/assets/images/down-arrow.svg";
 import { AnyObject } from "yup";
 
-interface MenuObject {
-  value: number;
-  label: string;
-  isChecked: boolean;
-  isAccordianOpen: boolean;
-  isAtleastOneSubMenuSelected: boolean;
-  parentId: number;
-  subMenu: AnyObject;
-}
 interface AccordionProps {
   menu: AnyObject;
-  response: AnyObject;
   setResponse: Dispatch<SetStateAction<AnyObject[]>>;
-  menuMap: Map<string, MenuObject>;
-  customStyle?: string;
 }
 
 const isObjectEmpty = (obj: AnyObject): boolean => {
@@ -67,13 +55,29 @@ const updateNestedState = (
       };
 };
 
-const AccordionMenu3: React.FC<AccordionProps> = ({
-  menu,
-  //   response,
-  setResponse,
-  //   customStyle,
-  // menuMap,
-}) => {
+const updateParentState = (state: AnyObject, path: string[]): AnyObject => {
+  const parentPath = path.slice(0, -1);
+
+  if (parentPath.length === 0) {
+    return state;
+  }
+
+  const parent = getNestedProperty(state, parentPath);
+
+  const isAtleastOneSubMenuSelected = Object.keys(parent.subMenu).some(
+    (key) =>
+      parent.subMenu[key].isChecked ||
+      parent.subMenu[key].isAtleastOneSubMenuSelected
+  );
+
+  const updatedState = updateNestedState(state, parentPath, {
+    isAtleastOneSubMenuSelected,
+  });
+
+  return updateParentState(updatedState, parentPath);
+};
+
+const AccordionMenu3: React.FC<AccordionProps> = ({ menu, setResponse }) => {
   const [menuState, setMenuState] = useState(menu);
 
   const toggleAccordion = (path: string[]) => {
@@ -91,6 +95,7 @@ const AccordionMenu3: React.FC<AccordionProps> = ({
         isChecked: isSelected,
       })
     );
+    setMenuState((prevState) => updateParentState(prevState, path));
 
     if (!isObjectEmpty(selectedMenu.subMenu)) {
       Object.keys(selectedMenu.subMenu).map((key) => {

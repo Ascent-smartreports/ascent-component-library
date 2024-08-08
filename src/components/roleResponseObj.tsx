@@ -513,7 +513,7 @@ export const response2 = {
         menuId: 1112,
         menuName: "View",
         parentId: 1110,
-        isCheckedId: false,
+        isCheckedId: true,
         expanded: true,
         createdById: 0,
         lastModifiedById: 0,
@@ -2022,7 +2022,7 @@ export const buildMenuTree = (
   }
 ) => {
   const menuMap = new Map();
-  const menuTreeArray: AnyObject = {};
+  const menuTreeObject: AnyObject = {};
 
   menuArray?.forEach((menu) => {
     const {
@@ -2051,7 +2051,7 @@ export const buildMenuTree = (
     const currentMenu = menuMap.get(String(menuId));
 
     if (parentId === 0) {
-      menuTreeArray[String(menuId)] = currentMenu!;
+      menuTreeObject[String(menuId)] = currentMenu!;
     } else {
       const parentMenu = menuMap.get(String(parentId));
 
@@ -2061,7 +2061,26 @@ export const buildMenuTree = (
     }
   });
 
-  return { menuTreeArray, menuMap };
+  const updateParentSelectionState = (menu: AnyObject) => {
+    let isSubMenuSelected = false;
+
+    for (const subMenuKey in menu.subMenu) {
+      const subMenu = menu.subMenu[subMenuKey];
+      const isSubMenuHasSelection = updateParentSelectionState(subMenu);
+
+      if (isSubMenuHasSelection || subMenu.isChecked) {
+        isSubMenuSelected = true;
+      }
+    }
+    menu.isAtleastOneSubMenuSelected = isSubMenuSelected;
+    return isSubMenuSelected;
+  };
+
+  Object.values(menuTreeObject).forEach((rootMenu) => {
+    updateParentSelectionState(rootMenu);
+  });
+
+  return menuTreeObject;
 };
 
 // const menu4 = [
