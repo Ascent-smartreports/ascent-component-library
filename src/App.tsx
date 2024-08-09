@@ -232,10 +232,10 @@ function App() {
   return (
     <>
       <div className="flex">
-        <Card className="my-10 p-10 bg-backgroundDarkGreen">
+        <Card className="my-10 p-10 bg-backgroundLight">
           <AccordionMenu menu={menuTreeArray1} setResponse={setResponse} />
         </Card>
-        <Card className="my-10 p-10 bg-errorText">
+        <Card className="my-10 p-10 bg-backgroundLight">
           <AccordionMenu menu={menuTreeArray2} setResponse={setResponse} />
         </Card>
       </div>

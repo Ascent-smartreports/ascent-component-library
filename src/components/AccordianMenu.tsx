@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Label } from "../../lib/main";
 import DownArrow from "../../lib/assets/images/down-arrow.svg";
 import { AnyObject } from "yup";
+import CustomCheckbox from "./CustomCheckbox";
 
 interface AccordionProps {
   menu: AnyObject;
@@ -70,7 +71,12 @@ const updateParentState = (state: AnyObject, path: string[]): AnyObject => {
       parent.subMenu[key].isAtleastOneSubMenuSelected
   );
 
+  const areAllSiblingsChecked = Object.keys(parent.subMenu).every(
+    (key) => parent.subMenu[key].isChecked
+  );
+
   const updatedState = updateNestedState(state, parentPath, {
+    isChecked: areAllSiblingsChecked,
     isAtleastOneSubMenuSelected,
   });
 
@@ -127,7 +133,7 @@ const AccordionMenu3: React.FC<AccordionProps> = ({ menu, setResponse }) => {
 
       return (
         <div key={key} className="flex flex-col w-full">
-          <div className="cursor-pointer flex items-center">
+          <div className="cursor-pointer flex items-center gap-2">
             {!isObjectEmpty(menuItem?.subMenu) ? (
               <div
                 onClick={() => toggleAccordion(currentPath)}
@@ -136,7 +142,7 @@ const AccordionMenu3: React.FC<AccordionProps> = ({ menu, setResponse }) => {
                 <img
                   src={DownArrow}
                   alt={menuItem.isAccordianOpen ? "down arrow" : "right arrow"}
-                  className="h-3 w-3 mx-1"
+                  className="h-3 w-3"
                   style={{
                     transform: menuItem.isAccordianOpen
                       ? "rotate(0deg)"
@@ -147,11 +153,12 @@ const AccordionMenu3: React.FC<AccordionProps> = ({ menu, setResponse }) => {
             ) : (
               <div className="flex items-center h-3 w-3 mx-1" />
             )}
-            <input
-              type="checkbox"
-              checked={menuItem.isChecked}
-              onChange={() => handleMenuClick(currentPath, !menuItem.isChecked)}
-              className="mr-2"
+            <CustomCheckbox
+              isChecked={menuItem.isChecked}
+              isAtleastOneSubMenuSelected={menuItem.isAtleastOneSubMenuSelected}
+              onChange={(isSelected) =>
+                handleMenuClick(currentPath, isSelected)
+              }
             />
             <Label>{menuItem.label}</Label>
           </div>
