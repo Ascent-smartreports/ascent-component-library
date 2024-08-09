@@ -73,47 +73,45 @@ export const DropDown: React.FC<dropdownProps> = ({
   };
 
   const customStyles = {
-    control: (provided: any, state: { isFocused: boolean }) => ({
+    control: (provided: AnyObject, state: { isFocused: boolean }) => ({
       ...provided,
       borderColor: state.isFocused ? "#E4E5E9" : "#dfe1e5",
       fontSize: 16,
       padding: "6px 7px",
       textColor: "green",
     }),
-    option: (provided: any, state: { isFocused: boolean }) => ({
-      ...provided,
+    option: (_: AnyObject, state: { isFocused: boolean }) => ({
       backgroundColor: state.isFocused ? "#21294C" : "#FFFFFF",
       color: state.isFocused ? "#FFFFFF" : "#21294C",
       fontSize: 16,
       padding: 10,
       cursor: "pointer",
     }),
-    placeholder: (provided: any) => ({
+    placeholder: (provided: AnyObject) => ({
       ...provided,
       color: "#8D91A3",
     }),
-    menu: (provided: any) => ({
+    menu: (provided: AnyObject) => ({
       ...provided,
       marginTop: 10,
       borderRadius: 4,
       boxShadow: "0 4px 11px rgba(0, 0, 0, 0.1)",
     }),
-    multiValue: (provided: any) => ({
+    multiValue: (provided: AnyObject) => ({
       ...provided,
       backgroundColor: "#E0E0E0",
       borderRadius: 4,
       padding: "2px 5px",
     }),
-    multiValueLabel: (provided: any) => ({
+    multiValueLabel: (provided: AnyObject) => ({
       ...provided,
       color: "#21294C",
     }),
-    multiValueRemove: (provided: any) => ({
-      ...provided,
+    multiValueRemove: () => ({
       color: "#666666",
       cursor: "pointer",
       "&:hover": {
-        color: "#4A90E2",
+        color: "#FF0000",
       },
     }),
   };
