@@ -1,4 +1,4 @@
-import { useState, CSSProperties } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 
 export interface CheckboxProps {
   labelText: string;
@@ -27,12 +27,17 @@ export const CustomCheckbox = ({
   customStyleLabel,
   clickType = "double",
   isDisabled,
+  isChecked = false,
   testId,
   onStateChange,
 }: CheckboxProps) => {
   const [state, setState] = useState<
     "unselected" | "selected" | "mandatory" | "uneditable"
-  >("unselected");
+  >(isChecked ? "selected" : "unselected");
+
+  useEffect(() => {
+    setState(isChecked ? "selected" : "unselected");
+  }, [isChecked]);
 
   const handleChange = () => {
     const newState = getNextState(state, clickType);

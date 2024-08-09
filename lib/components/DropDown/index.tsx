@@ -71,13 +71,51 @@ export const DropDown: React.FC<dropdownProps> = ({
       form.setFieldTouched(field.name, true, false);
     }
   };
+
   const customStyles = {
-    option: (_provided: unknown, state: { isFocused: boolean }) => ({
+    control: (provided: AnyObject, state: { isFocused: boolean }) => ({
+      ...provided,
+      borderColor: state.isFocused ? "#E4E5E9" : "#dfe1e5",
+      fontSize: 16,
+      padding: "6px 7px",
+      textColor: "green",
+    }),
+    option: (_: AnyObject, state: { isFocused: boolean }) => ({
+      backgroundColor: state.isFocused ? "#21294C" : "#FFFFFF",
       color: state.isFocused ? "#FFFFFF" : "#21294C",
       fontSize: 16,
       padding: 10,
+      cursor: "pointer",
+    }),
+    placeholder: (provided: AnyObject) => ({
+      ...provided,
+      color: "#8D91A3",
+    }),
+    menu: (provided: AnyObject) => ({
+      ...provided,
+      marginTop: 10,
+      borderRadius: 4,
+      boxShadow: "0 4px 11px rgba(0, 0, 0, 0.1)",
+    }),
+    multiValue: (provided: AnyObject) => ({
+      ...provided,
+      backgroundColor: "#E0E0E0",
+      borderRadius: 4,
+      padding: "2px 5px",
+    }),
+    multiValueLabel: (provided: AnyObject) => ({
+      ...provided,
+      color: "#21294C",
+    }),
+    multiValueRemove: () => ({
+      color: "#666666",
+      cursor: "pointer",
+      "&:hover": {
+        color: "#FF0000",
+      },
     }),
   };
+
   return (
     <div className={className || "my-4"}>
       <Label>
@@ -101,7 +139,9 @@ export const DropDown: React.FC<dropdownProps> = ({
         defaultValue={defaultValue}
         onChange={handleChange}
       />
-      {error && <Paragraph type="error">{error}</Paragraph>}
+      <div className="my-2 h-8">
+        {error && <Paragraph type="error">{error}</Paragraph>}
+      </div>
     </div>
   );
 };

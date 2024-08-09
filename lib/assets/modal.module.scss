@@ -1,6 +1,4 @@
-.container{
-  @apply flex justify-center items-center;
-}
+
 .modalScreen {
   @apply fixed inset-0 z-40 flex items-center justify-center bg-backgroundModal ;
 }
@@ -9,8 +7,11 @@
   @apply rounded-lg shadow-xl transform transition-all bg-backgroundLight fixed z-50 top-[25%];
 }
 
+.modalXs{
+  @apply w-1/4;
+}
 .modalSm {
-  @apply w-1/3 max-h-[250px];
+  @apply w-1/3;
 }
 
 .modalMd {
