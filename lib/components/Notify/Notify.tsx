@@ -1,8 +1,7 @@
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import success from "../../assets/images/toast_success.png";
 import error from "../../assets/images/toast_error.png";
 import warning from "../../assets/images/toast_warning.png";
-import "../../assets/ReactToastify.css";
 import { FC } from "react";
 
 export interface ToastProps {
@@ -18,6 +17,7 @@ export interface ToastProps {
   toastType?: "solid" | "outlined";
   duration?: number;
 }
+
 interface CustomToastProps {
   message: string;
   iconSrc: string;
@@ -26,7 +26,7 @@ interface CustomToastProps {
   bgColorCloseBtn: string;
   textColorCloseBtn: string;
   borderColorCloseBtn: string;
-  closeToast: () => void;
+  dismiss: () => void;
 }
 
 export const Notify = ({
@@ -34,8 +34,8 @@ export const Notify = ({
   type,
   position = "top-right",
   toastType = "solid",
-  duration = 3000,
-}: ToastProps) => {
+  duration,
+}: ToastProps): void => {
   const getIconAndStyles = () => {
     switch (type) {
       case "SUCCESS":
@@ -143,28 +143,34 @@ export const Notify = ({
     bgColorCloseBtn,
     textColorCloseBtn,
     borderColorCloseBtn,
-    closeToast,
+    dismiss,
   }) => (
     <div
-      className={`flex flex-row items-center w-full ${bgColor} ${borderColor} rounded-[6px] p-2 h-14`}
+      className={`flex flex-row items-center max-w-[25%] min-w-[250px] ${bgColor} ${borderColor} rounded-[8px] p-4`}
+      style={{
+        width: "auto",
+        height: "auto",
+      }}
     >
       <div className="flex flex-row items-center flex-grow">
         <img src={iconSrc} alt="Custom Icon" className="w-5 h-5 mr-4" />
         <div className="justify-start">
-          <p className={`${textColor} text-xs`}>{message}</p>
+          <p className={`${textColor} text-sm`}>{message}</p>
         </div>
       </div>
       <div
-        onClick={closeToast}
-        className={`flex flex-row w-auto items-center justify-center ${bgColorCloseBtn} ${borderColorCloseBtn} h-8 p-2 rounded-[4px]`}
+        onClick={() => {
+          dismiss();
+        }}
+        className={`flex flex-row w-auto items-center justify-center ${bgColorCloseBtn} ${borderColorCloseBtn} h-8 p-2 rounded-[4px] cursor-pointer`}
       >
-        <p className={`text-xs ${textColorCloseBtn}`}>close</p>
+        <p className={`text-sm ${textColorCloseBtn}`}>close</p>
       </div>
     </div>
   );
 
-  toast(
-    ({ closeToast }) => (
+  toast.custom(
+    (t) => (
       <CustomToast
         message={message}
         iconSrc={iconSrc}
@@ -173,14 +179,14 @@ export const Notify = ({
         bgColorCloseBtn={bgColorCloseBtn}
         textColorCloseBtn={textColorCloseBtn}
         borderColorCloseBtn={borderColorCloseBtn}
-        closeToast={closeToast}
+        dismiss={() => {
+          toast.dismiss(t.id);
+        }}
       />
     ),
     {
       position: position,
-      autoClose: duration,
-      hideProgressBar: true,
-      closeButton: false,
+      duration: duration,
     }
   );
 };
@@ -194,11 +200,10 @@ export const NotifySuccess = (
   message: string,
   duration?: number,
   toastType?: "solid" | "outlined"
-) => {
+): void => {
   Notify({
     message,
     type: "SUCCESS",
-    position: "top-right",
     toastType: toastType ? toastType : "solid",
     duration: duration ? duration : toastFlexiDuration(message),
   });
@@ -208,11 +213,10 @@ export const NotifyError = (
   message: string,
   duration?: number,
   toastType?: "solid" | "outlined"
-) => {
+): void => {
   Notify({
     message,
     type: "ERROR",
-    position: "top-right",
     toastType: toastType ? toastType : "solid",
     duration: duration ? duration : toastFlexiDuration(message),
   });
@@ -222,11 +226,10 @@ export const NotifyWarning = (
   message: string,
   duration?: number,
   toastType?: "solid" | "outlined"
-) => {
+): void => {
   Notify({
     message,
     type: "WARNING",
-    position: "top-right",
     toastType: toastType ? toastType : "solid",
     duration: duration ? duration : toastFlexiDuration(message),
   });
