@@ -26,7 +26,6 @@ interface CustomToastProps {
   bgColorCloseBtn: string;
   textColorCloseBtn: string;
   borderColorCloseBtn: string;
-  dismiss: () => void;
 }
 
 export const Notify = ({
@@ -140,10 +139,6 @@ export const Notify = ({
     iconSrc,
     bgColor,
     textColor,
-    bgColorCloseBtn,
-    textColorCloseBtn,
-    borderColorCloseBtn,
-    dismiss,
   }) => (
     <div
       className={`flex flex-row items-center max-w-[25%] min-w-[250px] ${bgColor} ${borderColor} rounded-[8px] p-4`}
@@ -158,19 +153,11 @@ export const Notify = ({
           <p className={`${textColor} text-sm`}>{message}</p>
         </div>
       </div>
-      <div
-        onClick={() => {
-          dismiss();
-        }}
-        className={`flex flex-row w-auto items-center justify-center ${bgColorCloseBtn} ${borderColorCloseBtn} h-8 p-2 rounded-[4px] cursor-pointer`}
-      >
-        <p className={`text-sm ${textColorCloseBtn}`}>close</p>
-      </div>
     </div>
   );
 
   toast.custom(
-    (t) => (
+    () => (
       <CustomToast
         message={message}
         iconSrc={iconSrc}
@@ -179,9 +166,6 @@ export const Notify = ({
         bgColorCloseBtn={bgColorCloseBtn}
         textColorCloseBtn={textColorCloseBtn}
         borderColorCloseBtn={borderColorCloseBtn}
-        dismiss={() => {
-          toast.dismiss(t.id);
-        }}
       />
     ),
     {
