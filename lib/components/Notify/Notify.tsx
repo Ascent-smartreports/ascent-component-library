@@ -155,7 +155,7 @@ export const Notify = ({
       <div className="flex flex-row items-center flex-grow">
         <img src={iconSrc} alt="Custom Icon" className="w-5 h-5 mr-4" />
         <div className="justify-start">
-          <p className={`${textColor} text-md`}>{message}</p>
+          <p className={`${textColor} text-sm`}>{message}</p>
         </div>
       </div>
       <div
@@ -164,7 +164,7 @@ export const Notify = ({
         }}
         className={`flex flex-row w-auto items-center justify-center ${bgColorCloseBtn} ${borderColorCloseBtn} h-8 p-2 rounded-[4px] cursor-pointer`}
       >
-        <p className={`text-md ${textColorCloseBtn}`}>close</p>
+        <p className={`text-sm ${textColorCloseBtn}`}>close</p>
       </div>
     </div>
   );
