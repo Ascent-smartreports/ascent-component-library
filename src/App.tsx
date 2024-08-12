@@ -43,14 +43,24 @@ function App() {
 
   const initialValues = {
     name: "",
-    topic: [],
+    topic: { label: "HTML", value: "html" },
+    topic2: [{ label: "HTML", value: "html" }],
     description: "",
     date: null,
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
     description: Yup.string().required("description is required"),
-    topic: Yup.array()
+    topic:
+      // Yup.array()
+      // .of(
+      Yup.object().shape({
+        label: Yup.string().required(),
+        value: Yup.string().required(),
+      }),
+    //   )
+    // .min(1, "Topics must be selected")
+    topic2: Yup.array()
       .of(
         Yup.object().shape({
           label: Yup.string().required(),
@@ -345,7 +355,8 @@ function App() {
                     field={field}
                     error={formik.errors.topic}
                     validationSchema={validationSchema}
-                    isMulti
+                    isMulti={false}
+                    defaultValue={{ label: "HTML", value: "html" }}
                   />
                 )}
               </Field>
@@ -401,7 +412,7 @@ function App() {
                   />
                 )}
               </Field>
-              <Field name={"topic"}>
+              <Field name={"topic2"}>
                 {({ field, form }: FieldProps) => (
                   <DropDown
                     testId="topic"
@@ -415,6 +426,7 @@ function App() {
                     error={formik.errors.topic}
                     validationSchema={validationSchema}
                     isMulti
+                    defaultValue={[{ label: "HTML", value: "html" }]}
                   />
                 )}
               </Field>
