@@ -38,7 +38,7 @@ interface dropdownProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   isMulti?: boolean;
-  defaultValue?: Option[];
+  defaultValue?: Option | Option[];
   testId: string;
 }
 
@@ -62,7 +62,8 @@ export const DropDown: React.FC<dropdownProps> = ({
     if (defaultValue) {
       form.setFieldValue(field.name, defaultValue);
     }
-  }, [defaultValue, field.name, form]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChange = (newValue: MultiValue<Option> | SingleValue<Option>) => {
     if (!disabled) {
