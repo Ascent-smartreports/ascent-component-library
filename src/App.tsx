@@ -5,6 +5,7 @@ import { AiFillAlipayCircle } from "react-icons/ai";
 import { FormikDateField } from "../lib/components/DatePicker";
 import { ToastContainer } from "react-toastify";
 import { MdOutlineEmail } from "react-icons/md";
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const groupRadioData = [
   { label: "Male", value: "male" },
@@ -28,6 +29,7 @@ import {
   TextAreaInput,
   CustomCheckbox,
 } from "../lib/main";
+import { Toaster } from "react-hot-toast";
 import AccordionMenu from "./components/AccordianMenu";
 // import { menu, subMenu } from "./components/menu";
 // import { modifiedData } from "./components/responseObject";
@@ -249,6 +251,7 @@ function App() {
           <AccordionMenu menu={menuTreeArray2} setResponse={setResponse} />
         </Card>
       </div>
+      <Toaster />
       <Card>
         <>
           {/* <div>
@@ -492,7 +495,8 @@ function App() {
             // isDisabled={true}
             onClick={() => {
               Notify({
-                message: "This item has been deleted ",
+                message:
+                  "This item has been deleted This item has been deleted This item has been deletedThis item has been deleted This item has been deleted",
                 type: "ERROR",
                 toastType: "solid",
               });
@@ -506,9 +510,11 @@ function App() {
             // isDisabled={true}
             onClick={() => {
               Notify({
-                message: "This item has been deleted ",
+                message:
+                  "This item has been deleted This item has been deleted This item has been deleted",
                 type: "ERROR",
                 toastType: "solid",
+                duration: 500,
               });
               openModal();
             }}
