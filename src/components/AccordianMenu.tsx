@@ -132,7 +132,7 @@ const AccordionMenu3: React.FC<AccordionProps> = ({ menu, setResponse }) => {
       const currentPath = [...path, key];
 
       return (
-        <div key={key} className="flex flex-col w-full">
+        <div key={key} className="flex flex-col w-full mt-3">
           <div className="cursor-pointer flex items-center gap-2">
             {!isObjectEmpty(menuItem?.subMenu) ? (
               <div
@@ -142,7 +142,7 @@ const AccordionMenu3: React.FC<AccordionProps> = ({ menu, setResponse }) => {
                 <img
                   src={DownArrow}
                   alt={menuItem.isAccordianOpen ? "down arrow" : "right arrow"}
-                  className="h-3 w-3"
+                  className="h-[10px] w-[10px]"
                   style={{
                     transform: menuItem.isAccordianOpen
                       ? "rotate(0deg)"
@@ -151,7 +151,7 @@ const AccordionMenu3: React.FC<AccordionProps> = ({ menu, setResponse }) => {
                 />
               </div>
             ) : (
-              <div className="flex items-center h-3 w-3 mx-1" />
+              <div className="flex items-center h-[10px] w-[10px]" />
             )}
             <CustomCheckbox
               isChecked={menuItem.isChecked}
@@ -160,7 +160,11 @@ const AccordionMenu3: React.FC<AccordionProps> = ({ menu, setResponse }) => {
                 handleMenuClick(currentPath, isSelected)
               }
             />
-            <Label>{menuItem.label}</Label>
+            <div onClick={() => toggleAccordion(currentPath)}>
+              <Label className="text-md text-textDarkGray">
+                {menuItem.label}
+              </Label>
+            </div>
           </div>
           {menuItem.isAccordianOpen &&
             menuItem.subMenu &&

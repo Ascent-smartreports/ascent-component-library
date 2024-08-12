@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import WHiteTick from "../../lib/assets/images/whiteTick2.svg";
 
 const INPUT_STATES = {
   CHECKED: "checked",
@@ -28,7 +29,6 @@ const CustomCheckbox = ({
 
   useEffect(() => {
     setInputState(getCurrentState());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isChecked, isAtleastOneSubMenuSelected]);
 
   const handleClick = () => {
@@ -43,20 +43,31 @@ const CustomCheckbox = ({
   return (
     <div
       onClick={handleClick}
-      className={`w-4 h-4 border cursor-pointer flex items-center justify-center
-        ${inputState === INPUT_STATES.CHECKED ? "bg-blue-500" : "bg-backgroundLight"}
+      className={`w-5 h-5 border cursor-pointer flex items-center justify-center
+        ${inputState === INPUT_STATES.CHECKED ? "bg-[#1E2A54]" : inputState === INPUT_STATES.UNCHECKED_BLACK ? "bg-white border-[#1E2A54]" : "bg-white"}
       `}
       style={{
-        borderRadius: "4px",
-        borderColor: "#ccc",
-        borderWidth: "2px",
+        borderRadius: "5px",
+        borderColor:
+          inputState === INPUT_STATES.CHECKED ||
+          inputState === INPUT_STATES.UNCHECKED_BLACK
+            ? "#1E2A54"
+            : "#C3C7D1",
+        borderWidth: "1px",
       }}
     >
       {inputState === INPUT_STATES.CHECKED && (
-        <span className="text-white">&#10003;</span>
+        <img
+          src={WHiteTick}
+          alt="Checked"
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        />
       )}
       {inputState === INPUT_STATES.UNCHECKED_BLACK && (
-        <div className="w-2 h-2 bg-textLightDark" />
+        <div className="w-[10px] h-[10px] bg-backgroundTheme" />
       )}
     </div>
   );
