@@ -94,7 +94,6 @@ describe("DropdownField component", () => {
                 },
                 { label: "React JS", value: "React" },
               ]}
-              defaultValue={[{ label: "React JS", value: "React" }]}
             />
           )}
         </Field>
