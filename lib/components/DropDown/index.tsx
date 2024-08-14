@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Select, { MultiValue, SingleValue } from "react-select";
 import makeAnimated from "react-select/animated";
 import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
-// import { useFormikContext } from "formik";
 import styles from "../../assets/dropdown.module.scss";
 import { Label, Paragraph } from "../Texts";
 export interface Option {
@@ -38,7 +37,6 @@ interface dropdownProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   isMulti?: boolean;
-  defaultValue?: Option | Option[];
   testId: string;
 }
 
@@ -52,18 +50,16 @@ export const DropDown: React.FC<dropdownProps> = ({
   label,
   error,
   isMulti,
-  defaultValue,
   form,
   disabled,
   testId,
   className,
 }) => {
+  const [defaultValue, setDefaultValue] = useState(field.value);
+
   useEffect(() => {
-    if (defaultValue) {
-      form.setFieldValue(field.name, defaultValue);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setDefaultValue(field.value);
+  }, [field.value]);
 
   const handleChange = (newValue: MultiValue<Option> | SingleValue<Option>) => {
     if (!disabled) {
@@ -74,45 +70,47 @@ export const DropDown: React.FC<dropdownProps> = ({
   };
 
   const customStyles = {
-    control: (provided: AnyObject, state: { isFocused: boolean }) => ({
+    control: (provided: any, state: { isFocused: boolean }) => ({
       ...provided,
       borderColor: state.isFocused ? "#E4E5E9" : "#dfe1e5",
       fontSize: 16,
       padding: "6px 7px",
       textColor: "green",
     }),
-    option: (_: AnyObject, state: { isFocused: boolean }) => ({
+    option: (provided: any, state: { isFocused: boolean }) => ({
+      ...provided,
       backgroundColor: state.isFocused ? "#21294C" : "#FFFFFF",
       color: state.isFocused ? "#FFFFFF" : "#21294C",
       fontSize: 16,
       padding: 10,
       cursor: "pointer",
     }),
-    placeholder: (provided: AnyObject) => ({
+    placeholder: (provided: any) => ({
       ...provided,
       color: "#8D91A3",
     }),
-    menu: (provided: AnyObject) => ({
+    menu: (provided: any) => ({
       ...provided,
       marginTop: 10,
       borderRadius: 4,
       boxShadow: "0 4px 11px rgba(0, 0, 0, 0.1)",
     }),
-    multiValue: (provided: AnyObject) => ({
+    multiValue: (provided: any) => ({
       ...provided,
       backgroundColor: "#E0E0E0",
       borderRadius: 4,
       padding: "2px 5px",
     }),
-    multiValueLabel: (provided: AnyObject) => ({
+    multiValueLabel: (provided: any) => ({
       ...provided,
       color: "#21294C",
     }),
-    multiValueRemove: () => ({
+    multiValueRemove: (provided: any) => ({
+      ...provided,
       color: "#666666",
       cursor: "pointer",
       "&:hover": {
-        color: "#FF0000",
+        color: "#4A90E2",
       },
     }),
   };
@@ -137,8 +135,8 @@ export const DropDown: React.FC<dropdownProps> = ({
         data-testid={testId}
         styles={customStyles}
         placeholder={placeholder ? placeholder : `Enter ${label}`}
-        defaultValue={defaultValue}
         onChange={handleChange}
+        value={defaultValue as Option | Option[]}
       />
       <div className="my-2 h-8">
         {error && <Paragraph type="error">{error}</Paragraph>}
