@@ -53,7 +53,6 @@ export const DefaultValueDropdown: Story = {
     options: data,
     error: "Select a valid topic",
     validationSchema: validationSchema,
-    defaultValue: data,
     isMulti: true,
     form: {
       setFieldTouched: () => {},

@@ -46,7 +46,7 @@ import { response2 } from "./components/roleResponseObj";
 interface InitialValues {
   name: string;
   topic: Yup.AnyObject | undefined;
-  topic2: Yup.AnyObject[];
+  topic2: Yup.AnyObject[] | undefined;
   description: string;
   date: string | null;
 }
@@ -59,7 +59,7 @@ function App() {
     name: "",
     topic: undefined,
     // topic: { label: "HTML", value: "html" },
-    topic2: [{ label: "HTML", value: "html" }],
+    topic2: undefined,
     description: "",
     date: null,
   };
@@ -68,6 +68,10 @@ function App() {
     setTimeout(() => {
       // setState({ label: "HTML", value: "html" });
       formik.setFieldValue("topic", { label: "HTML", value: "html" });
+      formik.setFieldValue("topic2", [
+        { label: "HTML", value: "html" },
+        { label: "JavaScript", value: "js" },
+      ]);
     }, 5000);
   }, []);
 
@@ -446,7 +450,6 @@ function App() {
                     error={formik.errors.topic}
                     validationSchema={validationSchema}
                     isMulti
-                    defaultValue={[{ label: "HTML", value: "html" }]}
                   />
                 )}
               </Field>
