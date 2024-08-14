@@ -23,10 +23,6 @@ interface CustomToastProps {
   iconSrc: string;
   bgColor: string;
   textColor: string;
-  bgColorCloseBtn: string;
-  textColorCloseBtn: string;
-  borderColorCloseBtn: string;
-  dismiss: () => void;
 }
 
 export const Notify = ({
@@ -53,15 +49,6 @@ export const Notify = ({
             toastType === "solid"
               ? ""
               : "border-[1px] border-backgroundDarkGreen",
-          borderColorCloseBtn: toastType === "solid" ? "border-[1px]" : "",
-          bgColorCloseBtn:
-            toastType === "solid"
-              ? "bg-backgroundLight"
-              : "bg-backgroundDarkGreen",
-          textColorCloseBtn:
-            toastType === "solid"
-              ? "text-backgroundTheme"
-              : "text-backgroundLight",
         };
       case "ERROR":
         return {
@@ -78,15 +65,6 @@ export const Notify = ({
             toastType === "solid"
               ? ""
               : "border-[1px] border-backgroundDarkRed",
-          borderColorCloseBtn: toastType === "solid" ? "border-[1px]" : "",
-          bgColorCloseBtn:
-            toastType === "solid"
-              ? "bg-backgroundLight"
-              : "bg-backgroundDarkRed",
-          textColorCloseBtn:
-            toastType === "solid"
-              ? "text-backgroundTheme"
-              : "text-backgroundLight",
         };
       case "WARNING":
         return {
@@ -103,47 +81,23 @@ export const Notify = ({
             toastType === "solid"
               ? ""
               : "border-[1px] border-backgroundDarkYellow",
-          borderColorCloseBtn: toastType === "solid" ? "border-[1px]" : "",
-          bgColorCloseBtn:
-            toastType === "solid"
-              ? "bg-backgroundLight"
-              : "bg-backgroundDarkYellow",
-          textColorCloseBtn:
-            toastType === "solid"
-              ? "text-backgroundTheme"
-              : "text-backgroundLight",
         };
       default:
         return {
           iconSrc: "",
           bgColor: "",
           textColor: "",
-          bgColorCloseBtn: "",
-          textColorCloseBtn: "",
-          borderColorCloseBtn: "",
         };
     }
   };
 
-  const {
-    iconSrc,
-    bgColor,
-    textColor,
-    borderColor,
-    bgColorCloseBtn,
-    textColorCloseBtn,
-    borderColorCloseBtn,
-  } = getIconAndStyles();
+  const { iconSrc, bgColor, textColor, borderColor } = getIconAndStyles();
 
   const CustomToast: FC<CustomToastProps> = ({
     message,
     iconSrc,
     bgColor,
     textColor,
-    bgColorCloseBtn,
-    textColorCloseBtn,
-    borderColorCloseBtn,
-    dismiss,
   }) => (
     <div
       className={`flex flex-row items-center max-w-[25%] min-w-[250px] ${bgColor} ${borderColor} rounded-[8px] p-4`}
@@ -155,33 +109,19 @@ export const Notify = ({
       <div className="flex flex-row items-center flex-grow">
         <img src={iconSrc} alt="Custom Icon" className="w-5 h-5 mr-4" />
         <div className="justify-start">
-          <p className={`${textColor} text-sm`}>{message}</p>
+          <p className={`${textColor} text-lg`}>{message}</p>
         </div>
-      </div>
-      <div
-        onClick={() => {
-          dismiss();
-        }}
-        className={`flex flex-row w-auto items-center justify-center ${bgColorCloseBtn} ${borderColorCloseBtn} h-8 p-2 rounded-[4px] cursor-pointer`}
-      >
-        <p className={`text-sm ${textColorCloseBtn}`}>close</p>
       </div>
     </div>
   );
 
   toast.custom(
-    (t) => (
+    () => (
       <CustomToast
         message={message}
         iconSrc={iconSrc}
         bgColor={bgColor}
         textColor={textColor}
-        bgColorCloseBtn={bgColorCloseBtn}
-        textColorCloseBtn={textColorCloseBtn}
-        borderColorCloseBtn={borderColorCloseBtn}
-        dismiss={() => {
-          toast.dismiss(t.id);
-        }}
       />
     ),
     {

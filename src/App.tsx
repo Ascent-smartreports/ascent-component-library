@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
-import { Field, FieldProps, FormikProvider, useFormik } from "formik";
+import {
+  Field,
+  FieldProps,
+  FormikConfig,
+  FormikProvider,
+  FormikValues,
+  useFormik,
+} from "formik";
 import * as Yup from "yup";
 import { AiFillAlipayCircle } from "react-icons/ai";
 import { FormikDateField } from "../lib/components/DatePicker";
-import { ToastContainer } from "react-toastify";
 import { MdOutlineEmail } from "react-icons/md";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -37,29 +43,41 @@ import AccordionMenu from "./components/AccordianMenu";
 import { buildMenuTree } from "./components/roleResponseObj";
 import { response as res } from "./components/responseObject";
 import { response2 } from "./components/roleResponseObj";
-
+interface InitialValues {
+  name: string;
+  topic: Yup.AnyObject | undefined;
+  topic2: Yup.AnyObject[];
+  description: string;
+  date: string | null;
+}
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkboxState, setCheckBoxState] = useState<string>("unselected");
-
-  const initialValues = {
+  // const [state, setState] = useState<{ label: string; value: string }>();
+  const initialValues: InitialValues = {
     name: "",
-    topic: { label: "HTML", value: "html" },
+    topic: undefined,
+    // topic: { label: "HTML", value: "html" },
     topic2: [{ label: "HTML", value: "html" }],
     description: "",
     date: null,
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      // setState({ label: "HTML", value: "html" });
+      formik.setFieldValue("topic", { label: "HTML", value: "html" });
+    }, 5000);
+  }, []);
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
     description: Yup.string().required("description is required"),
     topic:
       // Yup.array()
       // .of(
-      Yup.object().shape({
-        label: Yup.string().required(),
-        value: Yup.string().required(),
-      }),
+      Yup.object(),
     //   )
     // .min(1, "Topics must be selected")
     topic2: Yup.array()
@@ -252,6 +270,7 @@ function App() {
         </Card>
       </div>
       <Toaster />
+      <Toaster />
       <Card>
         <>
           {/* <div>
@@ -325,7 +344,6 @@ function App() {
             totalRows={55}
             paginationTableRowsPerPageOptions={[5, 10, 15, 20]}
           />
-          <ToastContainer />
           <FormikProvider value={formik}>
             <div className="flex gap-x-1">
               <Field name={"name"}>
@@ -359,7 +377,6 @@ function App() {
                     error={formik.errors.topic}
                     validationSchema={validationSchema}
                     isMulti={false}
-                    defaultValue={{ label: "HTML", value: "html" }}
                   />
                 )}
               </Field>

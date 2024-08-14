@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Select, { MultiValue, SingleValue } from "react-select";
 import makeAnimated from "react-select/animated";
 import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
-// import { useFormikContext } from "formik";
 import styles from "../../assets/dropdown.module.scss";
 import { Label, Paragraph } from "../Texts";
 export interface Option {
@@ -38,7 +37,6 @@ interface dropdownProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   isMulti?: boolean;
-  defaultValue?: Option | Option[];
   testId: string;
 }
 
@@ -52,18 +50,16 @@ export const DropDown: React.FC<dropdownProps> = ({
   label,
   error,
   isMulti,
-  defaultValue,
   form,
   disabled,
   testId,
   className,
 }) => {
+  const [defaultValue, setDefaultValue] = useState(field.value);
+
   useEffect(() => {
-    if (defaultValue) {
-      form.setFieldValue(field.name, defaultValue);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setDefaultValue(field.value);
+  }, [field.value]);
 
   const handleChange = (newValue: MultiValue<Option> | SingleValue<Option>) => {
     if (!disabled) {
@@ -139,8 +135,8 @@ export const DropDown: React.FC<dropdownProps> = ({
         data-testid={testId}
         styles={customStyles}
         placeholder={placeholder ? placeholder : `Enter ${label}`}
-        defaultValue={defaultValue}
         onChange={handleChange}
+        value={defaultValue as Option | Option[]}
       />
       <div className="my-2 h-8">
         {error && <Paragraph type="error">{error}</Paragraph>}
