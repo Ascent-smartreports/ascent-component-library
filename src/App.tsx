@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Field,
-  FieldProps,
-  FormikConfig,
-  FormikProvider,
-  FormikValues,
-  useFormik,
-} from "formik";
+import { Field, FieldProps, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { AiFillAlipayCircle } from "react-icons/ai";
 import { FormikDateField } from "../lib/components/DatePicker";
@@ -73,6 +66,7 @@ function App() {
         { label: "JavaScript", value: "js" },
       ]);
     }, 5000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const validationSchema = Yup.object().shape({
