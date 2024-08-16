@@ -73,8 +73,10 @@ export const InputField: React.FC<InputProps> = ({
     field.onChange(e);
   };
 
+  const finalClassName = twMerge("h-24", className);
+
   return (
-    <div className={className || "my-4"}>
+    <div className={finalClassName}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
@@ -115,7 +117,7 @@ export const InputField: React.FC<InputProps> = ({
           <div className={styles.rightIcon}>{rightIcon}</div>
         ) : null}
       </div>
-      <div className="my-2 h-8">
+      <div className="my-2">
         {error && <Paragraph type="error">{error}</Paragraph>}
       </div>
     </div>

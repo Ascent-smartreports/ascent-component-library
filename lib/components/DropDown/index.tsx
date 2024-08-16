@@ -6,6 +6,7 @@ import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/dropdown.module.scss";
 import { Label, Paragraph } from "../Texts";
+import { twMerge } from "tailwind-merge";
 export interface Option {
   label: string;
   value: string;
@@ -53,7 +54,7 @@ export const DropDown: React.FC<dropdownProps> = ({
   form,
   disabled,
   testId,
-  className,
+  className = "",
 }) => {
   const [defaultValue, setDefaultValue] = useState(field.value);
 
@@ -114,9 +115,9 @@ export const DropDown: React.FC<dropdownProps> = ({
       },
     }),
   };
-
+  const finalClassName = twMerge("h-24", className);
   return (
-    <div className={className || "my-4"}>
+    <div className={finalClassName}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}
@@ -138,7 +139,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         onChange={handleChange}
         value={defaultValue as Option | Option[]}
       />
-      <div className="my-2 h-8">
+      <div className="my-2">
         {error && <Paragraph type="error">{error}</Paragraph>}
       </div>
     </div>

@@ -7,6 +7,7 @@ import "../../assets/datePickers.css";
 import CalendarIcon from "../../assets/images/calendar.png";
 import moment from "moment";
 import { Label, Paragraph } from "../Texts";
+import { twMerge } from "tailwind-merge";
 interface formikDateProps {
   name: string;
   error: string | undefined;
@@ -70,15 +71,17 @@ export const FormikDateField: React.FC<formikDateProps> = ({
   field,
   form,
   testId,
-  className,
+  className = "",
   handleOnChange,
 }) => {
   const selectedDate = field.value
     ? moment(field.value, dateFormat).toDate()
     : null;
 
+  const finalClassName = twMerge("h-24", className);
+
   return (
-    <div className={className || "my-4"}>
+    <div className={finalClassName}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
@@ -101,7 +104,7 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
         className="rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%]"
       />
-      <div className="my-2 h-8">
+      <div className="my-2">
         {error && <Paragraph type="error">{error}</Paragraph>}
       </div>
     </div>

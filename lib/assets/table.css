@@ -14,8 +14,17 @@
   align-items: center;
 }
 .rdt_TableHeadRow {
-  background-color: green;
+  background-color: #f8f9fa !important;
   font-weight: 600;
   font-size: 14px;
   color: #464a53;
+}
+.rdt_TableRow:nth-child(odd) {
+  background-color: #ffffff;
+}
+.rdt_TableRow:nth-child(even) {
+  background-color: #f8f9fa;
+}
+.rdt_TableRow:last-child {
+  border-bottom-width: 0 !important;
 }

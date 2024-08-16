@@ -15,13 +15,12 @@ export const Button: React.FC<buttonProps> = ({
   label,
   onClick,
   buttonType,
-  customStyle,
+  customStyle = "",
   isDisabled,
   type,
   testId,
   icon,
 }) => {
-  const customClasses = customStyle ? `${customStyle} ` : "";
   let buttonTypeClasses =
     buttonType === "outlined"
       ? isDisabled
@@ -38,7 +37,7 @@ export const Button: React.FC<buttonProps> = ({
 
   const finalCustomButtonClass = twMerge(
     `${styles.button} ${buttonTypeClasses}`,
-    customClasses
+    customStyle
   );
 
   return (
