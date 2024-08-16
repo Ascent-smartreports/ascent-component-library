@@ -1,43 +1,30 @@
-/* Set the table border color and width */
 .rdt_Table {
   border-color: #0000000d;
   border-width: 0.15rem;
 }
-
-/* Center the content of table columns */
 .rdt_TableCol {
   justify-content: center;
 }
-
-/* Set the text color and center content in table cells */
 .rdt_TableCell {
   color: #464a53;
   justify-content: center;
 }
-
-/* Center and align the content of sortable columns */
 .rdt_TableCol_Sortable {
   justify-content: center;
   align-items: center;
 }
-
-/* Style the header row with a light grey background and adjust text styles */
 .rdt_TableHeadRow {
-  background-color: #f8f9fa !important; /* Light grey color for the header */
+  background-color: #f8f9fa !important;
   font-weight: 600;
   font-size: 14px;
   color: #464a53;
 }
-
-/* Alternate row colors starting with white */
 .rdt_TableRow:nth-child(odd) {
-  background-color: #ffffff; /* White for odd rows */
+  background-color: #ffffff;
 }
-
 .rdt_TableRow:nth-child(even) {
-  background-color: #f8f9fa; /* Slightly grey for even rows */
+  background-color: #f8f9fa;
 }
-
 .rdt_TableRow:last-child {
   border-bottom-width: 0 !important;
 }
