@@ -20,7 +20,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
   disabled = false,
 }) => {
   return (
-    <div className="flex flex-col items-start justify-start align-bottom m-4 gap-y-2">
+    <div className="flex flex-col items-start justify-start h-24">
       <div className="flex justify-start">
         <Label>{label}</Label>
       </div>

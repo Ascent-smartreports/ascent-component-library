@@ -74,7 +74,7 @@ export const InputField: React.FC<InputProps> = ({
   };
 
   return (
-    <div className={className || "my-4"}>
+    <div className={`${className} h-24`}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
@@ -115,7 +115,7 @@ export const InputField: React.FC<InputProps> = ({
           <div className={styles.rightIcon}>{rightIcon}</div>
         ) : null}
       </div>
-      <div className="my-2 h-8">
+      <div className="my-2">
         {error && <Paragraph type="error">{error}</Paragraph>}
       </div>
     </div>

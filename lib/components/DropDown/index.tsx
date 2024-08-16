@@ -116,7 +116,7 @@ export const DropDown: React.FC<dropdownProps> = ({
   };
 
   return (
-    <div className={className || "my-4"}>
+    <div className={`${className} h-24`}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}
@@ -138,7 +138,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         onChange={handleChange}
         value={defaultValue as Option | Option[]}
       />
-      <div className="my-2 h-8">
+      <div className="my-2">
         {error && <Paragraph type="error">{error}</Paragraph>}
       </div>
     </div>
