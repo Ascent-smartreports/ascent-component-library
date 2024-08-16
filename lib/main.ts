@@ -5,7 +5,7 @@ import { FormikDateField } from "./components/DatePicker";
 import { DropDown } from "./components/DropDown";
 import { GroupRadio } from "./components/GroupRadio";
 import { Modal } from "./components/Modal/Modal";
-import { Notify } from "./components/Notify/Notify";
+import { Notify,NotifyError,NotifySuccess,NotifyWarning } from "./components/Notify/Notify";
 import { Table } from "./components/Table";
 import { InputField } from "./components/Input";
 import { CustomCheckbox } from "./components/Checkbox";
@@ -24,6 +24,9 @@ export {
   GroupRadio,
   Modal,
   Notify,
+  NotifyError,
+  NotifySuccess,
+  NotifyWarning,
   Table,
   CustomCheckbox,
   TextAreaInput,
