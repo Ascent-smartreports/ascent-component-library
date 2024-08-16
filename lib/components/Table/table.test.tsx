@@ -37,6 +37,6 @@ const columns = [
 ];
 describe("Button component", () => {
   it("renders with the correct label", () => {
-    render(<Table data={data} columns={columns} />);
+    render(<Table data={data} columns={columns} totalRows={10} />);
   });
 });
