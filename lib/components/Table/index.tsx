@@ -7,7 +7,7 @@ interface TableProps {
   data: any[];
   columns: any;
   searchText?: string;
-  totalRows?: number;
+  totalRows: number;
   defaultRowsPerPage?: number;
   handleTablePageChange?: (page: number) => void;
   handleTableRowsPerPageChange?: (newRowsPerPage: number, page: number) => void;
