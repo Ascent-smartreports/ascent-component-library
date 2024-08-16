@@ -73,8 +73,10 @@ export const InputField: React.FC<InputProps> = ({
     field.onChange(e);
   };
 
+  const finalClassName = twMerge("h-24", className);
+
   return (
-    <div className={`${className} h-24`}>
+    <div className={finalClassName}>
       <Label>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
