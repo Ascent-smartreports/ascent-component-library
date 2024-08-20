@@ -1,89 +1,108 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Label } from "../../lib/main";
 import DownArrow from "../../lib/assets/images/down-arrow.svg";
 import CustomCheckbox from "./CustomCheckbox";
 import { AnyObject } from "yup";
 
-interface AccordionProps {
-  menus: MenuItem[];
-  setResponse: Dispatch<SetStateAction<AnyObject[]>>;
-  menuKeys?: AnyObject;
+interface MenuKeys {
+  idKey: string;
+  menuNameKey: string;
 }
 
-interface MenuItem {
-  id: number;
-  menuName: string;
+type BaseMenuItem = {
   isSelected: boolean;
   isAtleastOneSubmenuSelected: boolean;
   isAccordianOpen: boolean;
-  children: MenuItem[];
+  children: BaseMenuItem[];
+};
+
+type MenuItem<K extends MenuKeys> = BaseMenuItem & {
+  [key in K["idKey"]]: number;
+} & {
+  [key in K["menuNameKey"]]: string;
+} & {
+  children: MenuItem<K>[];
+};
+
+interface AccordionProps<K extends MenuKeys> {
+  menus: MenuItem<K>[];
+  setResponse: Dispatch<SetStateAction<MenuItem<K>[]>>;
+  menuKeys: K;
 }
 
-const findSelectedMenu = (
-  items: MenuItem[],
-  path: number[]
-): MenuItem | null => {
-  let currentItem = items[path[0]];
-  for (let i = 1; i < path.length; i++) {
-    currentItem = currentItem.children[path[i]];
-    if (!currentItem) {
-      return null;
-    }
-  }
-  return currentItem;
-};
-
-const updateNestedState = (
-  items: MenuItem[],
-  path: number[],
-  value: Partial<MenuItem>
-): MenuItem[] => {
-  const [head, ...rest] = path;
-
-  return items.map((item, index) => {
-    if (index === head) {
-      if (rest.length > 0) {
-        return {
-          ...item,
-          children: updateNestedState(item.children, rest, value),
-        };
-      } else {
-        return { ...item, ...value };
-      }
-    } else {
-      return item;
-    }
-  });
-};
-
-const updateParentState = (state: MenuItem[], path: number[]): MenuItem[] => {
-  const parentPath = path.slice(0, -1);
-
-  if (parentPath.length === 0) return state;
-
-  const parent = findSelectedMenu(state, parentPath)!;
-
-  const isAtleastOneSubmenuSelected = parent.children.some(
-    (child: MenuItem) => child.isSelected || child.isAtleastOneSubmenuSelected
-  );
-  const areAllSiblingsChecked = parent.children.every(
-    (child: MenuItem) => child.isSelected
-  );
-
-  const updatedState = updateNestedState(state, parentPath, {
-    isSelected: areAllSiblingsChecked,
-    isAtleastOneSubmenuSelected,
-  });
-
-  return updateParentState(updatedState, parentPath);
-};
-
-const UpdatedAccordionMenu: React.FC<AccordionProps> = ({
+const UpdatedAccordionMenu = <K extends MenuKeys>({
   menus,
   setResponse,
-}) => {
-  const [menuState, setMenuState] = useState<MenuItem[]>(menus);
+  menuKeys,
+}: AccordionProps<K>) => {
+  const [menuState, setMenuState] = useState<MenuItem<K>[]>(menus);
+
+  useEffect(() => {
+    setResponse(menuState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuState]);
+
+  const findSelectedMenu = (
+    items: MenuItem<K>[],
+    path: number[]
+  ): MenuItem<K> | null => {
+    let currentItem = items[path[0]];
+    for (let i = 1; i < path.length; i++) {
+      currentItem = currentItem.children[path[i]];
+      if (!currentItem) {
+        return null;
+      }
+    }
+    return currentItem;
+  };
+
+  const updateNestedState = (
+    items: MenuItem<K>[],
+    path: number[],
+    value: AnyObject
+  ): MenuItem<K>[] => {
+    const [head, ...rest] = path;
+
+    return items.map((item, index) => {
+      if (index === head) {
+        if (rest.length > 0) {
+          return {
+            ...item,
+            children: updateNestedState(item.children, rest, value),
+          };
+        } else {
+          return { ...item, ...value };
+        }
+      } else {
+        return item;
+      }
+    });
+  };
+
+  const updateParentState = (
+    state: MenuItem<K>[],
+    path: number[]
+  ): MenuItem<K>[] => {
+    const parentPath = path.slice(0, -1);
+
+    if (parentPath.length === 0) return state;
+
+    const parent = findSelectedMenu(state, parentPath)!;
+
+    const isAtleastOneSubmenuSelected = parent.children.some(
+      (child) => child.isSelected || child.isAtleastOneSubmenuSelected
+    );
+    const areAllSiblingsChecked = parent.children.every(
+      (child) => child.isSelected
+    );
+
+    const updatedState = updateNestedState(state, parentPath, {
+      isSelected: areAllSiblingsChecked,
+      isAtleastOneSubmenuSelected,
+    });
+
+    return updateParentState(updatedState, parentPath);
+  };
 
   const toggleAccordion = (path: number[]) => {
     setMenuState((prevState) =>
@@ -109,17 +128,18 @@ const UpdatedAccordionMenu: React.FC<AccordionProps> = ({
       selectedMenu.children.map((_, key) => {
         handleMenuClick([...path, key], isSelected);
       });
-    } else {
-      setResponse(menuState);
     }
   };
 
-  const renderMenuItems = (items: MenuItem[], path: number[] = []) =>
+  const renderMenuItems = (items: MenuItem<K>[], path: number[] = []) =>
     items.map((menuItem, index) => {
       const currentPath = [...path, index];
 
       return (
-        <div key={menuItem.id} className="flex flex-col w-full mt-3">
+        <div
+          key={menuItem[menuKeys.idKey as keyof MenuItem<K>]}
+          className="flex flex-col w-full mt-3"
+        >
           <div className="cursor-pointer flex items-center gap-2">
             {menuItem.children.length > 0 ? (
               <div
@@ -149,7 +169,7 @@ const UpdatedAccordionMenu: React.FC<AccordionProps> = ({
             />
             <div onClick={() => toggleAccordion(currentPath)}>
               <Label className="text-md text-textDarkGray">
-                {menuItem.menuName}
+                {menuItem[menuKeys.menuNameKey as keyof MenuItem<K>]}
               </Label>
             </div>
           </div>

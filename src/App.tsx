@@ -270,8 +270,10 @@ function App() {
         </Card>
         <Card className="my-10 p-10 bg-backgroundLight">
           <UpdatedAccordianMenu
-            menus={roleResponse}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            menus={roleResponse as any}
             setResponse={setResponse}
+            menuKeys={{ idKey: "id", menuNameKey: "menuName" }}
           />
         </Card>
       </div>
