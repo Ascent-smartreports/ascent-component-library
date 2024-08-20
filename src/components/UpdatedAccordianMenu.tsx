@@ -8,6 +8,7 @@ import { AnyObject } from "yup";
 interface AccordionProps {
   menus: MenuItem[];
   setResponse: Dispatch<SetStateAction<AnyObject[]>>;
+  menuKeys?: AnyObject;
 }
 
 interface MenuItem {
@@ -96,21 +97,16 @@ const UpdatedAccordionMenu: React.FC<AccordionProps> = ({
     const selectedMenu = findSelectedMenu(menuState, path);
 
     if (!selectedMenu) return;
-    // console.log(selectedMenu, "selectedMenu");
 
-    const updatedNestedState = updateNestedState(menuState, path, {
-      isSelected: isSelected,
-    });
-    console.log(updatedNestedState, "updatedNestedState");
-
-    const updatedStateWithParents = updateParentState(updatedNestedState, path);
-
-    setMenuState(updatedStateWithParents);
+    setMenuState((prevState) =>
+      updateNestedState(prevState, path, {
+        isSelected,
+      })
+    );
+    setMenuState((prevState) => updateParentState(prevState, path));
 
     if (selectedMenu.children.length > 0) {
       selectedMenu.children.map((_, key) => {
-        // console.log([...path, key], "key");
-
         handleMenuClick([...path, key], isSelected);
       });
     } else {
