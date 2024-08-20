@@ -2084,78 +2084,6 @@ export const buildMenuTree = (
   return menuTreeObject;
 };
 
-// const menu4 = [
-//   {
-//     menuId: 1,
-//     menuName: "Admin",
-//     parentId: 0,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 2,
-//     menuName: "User Management",
-//     parentId: 1,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 3,
-//     menuName: "Roles",
-//     parentId: 1,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 4,
-//     menuName: "Permissions",
-//     parentId: 2,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 5,
-//     menuName: "Edit User",
-//     parentId: 4,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 6,
-//     menuName: "Add User",
-//     parentId: 4,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 7,
-//     menuName: "Delete User",
-//     parentId: 4,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 8,
-//     menuName: "Edit Role",
-//     parentId: 3,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 9,
-//     menuName: "Add Role",
-//     parentId: 3,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-//   {
-//     menuId: 10,
-//     menuName: "Delete Role",
-//     parentId: 3,
-//     isCheckedId: false,
-//     expanded: true,
-//   },
-// ];
 export const menu3 = buildMenuTree(
   response2.data.rolePermissions,
   {
@@ -2185,3 +2113,43 @@ export const menu5 = buildMenuTree(
 // console.log(JSON.stringify(menu3, null, 5), "33333333333333");
 console.log(menu3, "33333333333333");
 console.log(menu5, "55555555555555");
+
+const rolePermissions = response2.data.rolePermissions;
+
+const createMenuTree = (items: AnyObject, parentId = 0) => {
+  return items
+    .filter((item: AnyObject) => item.parentId === parentId)
+    .map((item: AnyObject) => {
+      const children = createMenuTree(items, item.menuId);
+      console.log(children, "childresn", item, item.menuId);
+
+      return {
+        id: item.menuId,
+        menuName: item.menuName,
+        isSelected: item.isCheckedId,
+        isAtleastOneSubmenuSelected: children.some(
+          (child: AnyObject) =>
+            child.isSelected || child.isAtleastOneSubmenuSelected
+        ),
+        isAccordianOpen: item.expanded,
+        children: children,
+      };
+    });
+};
+
+export const roles = [
+  {
+    roleId: 1,
+    roleName: "Admin",
+    isSelected: false,
+    menus: createMenuTree(rolePermissions, 1),
+  },
+  {
+    roleId: 2,
+    roleName: "Client",
+    isSelected: false,
+    menus: createMenuTree(rolePermissions, 2),
+  },
+];
+
+console.log(roles);

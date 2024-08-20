@@ -36,6 +36,8 @@ import AccordionMenu from "./components/AccordianMenu";
 import { buildMenuTree } from "./components/roleResponseObj";
 import { response as res } from "./components/responseObject";
 import { response2 } from "./components/roleResponseObj";
+import UpdatedAccordianMenu from "./components/UpdatedAccordianMenu";
+import { roleResponse } from "./components/newResponseObj";
 interface InitialValues {
   name: string;
   topic: Yup.AnyObject | undefined;
@@ -265,6 +267,12 @@ function App() {
         </Card>
         <Card className="my-10 p-10 bg-backgroundLight">
           <AccordionMenu menu={menuTreeArray2} setResponse={setResponse} />
+        </Card>
+        <Card className="my-10 p-10 bg-backgroundLight">
+          <UpdatedAccordianMenu
+            menus={roleResponse}
+            setResponse={setResponse}
+          />
         </Card>
       </div>
       <Toaster />
