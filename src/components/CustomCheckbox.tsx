@@ -30,6 +30,7 @@ const CustomCheckbox = ({
 
   useEffect(() => {
     setInputState(getCurrentState());
+    console.log(isChecked, isAtleastOneSubMenuSelected, "trueeeeee");
   }, [isChecked, isAtleastOneSubMenuSelected]);
 
   const handleClick = () => {

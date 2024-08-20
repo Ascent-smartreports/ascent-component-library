@@ -33,25 +33,19 @@ const findSelectedMenu = (
   return currentItem;
 };
 
-const updateStateRecursively = (
+const updateNestedState = (
   items: MenuItem[],
   path: number[],
-  value: AnyObject
-  //   updateFunc: (item: MenuItem) => MenuItem
+  value: Partial<MenuItem>
 ): MenuItem[] => {
   const [head, ...rest] = path;
-  //   return path.length === 1?[...items]
+
   return items.map((item, index) => {
     if (index === head) {
       if (rest.length > 0) {
         return {
           ...item,
-          children: updateStateRecursively(
-            item.children,
-            rest,
-            value
-            // updateFunc
-          ),
+          children: updateNestedState(item.children, rest, value),
         };
       } else {
         return { ...item, ...value };
@@ -76,7 +70,7 @@ const updateParentState = (state: MenuItem[], path: number[]): MenuItem[] => {
     (child: MenuItem) => child.isSelected
   );
 
-  const updatedState = updateStateRecursively(state, path, {
+  const updatedState = updateNestedState(state, parentPath, {
     isSelected: areAllSiblingsChecked,
     isAtleastOneSubmenuSelected,
   });
@@ -92,83 +86,36 @@ const UpdatedAccordionMenu: React.FC<AccordionProps> = ({
 
   const toggleAccordion = (path: number[]) => {
     setMenuState((prevState) =>
-      updateStateRecursively(prevState, path, {
+      updateNestedState(prevState, path, {
         isAccordianOpen: !findSelectedMenu(prevState, path)?.isAccordianOpen,
       })
     );
   };
 
   const handleMenuClick = (path: number[], isSelected: boolean) => {
-    // Find the selected menu
     const selectedMenu = findSelectedMenu(menuState, path);
 
-    if (!selectedMenu) {
-      return;
-    }
-    // const selectChildren = (
-    //   items: MenuItem[],
-    //   selected: boolean
-    // ): MenuItem[] => {
-    //   return items.map((item) => ({
-    //     ...item,
-    //     isSelected: selected,
-    //     // isAtleastOneSubmenuSelected: selected,
-    //     children: selectChildren(item.children, selected),
-    //   }));
-    // };
+    if (!selectedMenu) return;
+    // console.log(selectedMenu, "selectedMenu");
 
-    // setMenuState((prevState) => selectChildren(prevState, isSelected));
+    const updatedNestedState = updateNestedState(menuState, path, {
+      isSelected: isSelected,
+    });
+    console.log(updatedNestedState, "updatedNestedState");
 
-    // const updatedMenuState = updateStateRecursively(
-    //   menuState,
-    //   path,
-    //   { isSelected }
-    //   //   (item) => ({
-    //   //     ...item,
-    //   //     isSelected,
-    //   //     children: selectChildren(item.children, isSelected),
-    //   //   })
-    // );
-    console.log(selectedMenu, isSelected);
+    const updatedStateWithParents = updateParentState(updatedNestedState, path);
 
-    setMenuState((prevState) =>
-      updateStateRecursively(prevState, path, { isSelected })
-    );
-    //   const updatedStateWithParents = updateParentState(updatedMenuState, path);
-    console.log(menuState, "PPPPP");
-
-    setMenuState((prevState) => updateParentState(prevState, path));
-    // setMenuState(updatedStateWithParents);
+    setMenuState(updatedStateWithParents);
 
     if (selectedMenu.children.length > 0) {
       selectedMenu.children.map((_, key) => {
+        // console.log([...path, key], "key");
+
         handleMenuClick([...path, key], isSelected);
       });
     } else {
       setResponse(menuState);
     }
-
-    // const collectLeafNodeIds = (items: MenuItem[]): number[] => {
-    //   return items.reduce<number[]>((acc, item) => {
-    //     if (item.children.length === 0 && item.isSelected) {
-    //       return [...acc, item.id];
-    //     }
-    //     return [...acc, ...collectLeafNodeIds(item.children)];
-    //   }, []);
-    // };
-
-    // const leafNodeIds = collectLeafNodeIds(updatedStateWithParents);
-
-    // setResponse((prevState) => {
-    //   if (isSelected) {
-    //     const newIds = leafNodeIds.filter(
-    //       (id) => !prevState.some((menu) => menu.id === id)
-    //     );
-    //     return [...prevState, ...newIds.map((id) => ({ id }))];
-    //   } else {
-    //     return prevState.filter((menu) => leafNodeIds.includes(menu.id));
-    //   }
-    // });
   };
 
   const renderMenuItems = (items: MenuItem[], path: number[] = []) =>
