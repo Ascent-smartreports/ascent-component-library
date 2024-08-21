@@ -36,8 +36,12 @@ import AccordionMenu from "./components/AccordianMenu";
 import { buildMenuTree } from "./components/roleResponseObj";
 import { response as res } from "./components/responseObject";
 import { response2 } from "./components/roleResponseObj";
-import UpdatedAccordianMenu from "./components/UpdatedAccordianMenu";
-import { roleResponse } from "./components/newResponseObj";
+import AccordionMenu2 from "./components/UpdatedAccordianMenu";
+// import { roleResponse } from "./components/newResponseObj";
+import {
+  roleResponseNew,
+  updateMenuState,
+} from "./components/updatedNewResponseObj";
 interface InitialValues {
   name: string;
   topic: Yup.AnyObject | undefined;
@@ -269,11 +273,20 @@ function App() {
           <AccordionMenu menu={menuTreeArray2} setResponse={setResponse} />
         </Card>
         <Card className="my-10 p-10 bg-backgroundLight">
-          <UpdatedAccordianMenu
+          <AccordionMenu2
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            menus={roleResponse as any}
+            menus={updateMenuState(roleResponseNew)}
             setResponse={setResponse}
-            menuKeys={{ idKey: "id", menuNameKey: "menuName" }}
+            menuKeys={{
+              idKeys: ["roleId", "menuId", "subMenuId", "permissionId"],
+              nameKeys: [
+                "roleName",
+                "menuName",
+                "subMenuName",
+                "permissionName",
+                "menuName",
+              ],
+            }}
           />
         </Card>
       </div>

@@ -1,12 +1,16 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Label } from "../../lib/main";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Label } from "ascent-component-library";
 import DownArrow from "../../lib/assets/images/down-arrow.svg";
 import CustomCheckbox from "./CustomCheckbox";
 import { AnyObject } from "yup";
 
 interface MenuKeys {
-  idKey: string;
-  menuNameKey: string;
+  idKeys: string[];
+  nameKeys: string[];
 }
 
 type BaseMenuItem = {
@@ -16,31 +20,55 @@ type BaseMenuItem = {
   children: BaseMenuItem[];
 };
 
+type ResponseBaseMenuItem = {
+  isSelected: boolean;
+  children: ResponseBaseMenuItem[];
+};
+
 type MenuItem<K extends MenuKeys> = BaseMenuItem & {
-  [key in K["idKey"]]: number;
-} & {
-  [key in K["menuNameKey"]]: string;
-} & {
+  [key: string]: any;
   children: MenuItem<K>[];
+};
+
+type ResponseMenuItem<K extends MenuKeys> = ResponseBaseMenuItem & {
+  [key: string]: any;
+  children: ResponseMenuItem<K>[];
 };
 
 interface AccordionProps<K extends MenuKeys> {
   menus: MenuItem<K>[];
-  setResponse: Dispatch<SetStateAction<MenuItem<K>[]>>;
+  setResponse: Dispatch<SetStateAction<ResponseMenuItem<K>[]>>;
   menuKeys: K;
 }
 
-const UpdatedAccordionMenu = <K extends MenuKeys>({
+const getDynamicKey = (item: AnyObject, keys: string[]): string | undefined => {
+  return keys.find((key) => Object.prototype.hasOwnProperty.call(item, key));
+};
+
+const AccordionMenu = <K extends MenuKeys>({
   menus,
   setResponse,
   menuKeys,
-}: AccordionProps<K>) => {
+}: AccordionProps<K>): React.JSX.Element => {
   const [menuState, setMenuState] = useState<MenuItem<K>[]>(menus);
 
   useEffect(() => {
-    setResponse(menuState);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const updatedResponse = removeProperties(menuState);
+    setResponse(updatedResponse);
   }, [menuState]);
+
+  const removeProperties = (menus: MenuItem<K>[]): ResponseMenuItem<K>[] => {
+    return menus.map((menu) => {
+      const { isAtleastOneSubmenuSelected, isAccordianOpen, ...rest } = menu;
+
+      const updatedChildren = removeProperties(menu.children || []);
+
+      return {
+        ...rest,
+        children: updatedChildren,
+      };
+    });
+  };
 
   const findSelectedMenu = (
     items: MenuItem<K>[],
@@ -134,11 +162,12 @@ const UpdatedAccordionMenu = <K extends MenuKeys>({
   const renderMenuItems = (items: MenuItem<K>[], path: number[] = []) =>
     items.map((menuItem, index) => {
       const currentPath = [...path, index];
+      const nameKey = getDynamicKey(menuItem, menuKeys.nameKeys);
 
       return (
         <div
-          key={menuItem[menuKeys.idKey as keyof MenuItem<K>]}
-          className="flex flex-col w-full mt-3"
+          key={menuItem[nameKey as keyof MenuItem<K>]}
+          className="flex flex-col w-full mt-3 pl-7"
         >
           <div className="cursor-pointer flex items-center gap-2">
             {menuItem.children.length > 0 ? (
@@ -163,21 +192,19 @@ const UpdatedAccordionMenu = <K extends MenuKeys>({
             <CustomCheckbox
               isChecked={menuItem.isSelected}
               isAtleastOneSubMenuSelected={menuItem.isAtleastOneSubmenuSelected}
-              onChange={(isSelected) =>
+              onChange={(isSelected: boolean) =>
                 handleMenuClick(currentPath, isSelected)
               }
             />
             <div onClick={() => toggleAccordion(currentPath)}>
               <Label className="text-md text-textDarkGray">
-                {menuItem[menuKeys.menuNameKey as keyof MenuItem<K>]}
+                {menuItem[nameKey as keyof MenuItem<K>]}
               </Label>
             </div>
           </div>
-          {menuItem.isAccordianOpen && menuItem.children.length > 0 && (
-            <div className="pl-7">
-              {renderMenuItems(menuItem.children, currentPath)}
-            </div>
-          )}
+          {menuItem.isAccordianOpen &&
+            menuItem.children.length > 0 &&
+            renderMenuItems(menuItem.children, currentPath)}
         </div>
       );
     });
@@ -187,9 +214,4 @@ const UpdatedAccordionMenu = <K extends MenuKeys>({
   );
 };
 
-export default UpdatedAccordionMenu;
-
-// checkbox,radio buttons and  onselect of label it should get selected
-// for input if we click on label , innput should be focussed
-// for all inputs,dropdown,dateinput   height should be increased h-24 to h-40
-
+export default AccordionMenu;
