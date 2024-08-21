@@ -188,3 +188,8 @@ const UpdatedAccordionMenu = <K extends MenuKeys>({
 };
 
 export default UpdatedAccordionMenu;
+
+// checkbox,radio buttons and  onselect of label it should get selected
+// for input if we click on label , innput should be focussed
+// for all inputs,dropdown,dateinput   height should be increased h-24 to h-40
+

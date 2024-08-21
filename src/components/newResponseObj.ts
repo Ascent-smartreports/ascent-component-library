@@ -1,3 +1,5 @@
+import { AnyObject } from "yup";
+
 export const roleResponse=[
     {
         "id": 1,
@@ -568,3 +570,53 @@ export const roleResponse=[
         ]
     }
 ]
+
+
+/* eslint-disable no-unused-vars */
+interface MenuKeys {
+  idKey: string;
+  menuNameKey: string;
+}
+
+type BaseMenuItem = {
+  isSelected: boolean;
+  isAtleastOneSubmenuSelected: boolean;
+  isAccordianOpen: boolean;
+  children: BaseMenuItem[];
+};
+
+type MenuItem<K extends MenuKeys> = BaseMenuItem & {
+  [key in K["idKey"]]: number;
+} & {
+  [key in K["menuNameKey"]]: string;
+} & {
+  children: MenuItem<K>[];
+};
+
+export const updateMenuState = <K extends MenuKeys>(
+  menus: AnyObject[]
+): MenuItem<K>[] => {
+  return menus.map((menu) => {
+    const updatedChildren = updateMenuState(menu.children);
+
+    const isAtleastOneSubmenuSelected = updatedChildren.some(
+      (child) => child.isSelected || child.isAtleastOneSubmenuSelected
+    );
+    const areAllChildrenSelected = updatedChildren.every(
+      (child) => child.isSelected
+    );
+
+    const isAccordianOpen = menu.isSelected || isAtleastOneSubmenuSelected;
+
+    return {
+      ...menu,
+        isAccordianOpen,
+      isSelected:areAllChildrenSelected,
+      isAtleastOneSubmenuSelected,
+      children: updatedChildren,
+    } as MenuItem<K>;
+  });
+};
+
+export const updatedResponse = updateMenuState(roleResponse);
+console.log(updatedResponse, "updatedResponse");
