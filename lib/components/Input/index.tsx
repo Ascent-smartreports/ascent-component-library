@@ -63,6 +63,8 @@ export const InputField: React.FC<InputProps> = ({
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
+  const inputId = `input_${field.name}`;
+
   const finalCustomInputClass = twMerge(
     `${styles.input} ${leftIcon ? "px-9" : ""}`,
     className
@@ -77,13 +79,14 @@ export const InputField: React.FC<InputProps> = ({
 
   return (
     <div className={finalClassName}>
-      <Label>
+      <Label htmlFor={inputId}>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </Label>
       <div className={styles.inputWrapper}>
         {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
         <input
+          id={inputId}
           type={isPassword && !isPasswordVisible ? "password" : type}
           autoFocus={!!autoFocus}
           value={field.value}
