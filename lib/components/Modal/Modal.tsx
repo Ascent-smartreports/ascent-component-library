@@ -34,7 +34,7 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className={`${className} flex items-center justify-center w-full`}>
+    <div className={`${className} flex items-center justify-center w-screen`}>
       <div
         className={styles.modalScreen}
         onClick={() => {
