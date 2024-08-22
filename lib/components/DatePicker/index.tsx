@@ -78,15 +78,17 @@ export const FormikDateField: React.FC<formikDateProps> = ({
     ? moment(field.value, dateFormat).toDate()
     : null;
 
+  const inputId = `input_${field.name}`;
   const finalClassName = twMerge("h-24", className);
 
   return (
     <div className={finalClassName}>
-      <Label>
+      <Label htmlFor={inputId}>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </Label>
       <DatePicker
+        id={inputId}
         autoFocus={autoFocus}
         disabled={disabled}
         data-testid={testId}

@@ -56,15 +56,17 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
     form.setFieldValue(field.name, e.target.value);
     field.onChange(e);
   };
+  const inputId = `input_${field.name}`;
 
   return (
     <div className={className}>
-      <Label>
+      <Label htmlFor={inputId}>
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </Label>
       <div>
         <textarea
+          id={inputId}
           value={field.value}
           onChange={onChangeText}
           placeholder={placeholder}

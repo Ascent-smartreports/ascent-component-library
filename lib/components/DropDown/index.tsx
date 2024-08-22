@@ -115,14 +115,16 @@ export const DropDown: React.FC<dropdownProps> = ({
       },
     }),
   };
+  const inputId = `input_${field.name}`;
   const finalClassName = twMerge("h-24", className);
   return (
     <div className={finalClassName}>
-      <Label>
+      <Label htmlFor={inputId}>
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}
       </Label>
       <Select
+        id={inputId}
         classNames={{
           control: (state) =>
             state.isFocused
