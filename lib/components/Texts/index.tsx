@@ -14,7 +14,7 @@ interface TooltipTextProps {
   className?: string;
   type?: "error";
   onTextClick?: () => void;
-  tooltip: boolean;
+  tooltip?: boolean;
 }
 
 export const Heading: React.FC<TextProps> = ({
@@ -85,13 +85,10 @@ export const ToolTipLabel: React.FC<TooltipTextProps> = ({
         className={className || styles.label}
         onClick={onTextClick}
         style={{
-          // whiteSpace: tooltip ? "nowrap" : "normal",
+          whiteSpace: tooltip ? "nowrap" : "normal",
           overflow: tooltip ? "hidden" : "visible",
           textOverflow: tooltip ? "ellipsis" : "clip",
           cursor: onTextClick ? "pointer" : "default",
-          whiteSpace: "normal",
-          width: "200px",
-          wordWrap: "break-word",
         }}
       >
         {children}
