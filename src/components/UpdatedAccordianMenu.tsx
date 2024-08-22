@@ -7,6 +7,7 @@ import { Label } from "ascent-component-library";
 import DownArrow from "../../lib/assets/images/down-arrow.svg";
 import CustomCheckbox from "./CustomCheckbox";
 import { AnyObject } from "yup";
+import { updateMenuState } from "./updatedNewResponseObj";
 
 interface MenuKeys {
   idKeys: string[];
@@ -151,6 +152,7 @@ const AccordionMenu = <K extends MenuKeys>({
       })
     );
     setMenuState((prevState) => updateParentState(prevState, path));
+    setMenuState((prevState) => updateMenuState(prevState));
 
     if (selectedMenu.children.length > 0) {
       selectedMenu.children.map((_, key) => {
