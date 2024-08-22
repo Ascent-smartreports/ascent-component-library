@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../assets/texts.module.scss";
 
 interface TextProps {
@@ -7,6 +7,14 @@ interface TextProps {
   type?: "error";
   onTextClick?: () => void;
   htmlFor?: string;
+}
+
+interface TooltipTextProps {
+  children: React.ReactNode;
+  className?: string;
+  type?: "error";
+  onTextClick?: () => void;
+  tooltip: boolean;
 }
 
 export const Heading: React.FC<TextProps> = ({
@@ -55,6 +63,65 @@ export const Label: React.FC<TextProps> = ({
     >
       {children}
     </label>
+  );
+};
+
+export const ToolTipLabel: React.FC<TooltipTextProps> = ({
+  children,
+  className,
+  onTextClick,
+  tooltip = true,
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const isString = typeof children === "string";
+
+  return (
+    <div
+      className="relative inline-block"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <label
+        className={className || styles.label}
+        onClick={onTextClick}
+        style={{
+          // whiteSpace: tooltip ? "nowrap" : "normal",
+          overflow: tooltip ? "hidden" : "visible",
+          textOverflow: tooltip ? "ellipsis" : "clip",
+          cursor: onTextClick ? "pointer" : "default",
+          whiteSpace: "normal",
+          width: "200px",
+          wordWrap: "break-word",
+        }}
+      >
+        {children}
+      </label>
+      {tooltip && isString && isHovered && (
+        <div
+          className="absolute z-10 p-2 text-white bg-black rounded shadow-lg tooltip bg-backgroundTheme text-backgroundLight"
+          style={{
+            top: "50%",
+            left: "100%",
+            marginLeft: "10px",
+            transform: "translateY(-50%)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {children}
+          <div
+            className="absolute w-0 h-0"
+            style={{
+              borderTop: "8px solid transparent",
+              borderBottom: "8px solid transparent",
+              borderRight: "8px solid #21294C",
+              top: "50%",
+              left: "-6px",
+              transform: "translateY(-50%)",
+            }}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

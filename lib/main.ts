@@ -1,5 +1,5 @@
 import { Button } from "./components/Button";
-import { Paragraph, Heading, SubHeading, Label } from "./components/Texts";
+import { Paragraph, Heading, SubHeading, Label,ToolTipLabel } from "./components/Texts";
 import { Card } from "./components/Card";
 import { FormikDateField } from "./components/DatePicker";
 import { DropDown } from "./components/DropDown";
@@ -18,6 +18,7 @@ export {
   Heading,
   SubHeading,
   Label,
+  ToolTipLabel,
   Card,
   FormikDateField,
   DropDown,
