@@ -497,7 +497,6 @@ export const roleResponseNew = [
   },
 ];
 
-/* eslint-disable no-unused-vars */
 interface MenuKeys {
   idKeys: string[];
   nameKeys: string[];
@@ -517,15 +516,16 @@ type ResponseBaseMenuItem = {
 
 type MenuItem<K extends MenuKeys> = BaseMenuItem & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any; // Dynamic keys
+  [key: string]: any;
   children: MenuItem<K>[];
 };
 
 type ResponseMenuItem<K extends MenuKeys> = ResponseBaseMenuItem & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any; // Dynamic keys
+  [key: string]: any;
   children: ResponseMenuItem<K>[];
 };
+
 export const updateMenuState = <K extends MenuKeys>(
   menus: ResponseMenuItem<K>[]
 ): MenuItem<K>[] => {
