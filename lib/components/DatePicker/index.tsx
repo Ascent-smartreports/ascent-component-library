@@ -79,7 +79,7 @@ export const FormikDateField: React.FC<formikDateProps> = ({
     : null;
 
   const inputId = `input_${field.name}`;
-  const finalClassName = twMerge("h-24", className);
+  const finalClassName = twMerge("h-32", className);
 
   return (
     <div className={finalClassName}>

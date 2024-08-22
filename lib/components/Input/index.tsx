@@ -75,7 +75,7 @@ export const InputField: React.FC<InputProps> = ({
     field.onChange(e);
   };
 
-  const finalClassName = twMerge("h-24", className);
+  const finalClassName = twMerge("h-32", className);
 
   return (
     <div className={finalClassName}>
