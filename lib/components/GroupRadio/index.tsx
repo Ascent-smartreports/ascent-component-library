@@ -22,18 +22,20 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
   disabled = false,
   className = "",
 }) => {
+  const inputId = `input_${label}`;
   const finalClassName = twMerge("h-24", className);
   return (
     <div className={finalClassName}>
       <div className="flex flex-col items-start justify-start">
         <div className="flex justify-start">
-          <Label>{label}</Label>
+          <Label htmlFor={inputId}>{label}</Label>
         </div>
         <div className={styles.radioInnerContainer}>
           {data.map((item) => (
             <div key={item.value} className={`${styles.radioInnerContainer}`}>
               <input
                 type="radio"
+                id={inputId}
                 data-testid={testId}
                 className={styles.radioIcon}
                 name={label}

@@ -6,6 +6,7 @@ interface TextProps {
   className?: string;
   type?: "error";
   onTextClick?: () => void;
+  htmlFor?: string;
 }
 
 export const Heading: React.FC<TextProps> = ({
@@ -44,11 +45,16 @@ export const Label: React.FC<TextProps> = ({
   children,
   className,
   onTextClick,
+  htmlFor,
 }) => {
   return (
-    <h6 className={className || styles.label} onClick={() => onTextClick}>
+    <label
+      className={className || styles.label}
+      onClick={onTextClick}
+      htmlFor={htmlFor}
+    >
       {children}
-    </h6>
+    </label>
   );
 };
 

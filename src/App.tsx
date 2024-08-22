@@ -485,7 +485,7 @@ function App() {
                 )}
               </Field>
             </div>
-            <Field name={"topic"}>
+            <Field name={"topic2"}>
               {({ field, form }: FieldProps) => (
                 <DropDown
                   testId="topic"
