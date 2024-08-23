@@ -17,7 +17,6 @@ import {
   Table,
   Button,
   Heading,
-  Label,
   Paragraph,
   SubHeading,
   GroupRadio,
@@ -42,6 +41,7 @@ import {
   roleResponseNew,
   updateMenuState,
 } from "./components/updatedNewResponseObj";
+import { ToolTipLabel } from "../lib/main";
 interface InitialValues {
   name: string;
   topic: Yup.AnyObject | undefined;
@@ -355,7 +355,9 @@ function App() {
           />
           <Heading>Heading</Heading>
           <SubHeading>sub heading</SubHeading>
-          <Label>Label</Label>
+          <ToolTipLabel>
+            LabelLabelLabelLabelLabelLabelLabelLabelLabel
+          </ToolTipLabel>
           <Paragraph>Im a paragraph</Paragraph>
           <Table
             data={data}

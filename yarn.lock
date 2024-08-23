@@ -3451,10 +3451,10 @@ array-union@^2.1.0:
   resolved "https://registry.npmjs.org/array-union/-/array-union-2.1.0.tgz"
   integrity sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==
 
-ascent-component-library@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.npmjs.org/ascent-component-library/-/ascent-component-library-0.2.7.tgz"
-  integrity sha512-ZvZdJt1f0AVv6yEheeib10H76NvB7zzuTAZOgGlfiNMw3UPD1LMfunw1phCRqhN17N59+6JN1G7mlhhuzYRZRw==
+ascent-component-library@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.npmjs.org/ascent-component-library/-/ascent-component-library-0.2.9.tgz"
+  integrity sha512-TF8TivTbClPx49bbBGS4xpBHh//OwfOvK96SkJxrkBDjJXljiTrOVoxMFjPsNHq1guinpUQ+e7JZuci44Yoxag==
   dependencies:
     "@types/css-modules" "^1.0.5"
     formik "^2.4.6"
