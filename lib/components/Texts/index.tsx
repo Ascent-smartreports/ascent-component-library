@@ -14,7 +14,6 @@ interface TooltipTextProps {
   className?: string;
   type?: "error";
   onTextClick?: () => void;
-  tooltip?: boolean;
 }
 
 export const Heading: React.FC<TextProps> = ({
@@ -70,7 +69,6 @@ export const ToolTipLabel: React.FC<TooltipTextProps> = ({
   children,
   className,
   onTextClick,
-  tooltip = true,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const isString = typeof children === "string";
@@ -85,15 +83,18 @@ export const ToolTipLabel: React.FC<TooltipTextProps> = ({
         className={className || styles.label}
         onClick={onTextClick}
         style={{
-          whiteSpace: tooltip ? "nowrap" : "normal",
-          overflow: tooltip ? "hidden" : "visible",
-          textOverflow: tooltip ? "ellipsis" : "clip",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
           cursor: onTextClick ? "pointer" : "default",
+          maxWidth: "150px",
+          display: "inline-block",
+          verticalAlign: "middle",
         }}
       >
         {children}
       </label>
-      {tooltip && isString && isHovered && (
+      {isString && isHovered && (
         <div
           className="absolute z-10 p-2 text-white bg-black rounded shadow-lg tooltip bg-backgroundTheme text-backgroundLight"
           style={{
