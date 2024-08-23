@@ -77,7 +77,7 @@ export const roleResponseNew = [
       {
         menuId: 30,
         menuName: "Role",
-        isSelected: false,
+        isSelected: true,
 
         children: [
           {
@@ -127,13 +127,13 @@ export const roleResponseNew = [
       {
         menuId: 1100,
         menuName: "Configure",
-        isSelected: false,
+        isSelected: true,
 
         children: [
           {
             subMenuId: 1110,
             subMenuName: "User Reports",
-            isSelected: false,
+            isSelected: true,
 
             children: [
               {
@@ -205,7 +205,7 @@ export const roleResponseNew = [
           {
             subMenuId: 1130,
             subMenuName: "Report",
-            isSelected: false,
+            isSelected: true,
 
             children: [
               {
@@ -540,9 +540,13 @@ export const updateMenuState = <K extends MenuKeys>(
       updatedChildren.length > 0 &&
       updatedChildren.every((child) => child.isSelected);
 
-    const isSelected = menu.isSelected || areAllChildrenSelected;
+    const isSelected =
+      updatedChildren.length === 0
+        ? menu.isSelected
+        : areAllChildrenSelected;
 
-    const isAccordianOpen = menu.isAccordianOpen || isAtleastOneSubmenuSelected;
+    const isAccordianOpen =
+      menu.isAccordianOpen || isAtleastOneSubmenuSelected;
 
     return {
       ...menu,
@@ -557,3 +561,5 @@ export const updateMenuState = <K extends MenuKeys>(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updatedResponse = updateMenuState(roleResponseNew as any);
 console.log(updatedResponse, "updatedResponse");
+
+
