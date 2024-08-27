@@ -8,6 +8,7 @@ import DownArrow from "../../lib/assets/images/down-arrow.svg";
 import CustomCheckbox from "./CustomCheckbox";
 import { AnyObject } from "yup";
 import { updateMenuState } from "./updatedNewResponseObj";
+import "./accordian-menu.css";
 
 interface MenuKeys {
   idKeys: string[];
@@ -212,7 +213,9 @@ const AccordionMenu = <K extends MenuKeys>({
     });
 
   return (
-    <div className={`w-full flex flex-col`}>{renderMenuItems(menuState)}</div>
+    <div className={`w-full flex flex-col accordion-menu-container`}>
+      {renderMenuItems(menuState)}
+    </div>
   );
 };
 

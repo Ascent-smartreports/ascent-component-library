@@ -1,0 +1,21 @@
+/* AccordionMenu.module.css */
+
+.accordion-menu-container {
+  max-height: 40vw; /* Adjust this height as needed */
+  overflow-y: scroll; /* Enable scrolling */
+  scroll-behavior: smooth;
+  background-color: #f5f5f5; /* Background color to indicate boundaries */
+  padding: 10px; /* Optional padding for better visual spacing */
+  border-radius: 8px; /* Optional: Rounded corners */
+}
+
+/* Hide scrollbar but allow scrolling */
+.accordion-menu-container::-webkit-scrollbar {
+  width: 0; /* This effectively hides the scrollbar */
+  height: 0; /* Hide the horizontal scrollbar as well, if any */
+}
+
+.accordion-menu-container {
+  -ms-overflow-style: none;  /* Hide scrollbar for Internet Explorer and Edge */
+  scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
