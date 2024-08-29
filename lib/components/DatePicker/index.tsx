@@ -8,6 +8,7 @@ import CalendarIcon from "../../assets/images/calendar.png";
 import moment from "moment";
 import { Label, Paragraph } from "../Texts";
 import { twMerge } from "tailwind-merge";
+
 interface formikDateProps {
   name: string;
   error: string | undefined;
@@ -32,19 +33,26 @@ interface formikDateProps {
   autoFocus?: boolean;
   minDate?: Date;
   maxDate?: Date;
-  dateFormat: "DD-MM-YYYY" | "YYYY-MM-DD" | "DD/MM/YYYY" | "YYYY/MM/DD";
+  dateFormat:
+    | "DD-MM-YYYY"
+    | "YYYY-MM-DD"
+    | "DD/MM/YYYY"
+    | "YYYY/MM/DD"
+    | "MMM yyyy"
+    | "yyyy MMM";
+  pickerType?: "date" | "month-year";
   handleOnChange?: (date: string) => void;
 }
 
 const CustomInput = React.forwardRef<HTMLInputElement, any>(
-  ({ value, onClick, onChange, autoFocus, disabled }, ref) => (
+  ({ value, onClick, onChange, autoFocus, disabled, pickerType }, ref) => (
     <div className="relative w-[100%] border-border text-textLightGray border-[1.5px] rounded-md">
       <input
         ref={ref}
         value={value}
         onClick={onClick}
         onChange={onChange}
-        placeholder={"DD/MM/YYYY"}
+        placeholder={pickerType === "date" ? "DD/MM/YYYY" : "MMM YYYY"}
         autoFocus={autoFocus}
         disabled={disabled}
         className="rounded-md h-[54px] focus:outline-none border-none text-textLightGray w-[100%] pl-4"
@@ -68,15 +76,23 @@ export const FormikDateField: React.FC<formikDateProps> = ({
   minDate,
   maxDate,
   dateFormat,
+  pickerType = "date",
   field,
   form,
   testId,
   className = "",
   handleOnChange,
 }) => {
-  const selectedDate = field.value
-    ? moment(field.value, dateFormat).toDate()
-    : null;
+  const selectedDate =
+    pickerType === "month-year" && field.value
+      ? moment(field.value, ["YYYY MMM", "MMM YYYY"], true).isValid()
+        ? moment(field.value, ["YYYY MMM", "MMM YYYY"])
+            .startOf("month")
+            .toDate()
+        : null
+      : field.value && moment(field.value, dateFormat, true).isValid()
+        ? moment(field.value, dateFormat).toDate()
+        : null;
 
   const inputId = `input_${field.name}`;
   const finalClassName = twMerge("h-32", className);
@@ -92,17 +108,38 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         autoFocus={autoFocus}
         disabled={disabled}
         data-testid={testId}
-        dateFormat={"dd/MM/yyyy"}
+        dateFormat={pickerType === "month-year" ? "MMM yyyy" : "dd/MM/yyyy"}
         minDate={minDate}
         maxDate={maxDate}
         selected={selectedDate}
         onChange={(date: Date | null) => {
-          form.setFieldValue(field.name, moment(date).format(dateFormat));
-          if (handleOnChange) {
-            handleOnChange(moment(date).format(dateFormat));
+          if (pickerType === "month-year") {
+            const formattedDate = date ? moment(date).format(dateFormat) : "";
+            form.setFieldValue(field.name, formattedDate);
+            if (handleOnChange) {
+              handleOnChange(formattedDate);
+            }
+          } else {
+            const formattedDate = date ? moment(date).format(dateFormat) : "";
+            form.setFieldValue(field.name, formattedDate);
+            if (handleOnChange) {
+              handleOnChange(formattedDate);
+            }
           }
         }}
-        customInput={<CustomInput />}
+        customInput={
+          <CustomInput
+            value={
+              pickerType === "month-year" && field.value
+                ? moment(field.value, ["YYYY MMM", "MMM YYYY"]).format(
+                    "MMM YYYY"
+                  )
+                : field.value
+            }
+            pickerType={pickerType}
+          />
+        }
+        showMonthYearPicker={pickerType === "month-year"}
         wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
         className="rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%]"
       />
