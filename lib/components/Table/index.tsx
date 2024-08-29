@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useMemo, useState } from "react";
-import DataTable from "react-data-table-component";
-import "../../assets/table.css";
+import DataTable, { TableStyles } from "react-data-table-component";
 
 interface TableProps {
   data: any[];
@@ -13,6 +12,46 @@ interface TableProps {
   handleTableRowsPerPageChange?: (newRowsPerPage: number, page: number) => void;
   paginationTableRowsPerPageOptions?: number[];
 }
+
+const customStyles: TableStyles = {
+  table: {
+    style: {
+      borderColor: "#0000000d",
+      borderWidth: "0.15rem",
+    },
+  },
+  headRow: {
+    style: {
+      backgroundColor: "#f8f9fa",
+      fontWeight: 600,
+      fontSize: "14px",
+      color: "#464a53",
+    },
+  },
+  headCells: {
+    style: {
+      justifyContent: "start",
+      alignItems: "start",
+    },
+  },
+  rows: {
+    style: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: "#ffffff",
+      },
+      "&:nth-of-type(even)": {
+        backgroundColor: "#f8f9fa",
+      },
+      borderBottomWidth: 0,
+    },
+  },
+  cells: {
+    style: {
+      color: "#464a53",
+      justifyContent: "start",
+    },
+  },
+};
 
 export const Table: React.FC<TableProps> = ({
   data,
@@ -65,6 +104,7 @@ export const Table: React.FC<TableProps> = ({
       <DataTable
         data={paginatedData}
         columns={columns}
+        customStyles={customStyles} // Apply custom styles directly
         pagination
         paginationServer
         paginationTotalRows={totalRows}
