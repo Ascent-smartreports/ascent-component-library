@@ -87,7 +87,7 @@ export const ToolTipLabel: React.FC<TooltipTextProps> = ({
           overflow: "hidden",
           textOverflow: "ellipsis",
           cursor: onTextClick ? "pointer" : "default",
-          maxWidth: "150px",
+          maxWidth: "120px",
           display: "inline-block",
           verticalAlign: "middle",
         }}
