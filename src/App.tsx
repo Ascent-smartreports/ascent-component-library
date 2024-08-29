@@ -44,8 +44,8 @@ import {
 import { ToolTipLabel } from "../lib/main";
 interface InitialValues {
   name: string;
-  topic: Yup.AnyObject | undefined;
-  topic2: Yup.AnyObject[] | undefined;
+  topic: { label: string; value: string } | undefined;
+  topic2: [{ label: string; value: string }] | undefined;
   description: string;
   date: string | null;
 }
@@ -78,10 +78,11 @@ function App() {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("name is required"),
     description: Yup.string().required("description is required"),
-    topic:
-      // Yup.array()
-      // .of(
-      Yup.object(),
+    topic: Yup.object()
+      .shape({
+        value: Yup.string().required("Topic value is required"),
+      })
+      .required("topic is required"),
     //   )
     // .min(1, "Topics must be selected")
     topic2: Yup.array()
@@ -455,7 +456,7 @@ function App() {
                   />
                 )}
               </Field>
-              <Field name={"topic2"}>
+              {/* <Field name={"topic2"}>
                 {({ field, form }: FieldProps) => (
                   <DropDown
                     testId="topic"
@@ -466,12 +467,12 @@ function App() {
                     form={form}
                     label={"Topic"}
                     field={field}
-                    error={formik.errors.topic}
+                    error={formik.errors.topic.value}
                     validationSchema={validationSchema}
                     isMulti
                   />
                 )}
-              </Field>
+              </Field> */}
               <Field name={"date"}>
                 {({ field, form }: FieldProps) => (
                   <FormikDateField
@@ -482,7 +483,11 @@ function App() {
                     validationSchema={validationSchema}
                     label={"DOB"}
                     field={field}
-                    dateFormat={"YYYY-MM-DD"}
+                    // dateFormat={"yyyy MMM"}
+                    // dateFormat={"MMM yyyy"}
+                    // pickerType="month-year"
+                    dateFormat={"DD/MM/YYYY"}
+                    pickerType="date"
                   />
                 )}
               </Field>
@@ -504,7 +509,7 @@ function App() {
                 />
               )}
             </Field>
-            <Field name={"date"}>
+            {/* <Field name={"date"}>
               {({ field, form }: FieldProps) => (
                 <FormikDateField
                   form={form}
@@ -517,7 +522,7 @@ function App() {
                   dateFormat={"YYYY-MM-DD"}
                 />
               )}
-            </Field>
+            </Field> */}
             <Button
               label={"hello world"}
               type="submit"
