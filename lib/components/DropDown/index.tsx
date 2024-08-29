@@ -142,7 +142,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         value={defaultValue as Option | Option[]}
       />
       <div className="my-2">
-        {error && <Paragraph type="error">{error}</Paragraph>}
+        {error?.value && <Paragraph type="error">{error?.value}</Paragraph>}
       </div>
     </div>
   );

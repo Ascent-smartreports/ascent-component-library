@@ -38,12 +38,55 @@ export interface InputProps {
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const isRequiredField = (validationSchema: any, name: string) => {
-  return !!getIn(validationSchema.describe().fields, name)?.tests?.find(
-    (obj: { name: string }) => obj.name === "required"
-  );
-};
+export const isRequiredField = (
+  validationSchema: any,
+  name: string
+): boolean => {
+  try {
+    const field = getIn(validationSchema.describe().fields, name);
 
+    if (!field) {
+      return false;
+    }
+
+    if (field.tests?.some((obj: { name: string }) => obj.name === "required")) {
+      return true;
+    }
+
+    if (field.type === "array") {
+      if (field.tests?.some((obj: { name: string }) => obj.name === "min")) {
+        return true;
+      }
+      const arrayItem = field.of;
+      if (arrayItem && arrayItem.type === "object") {
+        const nestedFields = arrayItem.fields || {};
+        return Object.keys(nestedFields).some((key) =>
+          nestedFields[key]?.tests?.some(
+            (obj: { name: string }) => obj.name === "required"
+          )
+        );
+      }
+    }
+    if (field.type === "object") {
+      if (
+        field.tests?.some((obj: { name: string }) => obj.name === "required")
+      ) {
+        return true;
+      }
+
+      const nestedFields = field.fields || {};
+      return Object.keys(nestedFields).some((key) =>
+        nestedFields[key]?.tests?.some(
+          (obj: { name: string }) => obj.name === "required"
+        )
+      );
+    }
+    return false;
+  } catch (error) {
+    console.error("Error checking required field:", error);
+    return false;
+  }
+};
 export const InputField: React.FC<InputProps> = ({
   label,
   validationSchema,
