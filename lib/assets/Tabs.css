@@ -38,7 +38,7 @@
   color: #8d91a3; 
   cursor: pointer;
   font-weight: 500;
-  border-bottom: 1px solid transparent; 
+  border-bottom: 2px solid transparent; 
   flex-shrink: 0; 
   transition: border-color 0.3s ease; 
   margin: 0; 

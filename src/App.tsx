@@ -26,6 +26,7 @@ import {
   InputField,
   TextAreaInput,
   CustomCheckbox,
+  // NotifySuccess,
 } from "../lib/main";
 import { Toaster } from "react-hot-toast";
 import AccordionMenu from "./components/AccordianMenu";
@@ -42,6 +43,7 @@ import {
   updateMenuState,
 } from "./components/updatedNewResponseObj";
 import { ToolTipLabel } from "../lib/main";
+import { Tabs } from "../lib/components/Tabs";
 interface InitialValues {
   name: string;
   topic: { label: string; value: string } | undefined;
@@ -206,6 +208,108 @@ function App() {
       year: "1984",
     },
   ];
+  const data2 = [
+    {
+      id: 1,
+      title: "Beetle1",
+      year: "1988",
+    },
+    {
+      id: 2,
+      title: "Beetle2",
+      year: "1984",
+    },
+    {
+      id: 3,
+      title: "Beetle3",
+      year: "1984",
+    },
+    {
+      id: 4,
+      title: "Beetle4",
+      year: "1984",
+    },
+    {
+      id: 5,
+      title: "Beetle5",
+      year: "1988",
+    },
+    {
+      id: 6,
+      title: "Beetlejuice6",
+      year: "1984",
+    },
+    {
+      id: 7,
+      title: "Beetlejuice7",
+      year: "1984",
+    },
+    {
+      id: 8,
+      title: "Beetlejuice8",
+      year: "1984",
+    },
+    {
+      id: 9,
+      title: "Beetlejuice9",
+      year: "1988",
+    },
+    {
+      id: 10,
+      title: "Beetlejuice10",
+      year: "1984",
+    },
+    {
+      id: 11,
+      title: "Beetlejuice11",
+      year: "1984",
+    },
+    {
+      id: 12,
+      title: "Beetlejuice12",
+      year: "1984",
+    },
+    {
+      id: 13,
+      title: "Beetlejuice13",
+      year: "1988",
+    },
+    {
+      id: 14,
+      title: "Beetlejuice14",
+      year: "1984",
+    },
+    {
+      id: 15,
+      title: "Beetlejuice15",
+      year: "1984",
+    },
+    {
+      id: 16,
+      title: "Beetlejuice16",
+      year: "1984",
+    },
+    {
+      id: 17,
+      title: "Beetlejuice17",
+      year: "1988",
+    },
+    {
+      id: 18,
+      title: "Beetlejuice18",
+      year: "1984",
+    },
+    {
+      id: 19,
+      title: "Beetlejuice19",
+      year: "1984",
+    },
+    {
+      id: 20,
+      title: "Beetlejuice20",
+      year: "1984",
+    },
+  ];
 
   const handleOptionChange = (_label: string, value: string) => {
     setSelectedGender(value);
@@ -231,6 +335,72 @@ function App() {
   function onSave(): void {
     throw new Error("Function not implemented.");
   }
+
+  const tabs = [
+    {
+      label: "Details",
+      content: (
+        <div>
+          <Table
+            data={data}
+            columns={columns}
+            searchText=""
+            defaultRowsPerPage={5}
+            totalRows={55}
+            paginationTableRowsPerPageOptions={[5, 10, 15, 20]}
+          />
+        </div>
+      ),
+    },
+    {
+      label: "Content (Advanced)",
+      content: (
+        <div>
+          <Table
+            data={data2}
+            columns={columns}
+            searchText=""
+            defaultRowsPerPage={5}
+            totalRows={55}
+            paginationTableRowsPerPageOptions={[5, 10, 15, 20]}
+          />
+        </div>
+      ),
+    },
+    {
+      label: "PDF External",
+      content: (
+        <div>
+          <h3>PDF External Content</h3>
+        </div>
+      ),
+    },
+    {
+      label: "Details",
+      content: (
+        <div>
+          <h3>Details Content</h3>
+        </div>
+      ),
+    },
+    {
+      label: "Content (Advanced)",
+      content: (
+        <div>
+          <h3>Content (Advanced) Content</h3>
+        </div>
+      ),
+    },
+    {
+      label: "PDF External",
+      content: (
+        <div>
+          <h3>PDF External Content</h3>
+        </div>
+      ),
+    },
+  ];
+
   // const [response, setResponse] = useState([{ reportId: "", sortId: 1 }]);
   // console.log(response, "response");
   // console.log(modifiedData, "**********************");
@@ -293,6 +463,54 @@ function App() {
       </div>
       <Toaster />
       <Toaster />
+      <div className="border-2 border-gray-300">
+        <Tabs
+          tabs={tabs}
+          // headerActions={
+          //   <>
+          //     <div className="w-[30vw] flex gap-x-3">
+          //       <Button
+          //         label={"Save"}
+          //         type="submit"
+          //         // isDisabled={true}
+          //         onClick={formik.handleSubmit}
+          //         buttonType="outlined"
+          //         customStyle="my-4"
+          //         testId="demo"
+          //       />
+          //       <Button
+          //         label={"Add"}
+          //         type="submit"
+          //         // isDisabled={true}
+          //         onClick={formik.handleSubmit}
+          //         buttonType="outlined"
+          //         customStyle="my-4"
+          //         testId="demo"
+          //       />
+          //       <Button
+          //         label={"hello world"}
+          //         type="submit"
+          //         // isDisabled={true}
+          //         onClick={formik.handleSubmit}
+          //         buttonType="outlined"
+          //         customStyle="my-4"
+          //         testId="demo"
+          //       />
+          //       <Button
+          //         label={"hello world"}
+          //         type="submit"
+          //         // isDisabled={true}
+          //         onClick={formik.handleSubmit}
+          //         buttonType="outlined"
+          //         customStyle="my-4"
+          //         testId="demo"
+          //       />
+          //     </div>
+          //   </>
+          // }
+        />
+      </div>
+
       <Card>
         <>
           {/* <div>
