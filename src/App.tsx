@@ -44,6 +44,7 @@ import {
 } from "./components/updatedNewResponseObj";
 import { ToolTipLabel } from "../lib/main";
 import { Tabs } from "../lib/components/Tabs";
+import { StepperTabs } from "../lib/components/StepperTabs";
 interface InitialValues {
   name: string;
   topic: { label: string; value: string } | undefined;
@@ -77,14 +78,62 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const isValidFileType = (fileName: any, fileTypes: string | any[]) => {
+    const extension = fileName?.split(".")?.pop().toLowerCase();
+    return fileTypes.includes(extension);
+  };
+
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("name is required"),
+    // name: Yup.string().required("name is required"),
     description: Yup.string().required("description is required"),
     topic: Yup.object()
       .shape({
         value: Yup.string().required("Topic value is required"),
       })
       .required("topic is required"),
+    name: Yup.mixed()
+      .required("Name is required")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .test("fileFormat", "Unsupported Format", (value: any) => {
+        console.log(value, "valueeeeeeeee");
+
+        if (!value) return true;
+        const allowedTypes = [
+          "application/vnd.ms-excel", // .xls
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
+          "text/csv", // .csv
+          "application/pdf", // .pdf
+          "application/zip", // .zip
+          "application/x-zip-compressed", // .zip
+        ];
+        const allowedExtensions = ["xls", "xlsx", "csv", "pdf", "zip"];
+
+        if (Array.isArray(value)) {
+          return value.every(
+            (file) =>
+              allowedTypes.includes(file.type) ||
+              isValidFileType(file.name, allowedExtensions)
+          );
+        }
+        return (
+          allowedTypes.includes(value.type) ||
+          isValidFileType(value.name, allowedExtensions)
+        );
+      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .test("fileSize", "File size is too large", (value: any) => {
+        if (!value) return true;
+        if (Array.isArray(value)) {
+          return value.every((file) => file.size <= 2000000);
+        }
+        return value.size <= 2000000;
+      }),
+    // .test(
+    //   "fileSize",
+    //   "File size is too large",
+    //   (value: Yup.AnyObject) => !value || (value && value.size <= 2000000) // 2 MB size limit
+    // ),
     //   )
     // .min(1, "Topics must be selected")
     topic2: Yup.array()
@@ -510,6 +559,12 @@ function App() {
           // }
         />
       </div>
+      <StepperTabs
+        tabs={tabs}
+        onSubmit={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
 
       <Card>
         <>
@@ -595,10 +650,12 @@ function App() {
                       label={"Name"}
                       field={field}
                       form={form}
-                      leftIcon={<MdOutlineEmail color="red" />}
-                      rightIcon={<MdOutlineEmail color="red" />}
+                      // leftIcon={<MdOutlineEmail color="red" />}
+                      // rightIcon={<MdOutlineEmail color="red" />}
                       // className="my-24 bg-backgroundDarkYellow "
                       testId="name"
+                      type="file"
+                      multiple={true}
                       error={formik.errors.name}
                       validationSchema={validationSchema}
                     />
