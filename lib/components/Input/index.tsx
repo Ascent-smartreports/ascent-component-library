@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
@@ -14,11 +14,14 @@ export interface InputProps {
   className?: string;
   field: {
     name: string;
-    value: string;
+    value: string | File | File[];
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   };
   form: {
+    validateField: (
+      field: string
+    ) => Promise<void> | Promise<string | undefined>;
     setFieldValue: (
       field: string,
       value: any,
@@ -35,6 +38,9 @@ export interface InputProps {
   maxLength?: number;
   rightIcon?: ReactNode;
   leftIcon?: ReactNode;
+  accept?: string; // Prop for accepted file types
+  multiple?: boolean; // Prop for allowing multiple files
+  onFileChange?: (files: File | File[]) => void; // Custom handler for file change
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -103,18 +109,40 @@ export const InputField: React.FC<InputProps> = ({
   className,
   leftIcon,
   testId,
+  accept,
+  multiple = false,
+  onFileChange,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-
+  const [selectedFiles, setSelectedFiles] = useState<string | string[] | null>(
+    null
+  );
   const inputId = `input_${field.name}`;
+  const [error1, setError] = useState<string | undefined>();
+
+  useEffect(() => {
+    setError(error);
+  }, [error]);
 
   const finalCustomInputClass = twMerge(
-    `${styles.input} ${leftIcon ? "px-9" : ""}`,
+    `${styles.input} ${leftIcon ? "pl-9" : ""}`,
     className
   );
 
-  const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
-    form.setFieldValue(field.name, e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+
+    if (type === "file" && files) {
+      const fileList = multiple ? Array.from(files) : files[0];
+      setSelectedFiles(
+        multiple ? Array.from(files).map((file) => file.name) : files[0].name
+      );
+      form.setFieldValue(field.name, fileList);
+      form.validateField(field.name);
+      onFileChange?.(fileList);
+    } else {
+      form.setFieldValue(field.name, e.target.value);
+    }
     field.onChange(e);
   };
 
@@ -128,21 +156,70 @@ export const InputField: React.FC<InputProps> = ({
       </Label>
       <div className={styles.inputWrapper}>
         {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
-        <input
-          id={inputId}
-          type={isPassword && !isPasswordVisible ? "password" : type}
-          autoFocus={!!autoFocus}
-          value={field.value}
-          onChange={onChangeText}
-          placeholder={placeholder ? placeholder : `Enter ${label}`}
-          disabled={disabled}
-          maxLength={maxLength}
-          autoComplete="off"
-          onBlur={field.onBlur}
-          data-testid={testId}
-          className={finalCustomInputClass}
-          onFocus={field.onBlur}
-        />
+        {type === "file" ? (
+          <div className="flex items-center w-full">
+            <input
+              id={inputId}
+              type="file"
+              className="hidden"
+              onChange={handleChange}
+              accept={accept}
+              multiple={multiple}
+              disabled={disabled}
+            />
+            <div className="flex items-center justify-center align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[54px]">
+              <div>
+                <input
+                  type="text"
+                  readOnly
+                  value={
+                    selectedFiles
+                      ? Array.isArray(selectedFiles)
+                        ? selectedFiles.join(", ")
+                        : selectedFiles
+                      : multiple
+                        ? "Choose files"
+                        : "Choose file"
+                  }
+                  className="flex-grow px-3 py-2 border-none focus:outline-none bg-white text-gray-500 placeholder-gray-400"
+                  placeholder={multiple ? "Choose files" : "Choose file"}
+                />
+              </div>
+              <div className="h-[54px]">
+                <label
+                  htmlFor={inputId}
+                  className="flex justify-center align-middle px-4 py-4 text-gray-600 cursor-pointer  border-border bg-[#dfdede]"
+                >
+                  Browse
+                </label>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <input
+            id={inputId}
+            type={isPassword && !isPasswordVisible ? "password" : type}
+            autoFocus={!!autoFocus}
+            value={
+              type === "file"
+                ? undefined
+                : (field.value as
+                    | string
+                    | number
+                    | readonly string[]
+                    | undefined)
+            }
+            onChange={handleChange}
+            placeholder={placeholder ? placeholder : `Enter ${label}`}
+            disabled={disabled}
+            maxLength={maxLength}
+            autoComplete="off"
+            onBlur={field.onBlur}
+            data-testid={testId}
+            className={finalCustomInputClass}
+            onFocus={field.onBlur}
+          />
+        )}
         {isPassword ? (
           <>
             {!isPasswordVisible ? (
@@ -164,7 +241,7 @@ export const InputField: React.FC<InputProps> = ({
         ) : null}
       </div>
       <div className="my-2">
-        {error && <Paragraph type="error">{error}</Paragraph>}
+        {error1 && <Paragraph type="error">{error1}</Paragraph>}
       </div>
     </div>
   );

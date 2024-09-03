@@ -1,0 +1,49 @@
+.stepper-tabs-container {
+  display: flex;
+  flex-direction: column;
+   padding: 2.32rem 1rem; 
+}
+
+.stepper-tabs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tabs-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.tab-label {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.tab-label.active {
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+}
+
+.stepper-tabs-content {
+  margin-top: 20px;
+}
+
+.stepper-tabs-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.prev-button,
+.next-button,
+.submit-button {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.prev-button:disabled,
+.next-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
