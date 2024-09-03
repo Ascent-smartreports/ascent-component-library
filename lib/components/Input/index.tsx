@@ -19,6 +19,7 @@ export interface InputProps {
     onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   };
   form: {
+    setFieldTouched(name: string, arg1: boolean): unknown;
     validateField: (
       field: string
     ) => Promise<void> | Promise<string | undefined>;
@@ -129,7 +130,7 @@ export const InputField: React.FC<InputProps> = ({
     className
   );
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
     if (type === "file" && files) {
@@ -137,11 +138,14 @@ export const InputField: React.FC<InputProps> = ({
       setSelectedFiles(
         multiple ? Array.from(files).map((file) => file.name) : files[0].name
       );
-      form.setFieldValue(field.name, fileList);
+      await form.setFieldValue(field.name, fileList, false);
+      form.setFieldTouched(field.name, true);
       form.validateField(field.name);
       onFileChange?.(fileList);
     } else {
-      form.setFieldValue(field.name, e.target.value);
+      await form.setFieldValue(field.name, e.target.value, false);
+      form.setFieldTouched(field.name, true);
+      form.validateField(field.name);
     }
     field.onChange(e);
   };
