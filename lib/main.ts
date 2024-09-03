@@ -22,6 +22,7 @@ import { InputField } from "./components/Input";
 import { CustomCheckbox } from "./components/Checkbox";
 import { TextAreaInput } from "./components/TextAreaInput";
 import { Tabs } from "./components/Tabs";
+import { StepperTabs } from "./components/StepperTabs";
 import "./index.css";
 export {
   Button,
@@ -33,6 +34,7 @@ export {
   ToolTipLabel,
   Card,
   Tabs,
+  StepperTabs,
   FormikDateField,
   DropDown,
   GroupRadio,
