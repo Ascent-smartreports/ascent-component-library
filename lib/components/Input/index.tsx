@@ -172,7 +172,7 @@ export const InputField: React.FC<InputProps> = ({
               disabled={disabled}
             />
             <div className="flex items-center justify-center align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[54px]">
-              <div>
+              <div className="w-[75%]">
                 <input
                   type="text"
                   readOnly
@@ -185,16 +185,19 @@ export const InputField: React.FC<InputProps> = ({
                         ? "Choose files"
                         : "Choose file"
                   }
-                  className="flex-grow px-3 py-2 border-none focus:outline-none bg-white text-gray-500 placeholder-gray-400"
+                  className="flex-grow px-3 py-2 border-none focus:outline-none bg-white text-gray-400 placeholder-textLightDark"
                   placeholder={multiple ? "Choose files" : "Choose file"}
+                  style={{
+                    color: selectedFiles ? "inherit" : "#9CA3AF",
+                  }}
                 />
               </div>
-              <div className="h-[54px]">
+              <div className="h-[54px] flex align-middle justify-center items-center rounded-r-sm w-[25%]">
                 <label
                   htmlFor={inputId}
-                  className="flex justify-center align-middle px-4 py-4 text-gray-600 cursor-pointer  border-border bg-[#dfdede]"
+                  className=" flex align-middle justify-center items-center mr-1 px-2.5 py-2.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[40px] rounded-sm w-[100%]"
                 >
-                  Browse
+                  Upload
                 </label>
               </div>
             </div>
