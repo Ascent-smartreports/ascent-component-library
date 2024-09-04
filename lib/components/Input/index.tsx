@@ -192,7 +192,7 @@ export const InputField: React.FC<InputProps> = ({
                   }}
                 />
               </div>
-              <div className="h-[54px] flex align-middle justify-center items-center rounded-r-sm w-[25%]">
+              <div className="h-[54px] flex align-middle justify-center items-center rounded-r-sm w-[85px]">
                 <label
                   htmlFor={inputId}
                   className=" flex align-middle justify-center items-center mr-1 px-2.5 py-2.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[40px] rounded-sm w-[100%]"
