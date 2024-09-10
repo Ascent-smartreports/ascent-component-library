@@ -71,21 +71,34 @@ export const DropDown: React.FC<dropdownProps> = ({
   };
 
   const customStyles = {
-    control: (provided: any, state: { isFocused: boolean }) => ({
-      ...provided,
-      borderColor: state.isFocused ? "#E4E5E9" : "#dfe1e5",
-      fontSize: 16,
-      padding: "6px 7px",
-      textColor: "green",
-    }),
-    option: (provided: any, state: { isFocused: boolean }) => ({
-      ...provided,
-      backgroundColor: state.isFocused ? "#21294C" : "#FFFFFF",
-      color: state.isFocused ? "#FFFFFF" : "#21294C",
-      fontSize: 16,
-      padding: 10,
-      cursor: "pointer",
-    }),
+    control: (provided: any, state: { isFocused: boolean }) => {
+      return {
+        ...provided,
+        borderColor: state.isFocused ? "#E4E5E9" : "#dfe1e5",
+        fontSize: 16,
+        padding: "6px 7px",
+        color: "green",
+      };
+    },
+    option: (
+      provided: any,
+      state: { isFocused: boolean; isSelected: boolean }
+    ) => {
+      return {
+        ...provided,
+        backgroundColor: state.isSelected
+          ? "#21294C"
+          : "#FFFFFF",
+        color: state.isSelected ? "#FFFFFF" : "#21294C",
+        ":active": {
+          backgroundColor: "#21294C",
+          color: "#FFFFFF",
+        },
+        fontSize: 16,
+        padding: 10,
+        cursor: "pointer",
+      };
+    },
     placeholder: (provided: any) => ({
       ...provided,
       color: "#8D91A3",
@@ -115,6 +128,7 @@ export const DropDown: React.FC<dropdownProps> = ({
       },
     }),
   };
+
   const inputId = `input_${field.name}`;
   const finalClassName = twMerge("h-32", className);
   return (
