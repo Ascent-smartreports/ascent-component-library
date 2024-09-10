@@ -10,6 +10,7 @@ import { twMerge } from "tailwind-merge";
 export interface Option {
   label: string;
   value: string;
+  additionalInfo?: Record<string, string>;
 }
 
 interface dropdownProps {
@@ -35,7 +36,6 @@ interface dropdownProps {
       shouldValidate?: boolean
     ) => void;
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   isMulti?: boolean;
   testId: string;
@@ -86,9 +86,7 @@ export const DropDown: React.FC<dropdownProps> = ({
     ) => {
       return {
         ...provided,
-        backgroundColor: state.isSelected
-          ? "#21294C"
-          : "#FFFFFF",
+        backgroundColor: state.isSelected ? "#21294C" : "#FFFFFF",
         color: state.isSelected ? "#FFFFFF" : "#21294C",
         ":active": {
           backgroundColor: "#21294C",
@@ -129,6 +127,27 @@ export const DropDown: React.FC<dropdownProps> = ({
     }),
   };
 
+  const formatOptionLabel = (
+    option: Option,
+    { context }: { context: "menu" | "value" }
+  ) => {
+    if (context === "menu") {
+      return (
+        <div className="flex flex-col">
+          <span className="font-medium">{option.label}</span>
+          {option.additionalInfo &&
+            Object.entries(option.additionalInfo).map(([key, value]) => (
+              <span
+                key={key}
+                className="text-sm text-gray-500"
+              >{`${key}: ${value}`}</span>
+            ))}
+        </div>
+      );
+    }
+    return <span>{option.label}</span>;
+  };
+
   const inputId = `input_${field.name}`;
   const finalClassName = twMerge("h-32", className);
   return (
@@ -151,9 +170,10 @@ export const DropDown: React.FC<dropdownProps> = ({
         isMulti={isMulti}
         data-testid={testId}
         styles={customStyles}
-        placeholder={placeholder ? placeholder : `Enter ${label}`}
+        placeholder={placeholder ? placeholder : `Select ${label}`}
         onChange={handleChange}
         value={defaultValue as Option | Option[]}
+        formatOptionLabel={formatOptionLabel}
       />
       <div className="my-2">
         {error?.value && <Paragraph type="error">{error?.value}</Paragraph>}
