@@ -171,7 +171,7 @@ export const InputField: React.FC<InputProps> = ({
               multiple={multiple}
               disabled={disabled}
             />
-            <div className="flex items-center justify-center align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[54px]">
+            <div className="flex items-center justify-between align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[54px] pr-0.5 pl-0.5">
               <div className="w-[75%]">
                 <input
                   type="text"
