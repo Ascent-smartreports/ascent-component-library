@@ -121,10 +121,6 @@ export const InputField: React.FC<InputProps> = ({
   const inputId = `input_${field.name}`;
   const [error1, setError] = useState<string | undefined>();
 
-  useEffect(() => {
-    setError(error);
-  }, [error]);
-
   const finalCustomInputClass = twMerge(
     `${styles.input} ${leftIcon ? "pl-9" : ""}`,
     className
@@ -149,6 +145,14 @@ export const InputField: React.FC<InputProps> = ({
     }
     field.onChange(e);
   };
+
+  useEffect(() => {
+    if (field.value === null) setSelectedFiles(null);
+  }, [field.value]);
+
+  useEffect(() => {
+    setError(error);
+  }, [error]);
 
   const finalClassName = twMerge("h-32", className);
 
