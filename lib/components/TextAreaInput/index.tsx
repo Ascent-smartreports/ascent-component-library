@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/input.module.scss";
 import { Label, Paragraph } from "../Texts";
-import { getIn } from "formik";
+import { isRequiredField } from "../Input";
 
 export interface TextAreaProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
@@ -16,6 +16,7 @@ export interface TextAreaProps {
   };
   className?: string;
   form: {
+    submitCount: number;
     setFieldValue: (
       field: string,
       value: any,
@@ -30,13 +31,6 @@ export interface TextAreaProps {
   testId: string;
   maxLength?: number;
 }
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const isRequiredField = (validationSchema: any, name: string) => {
-  return !!getIn(validationSchema.describe().fields, name)?.tests?.find(
-    (obj: { name: string }) => obj.name === "required"
-  );
-};
 
 export const TextAreaInput: React.FC<TextAreaProps> = ({
   label,
@@ -69,14 +63,14 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
           id={inputId}
           value={field.value}
           onChange={onChangeText}
-          placeholder={placeholder}
+          placeholder={placeholder || `Enter ${field.name}`}
           disabled={disabled}
           maxLength={maxLength}
           autoComplete="off"
           onBlur={field.onBlur}
           className={styles.input}
           autoFocus={!!autoFocus}
-          style={{ height }}
+          style={{ height, paddingLeft: "15px", paddingTop: "10px" }}
           data-testid={testId}
         />
       </div>
