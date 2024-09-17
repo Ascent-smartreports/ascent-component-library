@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
@@ -121,7 +121,6 @@ export const InputField: React.FC<InputProps> = ({
   );
   const inputId = `input_${field.name}`;
   const [error1, setError] = useState<string | undefined>();
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const finalCustomInputClass = twMerge(
     `${styles.input} ${leftIcon ? "pl-9" : ""}`,
@@ -149,16 +148,8 @@ export const InputField: React.FC<InputProps> = ({
   };
 
   useEffect(() => {
-    if (
-      (form.submitCount > 0 && field.value === null) ||
-      field.value === null
-    ) {
-      setSelectedFiles(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-    }
-  }, [form.submitCount, field.value]);
+    if (field.value === null) setSelectedFiles(null);
+  }, [field.value]);
 
   useEffect(() => {
     setError(error);
@@ -179,7 +170,6 @@ export const InputField: React.FC<InputProps> = ({
             <input
               id={inputId}
               type="file"
-              ref={fileInputRef}
               className="hidden"
               onChange={handleChange}
               accept={accept}
@@ -191,7 +181,6 @@ export const InputField: React.FC<InputProps> = ({
                 <input
                   type="text"
                   readOnly
-                  ref={fileInputRef}
                   value={
                     selectedFiles
                       ? Array.isArray(selectedFiles)
