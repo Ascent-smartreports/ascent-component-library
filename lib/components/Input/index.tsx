@@ -19,7 +19,6 @@ export interface InputProps {
     onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   };
   form: {
-    submitCount: number;
     setFieldTouched(name: string, arg1: boolean): unknown;
     validateField: (
       field: string
