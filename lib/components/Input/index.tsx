@@ -170,7 +170,6 @@ export const InputField: React.FC<InputProps> = ({
             <input
               id={inputId}
               type="file"
-              ref={fileInputRef}
               className="hidden"
               onChange={handleChange}
               accept={accept}
