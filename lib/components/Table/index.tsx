@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useMemo, useState } from "react";
 import DataTable, { TableStyles } from "react-data-table-component";
+import { AnyObject } from "yup";
 
 interface TableProps {
   data: any[];
   columns: any;
-  searchText?: string;
   totalRows: number;
+  searchText?: string;
+  indexRequired?: boolean;
   defaultRowsPerPage?: number;
   handleTablePageChange?: (page: number) => void;
   handleTableRowsPerPageChange?: (newRowsPerPage: number, page: number) => void;
@@ -56,8 +58,9 @@ const customStyles: TableStyles = {
 export const Table: React.FC<TableProps> = ({
   data,
   columns,
-  searchText,
   totalRows,
+  searchText,
+  indexRequired = true,
   defaultRowsPerPage = 10,
   handleTablePageChange,
   handleTableRowsPerPageChange,
@@ -65,6 +68,15 @@ export const Table: React.FC<TableProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage);
+
+  const indexRow = {
+    name: "Sl No.",
+    sortable: true,
+    cell: (_: AnyObject, index: number): React.JSX.Element => (
+      <div className="">{index + 1 + rowsPerPage * (currentPage - 1)}</div>
+    ),
+    width: "8%",
+  };
 
   const getData = useCallback(() => {
     if (searchText) {
@@ -103,8 +115,8 @@ export const Table: React.FC<TableProps> = ({
     <div>
       <DataTable
         data={paginatedData}
-        columns={columns}
-        customStyles={customStyles} // Apply custom styles directly
+        columns={indexRequired ? [indexRow, ...columns] : columns}
+        customStyles={customStyles}
         pagination
         paginationServer
         paginationTotalRows={totalRows}
