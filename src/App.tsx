@@ -46,7 +46,7 @@ import { ToolTipLabel } from "../lib/main";
 import { Tabs } from "../lib/components/Tabs";
 import { StepperTabs } from "../lib/components/StepperTabs";
 interface InitialValues {
-  name: string;
+  name: File | null;
   topic: { label: string; value: string } | undefined;
   topic2: [{ label: string; value: string }] | undefined;
   description: string;
@@ -58,7 +58,7 @@ function App() {
   const [checkboxState, setCheckBoxState] = useState<string>("unselected");
   // const [state, setState] = useState<{ label: string; value: string }>();
   const initialValues: InitialValues = {
-    name: "",
+    name: null,
     topic: undefined,
     // topic: { label: "HTML", value: "html" },
     topic2: undefined,
@@ -153,6 +153,7 @@ function App() {
     onSubmit: () => {
       console.log(formik.values);
       Notify({ message: "clicked", type: "SUCCESS", toastType: "solid" });
+      formik.resetForm();
     },
   });
   const data = [
