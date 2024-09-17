@@ -667,8 +667,22 @@ function App() {
                   <DropDown
                     testId="topic"
                     options={[
-                      { label: "HTML", value: "html" },
-                      { label: "JavaScript", value: "js" },
+                      {
+                        label: "HTML",
+                        value: "html",
+                        additionalInfo: {
+                          Code: "santhosh@example.com",
+                          Role: "Developer",
+                        },
+                      },
+                      {
+                        label: "JavaScript",
+                        value: "js",
+                        additionalInfo: {
+                          Code: "jayaram@example.com",
+                          Role: "Developer",
+                        },
+                      },
                     ]}
                     form={form}
                     label={"Topic"}
