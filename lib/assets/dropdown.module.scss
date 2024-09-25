@@ -1,5 +1,5 @@
 .dropdownContainer{
-      @apply  rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray min-w-64
+      @apply  rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray min-w-full
 }
 .active{
     @apply text-backgroundLight bg-backgroundTheme h-[100%] w-[100%] focus:outline-none
