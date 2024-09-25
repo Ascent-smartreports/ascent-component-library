@@ -19,7 +19,6 @@ export interface InputProps {
     onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   };
   form: {
-    submitCount: number;
     setFieldTouched(name: string, arg1: boolean): unknown;
     validateField: (
       field: string
@@ -148,7 +147,9 @@ export const InputField: React.FC<InputProps> = ({
   };
 
   useEffect(() => {
-    if (field.value === null) setSelectedFiles(null);
+    if (field.value === null) {
+      setSelectedFiles(null);
+    }
   }, [field.value]);
 
   useEffect(() => {
