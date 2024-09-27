@@ -11,12 +11,14 @@ interface TabsProps {
   tabs: Tab[];
   initialActiveTab?: number;
   headerActions?: React.ReactNode;
+  onChangeTabs?: (tabNumber: number) => void;
 }
 
 export const Tabs: React.FC<TabsProps> = ({
   tabs,
   initialActiveTab = 0,
   headerActions,
+  onChangeTabs,
 }) => {
   const [activeTab, setActiveTab] = useState(initialActiveTab);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -76,11 +78,16 @@ export const Tabs: React.FC<TabsProps> = ({
         </div>
         <div className="tabs-buttons-container" ref={tabsRef}>
           <div className="tabs-buttons">
-            {tabs.map((tab, index) => (
+            {tabs?.map((tab, index) => (
               <div
                 key={index}
                 className={`tab-label ${activeTab === index ? "active" : ""}`}
-                onClick={() => setActiveTab(index)}
+                onClick={() => {
+                  setActiveTab(index);
+                  if (onChangeTabs) {
+                    onChangeTabs(index);
+                  }
+                }}
               >
                 {tab.label}
               </div>
@@ -103,4 +110,3 @@ export const Tabs: React.FC<TabsProps> = ({
     </div>
   );
 };
-
