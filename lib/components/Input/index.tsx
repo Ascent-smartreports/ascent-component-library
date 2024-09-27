@@ -147,7 +147,9 @@ export const InputField: React.FC<InputProps> = ({
   };
 
   useEffect(() => {
-    if (field.value === null) setSelectedFiles(null);
+    if (field.value === null) {
+      setSelectedFiles(null);
+    }
   }, [field.value]);
 
   useEffect(() => {
