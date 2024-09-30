@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/input.module.scss";
 import { Label, Paragraph } from "../Texts";
-import { isRequiredField } from "../Input";
+import { isRequiredField } from "./isRequired";
 
 export interface TextAreaProps {
   validationSchema?: AnySchema<AnyObject> | undefined;

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Select, { MultiValue, SingleValue } from "react-select";
 import makeAnimated from "react-select/animated";
-import { isRequiredField } from "../Input";
+import { isRequiredField } from "../TextAreaInput/isRequired";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/dropdown.module.scss";
 import { Label, Paragraph } from "../Texts";

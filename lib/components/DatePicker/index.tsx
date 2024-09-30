@@ -2,7 +2,7 @@
 import React, { ChangeEvent } from "react";
 import DatePicker from "react-datepicker";
 import { AnyObject, AnySchema } from "yup";
-import { isRequiredField } from "../Input";
+import { isRequiredField } from "../TextAreaInput/isRequired";
 import "../../assets/datePickers.css";
 import CalendarIcon from "../../assets/images/calendar.png";
 import moment from "moment";

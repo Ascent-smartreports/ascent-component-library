@@ -5,7 +5,7 @@ import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { Label, Paragraph } from "../Texts";
 import { twMerge } from "tailwind-merge";
-import * as Yup from "yup";
+import { isRequiredField } from "../TextAreaInput/isRequired";
 
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
@@ -45,71 +45,7 @@ export interface InputProps {
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const isRequiredField = (
-  validationSchema: Yup.AnySchema,
 
-  name: string
-): boolean => {
-  try {
-    const schemaDescription = validationSchema.describe();
-
-    const fieldSchema = (schemaDescription as any).fields[name];
-
-    if (!fieldSchema) {
-      return false;
-    }
-
-    if (
-      fieldSchema.tests?.some(
-        (obj: { name: string }) => obj.name === "required"
-      )
-    ) {
-      return true;
-    }
-
-    if (fieldSchema.type === "array") {
-      if (
-        fieldSchema.tests?.some((obj: { name: string }) => obj.name === "min")
-      ) {
-        return true;
-      }
-
-      const arrayItem = fieldSchema.of;
-
-      if (arrayItem && arrayItem.type === "object") {
-        const nestedFields = arrayItem.fields;
-
-        return Object.keys(nestedFields).some((key) =>
-          nestedFields[key]?.tests?.some(
-            (obj: { name: string }) => obj.name === "required"
-          )
-        );
-      }
-    }
-
-    if (fieldSchema.type === "object") {
-      if (
-        fieldSchema.tests?.some(
-          (obj: { name: string }) => obj.name === "required"
-        )
-      ) {
-        return true;
-      }
-
-      const nestedFields = fieldSchema.fields;
-
-      return Object.keys(nestedFields).some((key) =>
-        nestedFields[key]?.tests?.some(
-          (obj: { name: string }) => obj.name === "required"
-        )
-      );
-    }
-
-    return false;
-  } catch (error) {
-    return false;
-  }
-};
 export const InputField: React.FC<InputProps> = ({
   label,
   validationSchema,
