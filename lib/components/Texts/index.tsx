@@ -25,7 +25,7 @@ export const Heading: React.FC<TextProps> = ({
     <h2
       className={className || styles.heading}
       style={{ fontWeight: "bold" }}
-      onClick={() => onTextClick}
+      onClick={onTextClick}
     >
       {children}
     </h2>
@@ -41,7 +41,7 @@ export const SubHeading: React.FC<TextProps> = ({
     <h4
       className={className || styles.subHeading}
       style={{ fontWeight: "bold" }}
-      onClick={() => onTextClick}
+      onClick={onTextClick}
     >
       {children}
     </h4>
