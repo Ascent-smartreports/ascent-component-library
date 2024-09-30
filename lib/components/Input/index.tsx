@@ -188,6 +188,7 @@ export const InputField: React.FC<InputProps> = ({
               id={inputId}
               type="file"
               className="hidden"
+              placeholder="file"
               onChange={handleChange}
               accept={accept}
               multiple={multiple}
