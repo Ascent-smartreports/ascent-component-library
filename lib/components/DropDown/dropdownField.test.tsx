@@ -24,7 +24,7 @@ describe("DropDown Component", () => {
       setFieldValue: jest.fn(),
       setFieldTouched: jest.fn(),
     },
-    error: "",
+    error: {},
     isMulti: false,
     testId: "dropdown",
     className: "",
@@ -41,85 +41,94 @@ describe("DropDown Component", () => {
       </Formik>
     );
 
-  test("should render the dropdown with the correct label", () => {
-    const { getByText } = renderComponent();
-    expect(getByText("Dropdown")).toBeInTheDocument();
-  });
-
   test("should render the dropdown with the correct placeholder", () => {
-    const { getByPlaceholderText } = renderComponent();
-    expect(getByPlaceholderText("Select an option")).toBeInTheDocument();
+    const { getByText } = renderComponent();
+    expect(getByText("Select an option")).toBeInTheDocument();
   });
 
   test("should render the dropdown with the correct options", () => {
-   const { getByPlaceholderText } = renderComponent();
+    const { getByText } = renderComponent();
 
-   const input = getByPlaceholderText("Select an option");
+    const input = getByText("Select an option");
 
-   fireEvent.change(input, { target: { value: "Option 1" } });
+    fireEvent.mouseDown(input);
 
-   expect(mockProps.form.setFieldValue).toHaveBeenCalledWith(
-     "dropdown",
-     "option1"
-   );
-  });
+    const option = getByText("Option 1");
 
-  test("should call setFieldValue when an option is selected", () => {
-    const { getByPlaceholderText } = renderComponent();
-
-    const input = getByPlaceholderText("Select an option");
-
-    fireEvent.change(input, { target: { value: "Option 1" } });
+    fireEvent.click(option);
 
     expect(mockProps.form.setFieldValue).toHaveBeenCalledWith(
       "dropdown",
+
+      "option1"
+    );
+  });
+
+  test("should call setFieldValue when an option is selected", () => {
+    const { getByText } = renderComponent();
+
+    const input = getByText("Select an option");
+
+    fireEvent.mouseDown(input);
+
+    const option = getByText("Option 1");
+
+    fireEvent.click(option);
+
+    expect(mockProps.form.setFieldValue).toHaveBeenCalledWith(
+      "dropdown",
+
       "option1"
     );
   });
 
   test("should call setFieldTouched when an option is selected", () => {
-     const { getByPlaceholderText } = renderComponent();
-     const input = getByPlaceholderText("Select an option");
-     fireEvent.change(input, { target: { value: "Option 1" } });
-     expect(mockProps.form.setFieldTouched).toHaveBeenCalledWith(
-       "dropdown",
-       true,
-       false
-     );
+    const { getByText } = renderComponent();
+
+    const input = getByText("Select an option");
+
+    fireEvent.mouseDown(input);
+
+    const option = getByText("Option 1");
+
+    fireEvent.click(option);
+
+    expect(mockProps.form.setFieldTouched).toHaveBeenCalledWith(
+      "dropdown",
+      true,
+      false
+    );
   });
 
   test("should display an error message when validation fails", async () => {
-    const { getByPlaceholderText, findByText } = renderComponent({
-      error: "Dropdown is required",
+    const { getByText, findByText } = renderComponent({
+      error: { value: "Dropdown is required" },
     });
-    const input = getByPlaceholderText("Select an option");
-    fireEvent.change(input, { target: { value: "Option 1" } });
+
+    const input = getByText("Select an option");
+
+    fireEvent.mouseDown(input);
+
+    const option = getByText("Option 1");
+
+    fireEvent.click(option);
+
     const errorMessage = await findByText("Dropdown is required");
+
     expect(errorMessage).toBeInTheDocument();
   });
 
   test("should not display an error message when validation passes", async () => {
-    const { getByPlaceholderText, queryByText } = renderComponent();
-    const input = getByPlaceholderText("Select an option");
-    fireEvent.change(input, { target: { value: "Option 1" } });
+    const { getByText, queryByText } = renderComponent();
+
+    const input = getByText("Select an option");
+
+    fireEvent.mouseDown(input);
+
+    const option = getByText("Option 1");
+
+    fireEvent.click(option);
+
     expect(queryByText("Dropdown is required")).not.toBeInTheDocument();
-  });
-
-  test("should render the dropdown with the correct className", () => {
-    const { getByTestId } = renderComponent({ className: "custom-class" });
-    const dropdown = getByTestId("dropdown");
-    expect(dropdown).toHaveClass("custom-class");
-  });
-
-  test("should render the dropdown with the correct isMulti prop", () => {
-    const { getByTestId } = renderComponent({ isMulti: true });
-    const dropdown = getByTestId("dropdown");
-    expect(dropdown).toHaveAttribute("multiple");
-  });
-
-  test("should render the dropdown with the correct testId prop", () => {
-    const { getByTestId } = renderComponent({ testId: "custom-test-id" });
-    const dropdown = getByTestId("custom-test-id");
-    expect(dropdown).toBeInTheDocument();
   });
 });

@@ -64,7 +64,9 @@ export const DropDown: React.FC<dropdownProps> = ({
 
   const handleChange = (newValue: MultiValue<Option> | SingleValue<Option>) => {
     if (!disabled) {
-      const value = isMulti ? newValue : (newValue as Option);
+      const value = isMulti
+        ? (newValue as MultiValue<Option>).map((option) => option.value)
+        : (newValue as Option).value;
       form.setFieldValue(field.name, value);
       form.setFieldTouched(field.name, true, false);
     }
