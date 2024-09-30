@@ -3,9 +3,9 @@ import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import { getIn } from "formik";
 import { Label, Paragraph } from "../Texts";
 import { twMerge } from "tailwind-merge";
+import * as Yup from "yup";
 
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
@@ -46,27 +46,39 @@ export interface InputProps {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const isRequiredField = (
-  validationSchema: any,
+  validationSchema: Yup.AnySchema,
+
   name: string
 ): boolean => {
   try {
-    const field = getIn(validationSchema.describe().fields, name);
+    const schemaDescription = validationSchema.describe();
 
-    if (!field) {
+    const fieldSchema = (schemaDescription as any).fields[name];
+
+    if (!fieldSchema) {
       return false;
     }
 
-    if (field.tests?.some((obj: { name: string }) => obj.name === "required")) {
+    if (
+      fieldSchema.tests?.some(
+        (obj: { name: string }) => obj.name === "required"
+      )
+    ) {
       return true;
     }
 
-    if (field.type === "array") {
-      if (field.tests?.some((obj: { name: string }) => obj.name === "min")) {
+    if (fieldSchema.type === "array") {
+      if (
+        fieldSchema.tests?.some((obj: { name: string }) => obj.name === "min")
+      ) {
         return true;
       }
-      const arrayItem = field.of;
+
+      const arrayItem = fieldSchema.of;
+
       if (arrayItem && arrayItem.type === "object") {
-        const nestedFields = arrayItem.fields || {};
+        const nestedFields = arrayItem.fields;
+
         return Object.keys(nestedFields).some((key) =>
           nestedFields[key]?.tests?.some(
             (obj: { name: string }) => obj.name === "required"
@@ -74,23 +86,27 @@ export const isRequiredField = (
         );
       }
     }
-    if (field.type === "object") {
+
+    if (fieldSchema.type === "object") {
       if (
-        field.tests?.some((obj: { name: string }) => obj.name === "required")
+        fieldSchema.tests?.some(
+          (obj: { name: string }) => obj.name === "required"
+        )
       ) {
         return true;
       }
 
-      const nestedFields = field.fields || {};
+      const nestedFields = fieldSchema.fields;
+
       return Object.keys(nestedFields).some((key) =>
         nestedFields[key]?.tests?.some(
           (obj: { name: string }) => obj.name === "required"
         )
       );
     }
+
     return false;
   } catch (error) {
-    console.error("Error checking required field:", error);
     return false;
   }
 };
@@ -162,7 +178,7 @@ export const InputField: React.FC<InputProps> = ({
     <div className={finalClassName}>
       <Label htmlFor={inputId}>
         {label}
-        {isRequiredField(validationSchema, field.name) && "*"}
+        {isRequiredField(validationSchema!, field.name) && "*"}
       </Label>
       <div className={styles.inputWrapper}>
         {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}

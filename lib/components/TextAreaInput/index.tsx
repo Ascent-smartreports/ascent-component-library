@@ -56,7 +56,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
     <div className={className}>
       <Label htmlFor={inputId}>
         {label}
-        {isRequiredField(validationSchema, field.name) && "*"}
+        {isRequiredField(validationSchema!, field.name) && "*"}
       </Label>
       <div>
         <textarea

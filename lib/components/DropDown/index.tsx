@@ -154,7 +154,7 @@ export const DropDown: React.FC<dropdownProps> = ({
     <div className={finalClassName}>
       <Label htmlFor={inputId}>
         {label}
-        {isRequiredField(validationSchema, field.name) && " *"}
+        {isRequiredField(validationSchema!, field.name) && " *"}
       </Label>
       <Select
         id={inputId}

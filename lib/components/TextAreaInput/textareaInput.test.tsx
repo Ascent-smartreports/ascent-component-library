@@ -1,124 +1,116 @@
-import { render, screen, fireEvent, act } from "@testing-library/react";
-import { TextAreaInput } from ".";
+import { render, fireEvent } from "@testing-library/react";
+import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import { Field, FieldProps, Formik, useFormikContext } from "formik";
-import "@testing-library/jest-dom";
+import { TextAreaInput, TextAreaProps } from ".";
+// import "@testing-library/jest-dom/extend-expect";
 
-jest.mock("formik", () => ({
-  ...jest.requireActual("formik"),
-  useFormikContext: jest.fn(),
-}));
 
-const validationSchema = Yup.object().shape({
-  description: Yup.string().required("Description is required"),
-});
+describe("TextAreaInput Component", () => {
+  const validationSchema = Yup.object().shape({
+    description: Yup.string().required("Description is required"),
+  });
 
-const errors = {
-  description: "Description value is required",
-};
-
-describe("TextAreaInput component", () => {
-  const mockContextValues = {
-    values: { description: "" },
-    errors: { description: "" },
-    handleChange: jest.fn(),
-    setFieldValue: jest.fn(),
+  const mockProps = {
+    label: "Description",
+    field: {
+      name: "description",
+      value: "",
+      onChange: jest.fn(),
+      onBlur: jest.fn(),
+    },
+    form: {
+      submitCount: 0,
+      setFieldValue: jest.fn(),
+    },
+    error: "",
+    autoFocus: false,
+    placeholder: "Enter a description",
+    disabled: false,
+    height: "100px",
+    testId: "text-area",
   };
 
-  beforeEach(() => {
-    (useFormikContext as jest.Mock).mockReturnValue(mockContextValues);
-  });
-
-  it("renders the component with no errors", () => {
+  const renderComponent = (props: Partial<TextAreaProps> = {}) =>
     render(
       <Formik
         initialValues={{ description: "" }}
         validationSchema={validationSchema}
-        onSubmit={() => {}}
+        onSubmit={jest.fn()}
       >
-        <Field name="description">
-          {({ field, form }: FieldProps) => (
-            <TextAreaInput
-              form={form}
-              testId="descr"
-              label="Description"
-              field={field}
-              error={errors.description}
-              validationSchema={validationSchema}
-              height="150px"
-            />
-          )}
-        </Field>
+        <Field
+          name="description"
+          component={TextAreaInput}
+          {...mockProps}
+          {...props}
+        />
       </Formik>
     );
 
-    expect(screen.getByLabelText(/Description/i)).toBeInTheDocument();
-    expect(screen.getByRole("textbox")).toHaveValue("");
+  test("should render the TextAreaInput with the correct initial value", () => {
+    const { getByTestId } = renderComponent();
+
+    const textArea = getByTestId("text-area");
+    expect(textArea).toBeInTheDocument();
+    expect(textArea).toHaveValue("");
+    expect(textArea).toHaveAttribute("placeholder", "Enter a description");
   });
 
-  it("renders the component with errors", () => {
-    mockContextValues.errors.description = "Description is required";
+  test("should update the value when typing", () => {
+    const { getByTestId } = renderComponent();
+    const textArea = getByTestId("text-area");
 
-    render(
-      <Formik
-        initialValues={{ description: "" }}
-        validationSchema={validationSchema}
-        onSubmit={() => {}}
-      >
-        <Field name="description">
-          {({ field, form }: FieldProps) => (
-            <TextAreaInput
-              form={form}
-              label="Description"
-              testId="desc"
-              field={field}
-              error={mockContextValues.errors.description}
-              validationSchema={validationSchema}
-              height="150px"
-            />
-          )}
-        </Field>
-      </Formik>
-    );
-
-    expect(screen.getByLabelText(/Description/i)).toBeInTheDocument();
-    expect(screen.getByRole("textbox")).toHaveValue("");
-    expect(
-      screen.getByText("Description value is required")
-    ).toBeInTheDocument();
-  });
-
-  it("calls setFieldValue on change", () => {
-    render(
-      <Formik
-        initialValues={{ description: "" }}
-        validationSchema={validationSchema}
-        onSubmit={() => {}}
-      >
-        <Field name="description">
-          {({ field, form }: FieldProps) => (
-            <TextAreaInput
-              form={form}
-              label="Description"
-              testId="description"
-              field={field}
-              error={errors.description}
-              validationSchema={validationSchema}
-              height="150px"
-            />
-          )}
-        </Field>
-      </Formik>
-    );
-
-    const textarea = screen.getByRole("textbox");
-    act(() => {
-      fireEvent.change(textarea, { target: { value: "New description" } });
-    });
-
-    expect(mockContextValues.setFieldValue).toHaveBeenCalledWith(
+    fireEvent.change(textArea, { target: { value: "New description" } });
+    expect(mockProps.form.setFieldValue).toHaveBeenCalledWith(
       "description",
       "New description"
     );
+  });
+
+  test("should call onBlur when textarea loses focus", () => {
+    const { getByTestId } = renderComponent();
+    const textArea = getByTestId("text-area");
+
+    fireEvent.blur(textArea);
+    expect(mockProps.field.onBlur).toHaveBeenCalled();
+  });
+
+  test("should display an error message when validation fails", async () => {
+    const { findByText, getByTestId } = renderComponent({
+      error: "Description is required",
+    });
+
+    const textArea = getByTestId("text-area");
+
+    fireEvent.blur(textArea);
+    const errorMessage = await findByText("Description is required");
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  test("should render with autoFocus", () => {
+    const { getByTestId } = renderComponent({ autoFocus: true });
+    const textArea = getByTestId("text-area");
+
+    expect(textArea).toHaveFocus();
+  });
+
+  test("should be disabled when disabled prop is passed", () => {
+    const { getByTestId } = renderComponent({ disabled: true });
+    const textArea = getByTestId("text-area");
+
+    expect(textArea).toBeDisabled();
+  });
+
+  test("should respect the maxLength property", () => {
+    const { getByTestId } = renderComponent({ maxLength: 50 });
+    const textArea = getByTestId("text-area");
+
+    expect(textArea).toHaveAttribute("maxLength", "50");
+  });
+
+  test("should have the correct height when height prop is passed", () => {
+    const { getByTestId } = renderComponent({ height: "200px" });
+    const textArea = getByTestId("text-area");
+
+    expect(textArea).toHaveStyle("height: 200px");
   });
 });
