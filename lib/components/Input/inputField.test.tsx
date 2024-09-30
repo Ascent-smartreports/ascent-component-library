@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, fireEvent } from "@testing-library/react";
 import { Formik, Field } from "formik";
 import { InputField } from ".";
@@ -27,12 +26,12 @@ describe("InputField Component", () => {
     error: "",
     className: "",
     type: "text",
-    placeholder: "",
+    placeholder: "Enter Input",
     disabled: false,
     isPassword: false,
     maxLength: 10,
-    rightIcon: <></>,
-    leftIcon: <></>,
+    rightIcon: <div>Right Icon</div>,
+    leftIcon: <div>Left Icon</div>,
     accept: undefined,
     multiple: false,
     onFileChange: jest.fn(),
@@ -46,15 +45,10 @@ describe("InputField Component", () => {
         validationSchema={validationSchema}
         onSubmit={jest.fn()}
       >
-        <Field
-          name="input"
-          component={InputField}
-          {...mockProps}
-          {...props}
-          onFileChange={props.onFileChange || mockProps.onFileChange}
-        />
+        <Field name="input" component={InputField} {...mockProps} {...props} />
       </Formik>
     );
+
   test("should render the input field with the correct label", () => {
     const { getByText } = renderComponent();
     expect(getByText("Input*")).toBeInTheDocument();
@@ -64,7 +58,6 @@ describe("InputField Component", () => {
     const { getByPlaceholderText } = renderComponent();
 
     const input = getByPlaceholderText("Enter Input");
-
     fireEvent.change(input, { target: { value: "Hello" } });
 
     expect(mockProps.form.setFieldValue).toHaveBeenCalledTimes(1);
@@ -88,53 +81,81 @@ describe("InputField Component", () => {
   });
 
   test("should render the input field with the correct file input", () => {
-    const { getByPlaceholderText } = renderComponent({ type: "file" });
-    const fileInputContainer = getByPlaceholderText("file", {
-      exact: true,
-    })?.closest("div");
-    if (fileInputContainer) {
-      const inputFile = fileInputContainer.querySelector("input[type='file']");
-      if (inputFile) {
-        expect(inputFile).toHaveAttribute("type", "file");
-        expect(inputFile).not.toHaveAttribute("multiple");
-      } else {
-        const inputFileFallback = fileInputContainer.querySelector("input");
-        if (inputFileFallback) {
-          expect(inputFileFallback).toHaveAttribute("type", "file");
-          expect(inputFileFallback).not.toHaveAttribute("multiple");
-        } else {
-          expect(inputFileFallback).not.toBeNull();
-        }
-      }
-    } else {
-      expect(fileInputContainer).not.toBeNull();
-    }
-  });
+    const { getByLabelText } = renderComponent({ type: "file" });
 
+    const fileInput = getByLabelText("Input*");
+
+    const file = new File(["file content"], "file.txt", { type: "text/plain" });
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    expect(mockProps.form.setFieldValue).toHaveBeenCalledWith(
+      "input",
+      expect.any(File),
+      false
+    );
+  });
   test("should render the input field with the correct multiple file input", () => {
-    const { getByPlaceholderText } = renderComponent({
+    const { getByLabelText } = renderComponent({
       type: "file",
       multiple: true,
     });
-    const fileInputContainer = getByPlaceholderText("file", {
-      exact: true,
-    })?.closest("div");
-    if (fileInputContainer) {
-      const inputFile = fileInputContainer.querySelector("input[type='file']");
-      if (inputFile) {
-        expect(inputFile).toHaveAttribute("type", "file");
-        expect(inputFile).toHaveAttribute("multiple", "");
-      } else {
-        const inputFileFallback = fileInputContainer.querySelector("input");
-        if (inputFileFallback) {
-          expect(inputFileFallback).toHaveAttribute("type", "file");
-          expect(inputFileFallback).toHaveAttribute("multiple", "");
-        } else {
-          expect(inputFileFallback).not.toBeNull();
-        }
-      }
-    } else {
-      expect(fileInputContainer).not.toBeNull();
-    }
+
+    const fileInput = getByLabelText("Input*");
+
+    const file1 = new File(["file content"], "file1.txt", {
+      type: "text/plain",
+    });
+    const file2 = new File(["file content"], "file2.txt", {
+      type: "text/plain",
+    });
+    fireEvent.change(fileInput, { target: { files: [file1, file2] } });
+
+    expect(mockProps.form.setFieldValue).toHaveBeenCalledWith(
+      "input",
+      expect.arrayContaining([expect.any(File)]),
+      false
+    );
+  });
+
+  test("should toggle password visibility", () => {
+    const { getByPlaceholderText, getByLabelText } = renderComponent({
+      isPassword: true,
+    });
+    const passwordInput = getByPlaceholderText("Enter Input");
+    const toggleButton = getByLabelText("Show password");
+    expect(passwordInput).toHaveAttribute("type", "password");
+    fireEvent.click(toggleButton);
+    expect(passwordInput).toHaveAttribute("type", "text");
+    const hideButton = getByLabelText("Hide password");
+    fireEvent.click(hideButton);
+    expect(passwordInput).toHaveAttribute("type", "password");
+  });
+
+  test("should handle left and right icons correctly", () => {
+    const { getByText } = renderComponent();
+    expect(getByText("Right Icon")).toBeInTheDocument();
+    expect(getByText("Left Icon")).toBeInTheDocument();
+  });
+
+  test("should handle onBlur event", () => {
+    const { getByPlaceholderText } = renderComponent();
+    const input = getByPlaceholderText("Enter Input");
+    fireEvent.blur(input);
+
+    expect(mockProps.field.onBlur).toHaveBeenCalled();
+  });
+
+  test("should handle onFocus event", () => {
+    const { getByPlaceholderText } = renderComponent();
+    const input = getByPlaceholderText("Enter Input");
+    fireEvent.focus(input);
+
+    expect(mockProps.field.onBlur).toHaveBeenCalled();
+  });
+
+  test("should render disabled input correctly", () => {
+    const { getByPlaceholderText } = renderComponent({ disabled: true });
+    const input = getByPlaceholderText("Enter Input");
+    expect(input).toBeDisabled();
   });
 });

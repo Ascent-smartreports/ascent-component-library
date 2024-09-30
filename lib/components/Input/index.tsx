@@ -257,12 +257,14 @@ export const InputField: React.FC<InputProps> = ({
                 className={styles.rightIcon}
                 size={22}
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                aria-label="Show password"
               />
             ) : (
               <IoEyeOffOutline
                 className={styles.rightIcon}
                 size={22}
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                aria-label="Hide password"
               />
             )}
           </>

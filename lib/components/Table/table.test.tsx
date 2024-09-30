@@ -82,10 +82,6 @@ describe("Table Component", () => {
       "#pagination-next-page"
     ) as HTMLButtonElement;
 
-    // Log the button state
-    console.log("Button found:", paginationNextPageButton);
-    console.log("Button disabled state:", paginationNextPageButton?.disabled);
-
     // Ensure the button is enabled
     if (!paginationNextPageButton.disabled) {
       // Simulate clicking the next page button
