@@ -9,6 +9,7 @@ interface TableProps {
   totalRows: number;
   searchText?: string;
   indexRequired?: boolean;
+  paginationRequired?: boolean;
   defaultRowsPerPage?: number;
   handleTablePageChange?: (page: number) => void;
   handleTableRowsPerPageChange?: (newRowsPerPage: number, page: number) => void;
@@ -61,6 +62,7 @@ export const Table: React.FC<TableProps> = ({
   totalRows,
   searchText,
   indexRequired = true,
+  paginationRequired = true,
   defaultRowsPerPage = 10,
   handleTablePageChange,
   handleTableRowsPerPageChange,
@@ -97,31 +99,35 @@ export const Table: React.FC<TableProps> = ({
   }, [currentPage, rowsPerPage, getData]);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    if (handleTablePageChange) {
-      handleTablePageChange(page);
+    if (paginationRequired) {
+      setCurrentPage(page);
+      if (handleTablePageChange) {
+        handleTablePageChange(page);
+      }
     }
   };
 
   const handleRowsPerPageChange = (newRowsPerPage: number, page: number) => {
-    setRowsPerPage(newRowsPerPage);
-    setCurrentPage(page);
-    if (handleTableRowsPerPageChange) {
-      handleTableRowsPerPageChange(newRowsPerPage, page);
+    if (paginationRequired) {
+      setRowsPerPage(newRowsPerPage);
+      setCurrentPage(page);
+      if (handleTableRowsPerPageChange) {
+        handleTableRowsPerPageChange(newRowsPerPage, page);
+      }
     }
   };
 
   return (
     <div>
       <DataTable
-        data={paginatedData}
+        data={paginationRequired ? paginatedData : getData()}
         columns={indexRequired ? [indexRow, ...columns] : columns}
         customStyles={customStyles}
         pagination
         paginationServer
-        paginationTotalRows={totalRows}
-        paginationDefaultPage={currentPage}
-        paginationPerPage={rowsPerPage}
+        paginationTotalRows={paginationRequired ? totalRows : getData().length}
+        paginationDefaultPage={paginationRequired ? currentPage : 1}
+        paginationPerPage={paginationRequired ? rowsPerPage : getData().length}
         onChangePage={handlePageChange}
         onChangeRowsPerPage={handleRowsPerPageChange}
         paginationRowsPerPageOptions={paginationTableRowsPerPageOptions}
