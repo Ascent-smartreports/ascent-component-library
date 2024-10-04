@@ -43,6 +43,28 @@ interface dropdownProps {
 
 const animatedComponents = makeAnimated();
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const formatOptionLabel = (
+  option: Option,
+  { context }: { context: "menu" | "value" }
+) => {
+  if (context === "menu") {
+    return (
+      <div className="flex flex-col">
+        <span className="font-medium">{option.label}</span>
+        {option.additionalInfo &&
+          Object.entries(option.additionalInfo).map(([key, value]) => (
+            <span
+              key={key}
+              className="text-sm text-gray-500"
+            >{`${key}: ${value}`}</span>
+          ))}
+      </div>
+    );
+  }
+  return <span>{option.label}</span>;
+};
+
 export const DropDown: React.FC<dropdownProps> = ({
   placeholder,
   options,
@@ -127,27 +149,6 @@ export const DropDown: React.FC<dropdownProps> = ({
         color: "#4A90E2",
       },
     }),
-  };
-
-  const formatOptionLabel = (
-    option: Option,
-    { context }: { context: "menu" | "value" }
-  ) => {
-    if (context === "menu") {
-      return (
-        <div className="flex flex-col">
-          <span className="font-medium">{option.label}</span>
-          {option.additionalInfo &&
-            Object.entries(option.additionalInfo).map(([key, value]) => (
-              <span
-                key={key}
-                className="text-sm text-gray-500"
-              >{`${key}: ${value}`}</span>
-            ))}
-        </div>
-      );
-    }
-    return <span>{option.label}</span>;
   };
 
   const inputId = `input_${field.name}`;
