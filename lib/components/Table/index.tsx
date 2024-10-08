@@ -61,7 +61,7 @@ export const Table: React.FC<TableProps> = ({
   columns,
   totalRows,
   searchText,
-  indexRequired = true,
+  indexRequired = false,
   paginationRequired = true,
   defaultRowsPerPage = 10,
   handleTablePageChange,
