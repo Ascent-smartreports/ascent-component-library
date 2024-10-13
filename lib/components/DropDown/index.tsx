@@ -39,6 +39,7 @@ interface dropdownProps {
   error: any;
   isMulti?: boolean;
   testId: string;
+  onChange?: (value: any) => void;
 }
 
 const animatedComponents = makeAnimated();
@@ -55,6 +56,7 @@ export const DropDown: React.FC<dropdownProps> = ({
   disabled,
   testId,
   className = "",
+  onChange,
 }) => {
   const [defaultValue, setDefaultValue] = useState(field.value);
 
@@ -67,6 +69,9 @@ export const DropDown: React.FC<dropdownProps> = ({
       const value = isMulti ? newValue : (newValue as Option);
       form.setFieldValue(field.name, value);
       form.setFieldTouched(field.name, true, false);
+      if (onChange) {
+        onChange(value);
+      }
     }
   };
 
