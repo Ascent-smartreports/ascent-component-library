@@ -691,6 +691,7 @@ function App() {
                     error={formik.errors.topic}
                     validationSchema={validationSchema}
                     isMulti={false}
+                    disabled={true}
                   />
                 )}
               </Field>
@@ -796,6 +797,10 @@ function App() {
                   error={formik.errors.topic}
                   validationSchema={validationSchema}
                   isMulti
+                  // disabled={true}
+                  onChange={(values) => {
+                    console.log(values, "values");
+                  }}
                 />
               )}
             </Field>

@@ -179,6 +179,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         onChange={handleChange}
         value={defaultValue as Option | Option[]}
         formatOptionLabel={formatOptionLabel}
+        isDisabled={disabled}
       />
       <div className="my-2">
         {error?.value && <Paragraph type="error">{error?.value}</Paragraph>}
