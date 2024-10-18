@@ -27,9 +27,10 @@ import {
   TextAreaInput,
   CustomCheckbox,
   // NotifySuccess,
-} from "../lib/main";
+} from "ascent-component-library";
 import { Toaster } from "react-hot-toast";
 import AccordionMenu from "./components/AccordianMenu";
+import LatestAccordianMenu from "./components/LatestAccordianMenu";
 // import { menu, subMenu } from "./components/menu";
 // import { modifiedData } from "./components/responseObject";
 // import { modifiedData2 } from "./components/roleResponseObj";
@@ -41,17 +42,20 @@ import AccordionMenu2 from "./components/UpdatedAccordianMenu";
 import {
   roleResponseNew,
   updateMenuState,
+  updateMenuState2,
 } from "./components/updatedNewResponseObj";
 import { ToolTipLabel } from "../lib/main";
 import { Tabs } from "../lib/components/Tabs";
 import { StepperTabs } from "../lib/components/StepperTabs";
 interface InitialValues {
   name: File | null;
+  name2: string;
   topic: { label: string; value: string } | undefined;
   topic2: [{ label: string; value: string }] | undefined;
   description: string;
   date: string | null;
 }
+
 function App() {
   const [selectedGender, setSelectedGender] = React.useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,6 +63,7 @@ function App() {
   // const [state, setState] = useState<{ label: string; value: string }>();
   const initialValues: InitialValues = {
     name: null,
+    name2: "",
     topic: undefined,
     // topic: { label: "HTML", value: "html" },
     topic2: undefined,
@@ -92,6 +97,7 @@ function App() {
         value: Yup.string().required("Topic value is required"),
       })
       .required("topic is required"),
+    name2: Yup.string(),
     name: Yup.mixed()
       .required("Name is required")
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -483,10 +489,328 @@ function App() {
   useEffect(() => {
     console.log(response, "**************");
   }, [response]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const reportData: any[] = [
+    {
+      reportName: "AnnualReport",
+      reportId: "1",
+      sheets: [
+        {
+          sheetId: "1",
+          sheetName: "RBAC1",
+          sheetChildren: [
+            {
+              filterId: "1",
+              filterFieldName: "Filters",
+              filterChildren: [
+                {
+                  filterChildrenId: "1",
+                  filterName: "UserGroupFilter1",
+                  subFilters: [
+                    {
+                      subfilterChildrenId: "1",
+                      subfiltername: "userGroupSub555",
+                    },
+                  ],
+                },
+                {
+                  filterChildrenId: "2",
+                  filterName: "UserGroupFilter2",
+                  subFilters: [
+                    {
+                      subfilterChildrenId: "2",
+                      subfiltername: "userGroupSub444",
+                    },
+                  ],
+                },
+                {
+                  filterChildrenId: "3",
+                  filterName: "UserGroupFilter3",
+                  subFilters: [
+                    {
+                      subfilterChildrenId: "3",
+                      subfiltername: "userGroupSub333",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              custumFieldId: "2",
+              custumFieldName: "CustomFields",
+              customFieldChildren: [
+                {
+                  customFieldChildrenId: "11",
+                  customFieldChildrenName: "cus11",
+                },
+                {
+                  customFieldChildrenId: "12",
+                  customFieldChildrenName: "cus12",
+                },
+                {
+                  customFieldChildrenId: "13",
+                  customFieldChildrenName: "cus13",
+                },
+                {
+                  customFieldChildrenId: "14",
+                  customFieldChildrenName: "cus14",
+                },
+                {
+                  customFieldChildrenId: "15",
+                  customFieldChildrenName: "cus15",
+                },
+                {
+                  customFieldChildrenId: "16",
+                  customFieldChildrenName: "cus16",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          sheetId: "1",
+          sheetName: "RBAC2",
+          sheetChildren: [
+            {
+              filterId: "1",
+              filterFieldName: "UserGroupFilter",
+              filterChildren: [
+                {
+                  filterChildrenId: "1",
+                  filterName: "userGroupSub",
+                },
+              ],
+            },
+          ],
+          customFields: [
+            { customFieldId: "1", customFieldName: "cus1" },
+            { customFieldId: "2", customFieldName: "cus2" },
+            { customFieldId: "3", customFieldName: "cus3" },
+            { customFieldId: "4", customFieldName: "cus4" },
+            { customFieldId: "5", customFieldName: "cus5" },
+            { customFieldId: "6", customFieldName: "cus6" },
+          ],
+        },
+      ],
+    },
+  ];
+
+  // Define the keys for accessing dynamic fields
+  const reportMenuKeys = {
+    idKeys: [
+      "reportId",
+      "sheetId",
+      "filterId",
+      "custumFieldId",
+      "filterChildrenId",
+      "subfilterChildrenId",
+      "customFieldChildrenId",
+    ],
+    nameKeys: [
+      "reportName",
+      "sheetName",
+      "filterFieldName",
+      "custumFieldName",
+      "filterName",
+      "subfiltername",
+      "customFieldChildrenName",
+    ],
+    childrenKeys: [
+      "sheets",
+      "sheetChildren",
+      "filterChildren",
+      "customFieldChildren",
+      "subFilters",
+    ], // Possible children keys
+  };
+  console.log(
+    updateMenuState2(reportData, reportMenuKeys),
+    "pppppppppppppppppppppp"
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const generateReportMenuKeys = (reportData: any[]) => {
+    const reportMenuKeys = {
+      idKeys: new Set<string>(),
+      nameKeys: new Set<string>(),
+      childrenKeys: new Set<string>(),
+    };
+
+    const traverse = (data: Yup.AnyObject) => {
+      if (Array.isArray(data)) {
+        data.forEach((item) => traverse(item));
+      } else if (typeof data === "object" && data !== null) {
+        Object.keys(data).forEach((key) => {
+          if (key.toLowerCase().includes("id")) {
+            reportMenuKeys.idKeys.add(key);
+          }
+          if (key.toLowerCase().includes("name")) {
+            reportMenuKeys.nameKeys.add(key);
+          }
+          if (Array.isArray(data[key])) {
+            reportMenuKeys.childrenKeys.add(key);
+          }
+          traverse(data[key]);
+        });
+      }
+    };
+
+    traverse(reportData);
+
+    return {
+      idKeys: Array.from(reportMenuKeys.idKeys),
+      nameKeys: Array.from(reportMenuKeys.nameKeys),
+      childrenKeys: Array.from(reportMenuKeys.childrenKeys),
+    };
+  };
+
+  const reportResponse = [
+    {
+      reportName: "AnnualReport",
+      reportId: "1",
+      sheets: [
+        {
+          sheetId: "1",
+          sheetName: "RBAC1",
+          filters: [
+            {
+              filterId: "1",
+              filterName: "UserGroupFilter",
+              subFilters: [
+                {
+                  subfilterId: "1",
+                  subfiltername: "userGroupSub",
+                },
+              ],
+            },
+            {
+              filterId: "2",
+              filterName: "UserGroupFilter",
+              subFilters: [
+                {
+                  subfilterId: "1",
+                  subfiltername: "userGroupSub",
+                },
+              ],
+            },
+            {
+              filterId: "3",
+              filterName: "UserGroupFilter",
+              subFilters: [
+                {
+                  subfilterId: "1",
+                  subfiltername: "userGroupSub",
+                },
+              ],
+            },
+          ],
+          customFields: [
+            { customFieldId: "1", customFieldName: "cus1**" },
+            { customFieldId: "1", customFieldName: "cus156" },
+            { customFieldId: "1", customFieldName: "cus1ll" },
+            { customFieldId: "1", customFieldName: "cus1uu" },
+            { customFieldId: "1", customFieldName: "cus1**" },
+            { customFieldId: "1", customFieldName: "cus1--" },
+          ],
+        },
+        {
+          sheetId: "1",
+          sheetName: "RBAC2",
+          filters: [
+            {
+              filterId: "1",
+              filterName: "UserGroupFilter",
+              subFilters: [
+                {
+                  subfilterId: "1",
+                  subfiltername: "userGroupSub",
+                },
+              ],
+            },
+          ],
+          customFields: [
+            { customFieldId: "1", customFieldName: "cus1" },
+            { customFieldId: "1", customFieldName: "cus12" },
+            { customFieldId: "1", customFieldName: "cus13" },
+            { customFieldId: "1", customFieldName: "cus155" },
+            { customFieldId: "1", customFieldName: "cus18" },
+            { customFieldId: "1", customFieldName: "cus19" },
+          ],
+        },
+      ],
+    },
+  ];
+
+  console.log(generateReportMenuKeys(reportData), "reportData");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const transformReportData = (reportData: Yup.AnyObject): any[] => {
+    return reportData.map((report: Yup.AnyObject) => {
+      return {
+        reportName: report.reportName,
+        reportId: report.reportId,
+        sheets: report.sheets.map((sheet: Yup.AnyObject) => {
+          const sheetChildren: Yup.AnyObject[] = [];
+
+          if (sheet.filters && sheet.filters.length > 0) {
+            sheetChildren.push({
+              filterId: sheet.filters[0].filterId,
+              filterFieldName: "Filters",
+              filterChildren: sheet.filters.map((filter: Yup.AnyObject) => {
+                return {
+                  filterChildrenId: filter.filterId,
+                  filterName: filter.filterName,
+                  subFilters: filter.subFilters.map(
+                    (subFilter: Yup.AnyObject) => ({
+                      subfilterChildrenId: subFilter.subfilterId,
+                      subfiltername: subFilter.subfiltername,
+                    })
+                  ),
+                };
+              }),
+            });
+          }
+
+          if (sheet.customFields && sheet.customFields.length > 0) {
+            sheetChildren.push({
+              custumFieldId: sheet.customFields[0].customFieldId,
+              custumFieldName: "CustomFields",
+              customFieldChildren: sheet.customFields.map(
+                (customField: Yup.AnyObject) => {
+                  return {
+                    customFieldChildrenId: customField.customFieldId,
+                    customFieldChildrenName: customField.customFieldName,
+                  };
+                }
+              ),
+            });
+          }
+
+          return {
+            sheetId: sheet.sheetId,
+            sheetName: sheet.sheetName,
+            sheetChildren,
+          };
+        }),
+      };
+    });
+  };
+
+  console.log(transformReportData(reportResponse), "++++++++++++++");
 
   return (
     <>
       <div className="flex">
+        <Card className="my-10 p-10 bg-backgroundLight">
+          <LatestAccordianMenu
+            // resetMenus={false}
+            menus={updateMenuState2(
+              transformReportData(reportResponse),
+              reportMenuKeys
+            )}
+            setResponse={setResponse}
+            menuKeys={generateReportMenuKeys(reportData)}
+          />
+        </Card>
         <Card className="my-10 p-10 bg-backgroundLight">
           <AccordionMenu menu={menuTreeArray1} setResponse={setResponse} />
         </Card>
@@ -663,6 +987,7 @@ function App() {
                   </div>
                 )}
               </Field>
+
               <Field name={"topic"}>
                 {({ field, form }: FieldProps) => (
                   <DropDown
@@ -715,6 +1040,20 @@ function App() {
                 handleOptionChange={handleOptionChange}
                 selectedValue={selectedGender}
               />
+              <Field name={"name2"}>
+                {({ field, form }: FieldProps) => (
+                  <div className="">
+                    <InputField
+                      label={"name2"}
+                      field={field}
+                      form={form}
+                      testId="name2"
+                      error={formik.errors.name2}
+                      validationSchema={validationSchema}
+                    />
+                  </div>
+                )}
+              </Field>
             </div>
             <div className="flex flex-row">
               <Field name={"name"}>

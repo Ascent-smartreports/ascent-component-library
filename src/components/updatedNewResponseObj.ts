@@ -501,6 +501,11 @@ interface MenuKeys {
   idKeys: string[];
   nameKeys: string[];
 }
+interface UpdatedMenuKeys {
+childrenKeys:string[]; // Strongly typed as an array of valid object keys
+  idKeys: string[];            // Array of possible ID keys
+  nameKeys: string[];
+}
 
 type BaseMenuItem = {
   isSelected: boolean;
@@ -519,13 +524,32 @@ type MenuItem<K extends MenuKeys> = BaseMenuItem & {
   [key: string]: any;
   children: MenuItem<K>[];
 };
+// type UpdatedMenuItem<K extends UpdatedMenuKeys> = BaseMenuItem & {
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   [key: string]: any;
+//   children: MenuItem<K>[];
+// };
+type UpdatedMenuItem<K extends UpdatedMenuKeys> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+} & {
+  [P in K['childrenKeys'][number]]?: ResponseMenuItem<K>[]; // Dynamic children keys based on the array in UpdatedMenuKeys
+};
 
+
+
+type UpdatedResponseMenuItem<K extends UpdatedMenuKeys> =ResponseBaseMenuItem & {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+} & {
+  // Dynamically add children properties based on the childrenKeys
+  [P in K['childrenKeys'][number]]?: ResponseMenuItem<K>[]; // Add recursive support for dynamic children
+};
 type ResponseMenuItem<K extends MenuKeys> = ResponseBaseMenuItem & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
   children: ResponseMenuItem<K>[];
-};
-
+}
 export const updateMenuState = <K extends MenuKeys>(
   menus: ResponseMenuItem<K>[]
 ): MenuItem<K>[] => {
@@ -557,6 +581,55 @@ export const updateMenuState = <K extends MenuKeys>(
     } as MenuItem<K>;
   });
 };
+
+// export const updateMenuState2 = <K extends UpdatedMenuKeys>(
+//   menus: UpdatedResponseMenuItem<K>[],
+//   menuKeys: K
+// ): UpdatedMenuItem<K>[] => {
+//   return menus.map((menu) => {
+//     const childrenKey = getChildrenKey(menu, menuKeys?.childrenKeys);
+
+//     const updatedChildren = childrenKey
+//       ? updateMenuState2(menu[childrenKey as keyof ResponseMenuItem<K>], menuKeys)
+//       : [];
+
+//     const isAccordianOpen = false;
+
+//     return {
+//       ...menu,
+//       isAccordianOpen,
+//       [childrenKey as keyof MenuItem<K>]: updatedChildren,
+//     } as MenuItem<K>;
+//   });
+// };
+
+export const updateMenuState2 = <K extends UpdatedMenuKeys>(
+  menus: UpdatedResponseMenuItem<K>[],
+  menuKeys: K
+): UpdatedMenuItem<K>[] => {
+  return menus.map((menu) => {
+    const childrenKey = getChildrenKey(menu, menuKeys?.childrenKeys);
+
+    const updatedChildren = childrenKey
+      ? updateMenuState2(menu[childrenKey as keyof ResponseMenuItem<K>], menuKeys)
+      : [];
+
+    const isAccordianOpen = false;
+
+    return {
+      ...menu,
+      isAccordianOpen,
+      ...(childrenKey ? { [childrenKey as keyof MenuItem<K>]: updatedChildren } : {}),
+    } as MenuItem<K>;
+  });
+};
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getChildrenKey = (item: any, keys: string[]): string | undefined => {
+  return keys.find((key) => Array.isArray(item[key]));
+};
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updatedResponse = updateMenuState(roleResponseNew as any);
