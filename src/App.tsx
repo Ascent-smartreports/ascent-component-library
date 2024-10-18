@@ -805,7 +805,7 @@ function App() {
             // resetMenus={false}
             menus={updateMenuState2(
               transformReportData(reportResponse),
-              reportMenuKeys
+              generateReportMenuKeys(reportData)
             )}
             setResponse={setResponse}
             menuKeys={generateReportMenuKeys(reportData)}
