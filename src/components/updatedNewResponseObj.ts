@@ -614,7 +614,7 @@ export const updateMenuState2 = <K extends UpdatedMenuKeys>(
       ? updateMenuState2(menu[childrenKey as keyof ResponseMenuItem<K>], menuKeys)
       : [];
 
-    const isAccordianOpen = false;
+    const isAccordianOpen =childrenKey==='sheets';
 
     return {
       ...menu,

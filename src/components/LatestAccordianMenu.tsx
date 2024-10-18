@@ -164,10 +164,14 @@ const AccordionMenu = <K extends MenuKeys>({
       const nameKey = getDynamicKey(menuItem, menuKeys.nameKeys);
       const childrenKey = getChildrenKey(menuItem, menuKeys.childrenKeys);
 
-      // Identify if it's a filter or custom fields label
+      const isEditRequired =
+        nameKey === "filterName" ||
+        nameKey === "subFilterName" ||
+        nameKey === "customFieldName";
       const isFilterOrCustomField =
-        menuItem[nameKey as keyof MenuItem<K>] === "Filters" ||
-        menuItem[nameKey as keyof MenuItem<K>] === "CustomFields";
+        nameKey === "filterFieldParentName" ||
+        nameKey === "custumFieldParentName" ||
+        nameKey === "filterName";
 
       return (
         <div
@@ -200,12 +204,10 @@ const AccordionMenu = <K extends MenuKeys>({
               </ToolTipLabel>
             </div>
 
-            {/* Add the plus icon next to Filters or CustomFields */}
-            {isFilterOrCustomField && (
+            {isEditRequired && (
               <div
                 className="ml-2 cursor-pointer"
                 onClick={() => {
-                  // Perform your plus icon operation here
                   console.log(
                     `${menuItem[nameKey as keyof MenuItem<K>]} clicked`
                   );
@@ -214,15 +216,40 @@ const AccordionMenu = <K extends MenuKeys>({
                 <img
                   src={PlusIcon}
                   alt="plus icon"
-                  className="h-[10px] w-[10px]" // Adjust size as needed
+                  className="h-[15px] w-[15px]"
                 />
               </div>
             )}
+          </div>
+          <div>
+            {/* Add here add button as last children of Filters and Customfields  */}
           </div>
           {menuItem?.isAccordianOpen &&
             childrenKey &&
             menuItem[childrenKey]?.length > 0 &&
             renderMenuItems(menuItem[childrenKey], currentPath)}
+          {isFilterOrCustomField && (
+            <div
+              className="flex items-start mt-2 h-6 w-[100%] flex-start"
+              onClick={() => {
+                console.log(
+                  `Add clicked for ${menuItem[nameKey as keyof MenuItem<K>]}`
+                );
+              }}
+            >
+              <h1 className="text-base font-medium text-blue-500 items-start">
+                {`+ Add ${
+                  nameKey === "filterFieldParentName"
+                    ? "Filters"
+                    : nameKey === "custumFieldParentName"
+                      ? "CustomFields"
+                      : nameKey === "filterName"
+                        ? "Subfilters"
+                        : ""
+                }`}
+              </h1>
+            </div>
+          )}
         </div>
       );
     });
@@ -233,3 +260,5 @@ const AccordionMenu = <K extends MenuKeys>({
 };
 
 export default AccordionMenu;
+
+

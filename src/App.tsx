@@ -678,8 +678,8 @@ function App() {
               filterName: "UserGroupFilter",
               subFilters: [
                 {
-                  subfilterId: "1",
-                  subfiltername: "userGroupSub",
+                  subFilterId: "1",
+                  subFilterName: "userGroupSub",
                 },
               ],
             },
@@ -688,8 +688,8 @@ function App() {
               filterName: "UserGroupFilter",
               subFilters: [
                 {
-                  subfilterId: "1",
-                  subfiltername: "userGroupSub",
+                  subFilterId: "1",
+                  subFilterName: "userGroupSub",
                 },
               ],
             },
@@ -698,8 +698,8 @@ function App() {
               filterName: "UserGroupFilter",
               subFilters: [
                 {
-                  subfilterId: "1",
-                  subfiltername: "userGroupSub",
+                  subFilterId: "1",
+                  subFilterName: "userGroupSub",
                 },
               ],
             },
@@ -722,8 +722,8 @@ function App() {
               filterName: "UserGroupFilter",
               subFilters: [
                 {
-                  subfilterId: "1",
-                  subfiltername: "userGroupSub",
+                  subFilterId: "1",
+                  subFilterName: "userGroupSub",
                 },
               ],
             },
@@ -741,7 +741,7 @@ function App() {
     },
   ];
 
-  console.log(generateReportMenuKeys(reportData), "reportData");
+  console.log(generateReportMenuKeys(reportResponse), "reportData");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const transformReportData = (reportData: Yup.AnyObject): any[] => {
     return reportData.map((report: Yup.AnyObject) => {
@@ -753,16 +753,16 @@ function App() {
 
           if (sheet.filters && sheet.filters.length > 0) {
             sheetChildren.push({
-              filterId: sheet.filters[0].filterId,
-              filterFieldName: "Filters",
+              filterParentId: sheet.filters[0].filterId,
+              filterFieldParentName: "Filters",
               filterChildren: sheet.filters.map((filter: Yup.AnyObject) => {
                 return {
-                  filterChildrenId: filter.filterId,
+                  filterId: filter.filterId,
                   filterName: filter.filterName,
                   subFilters: filter.subFilters.map(
                     (subFilter: Yup.AnyObject) => ({
-                      subfilterChildrenId: subFilter.subfilterId,
-                      subfiltername: subFilter.subfiltername,
+                      subFilterId: subFilter.subFilterId,
+                      subFilterName: subFilter.subFilterName,
                     })
                   ),
                 };
@@ -772,13 +772,13 @@ function App() {
 
           if (sheet.customFields && sheet.customFields.length > 0) {
             sheetChildren.push({
-              custumFieldId: sheet.customFields[0].customFieldId,
-              custumFieldName: "CustomFields",
+              custumFieldParentId: sheet.customFields[0].customFieldId,
+              custumFieldParentName: "CustomFields",
               customFieldChildren: sheet.customFields.map(
                 (customField: Yup.AnyObject) => {
                   return {
-                    customFieldChildrenId: customField.customFieldId,
-                    customFieldChildrenName: customField.customFieldName,
+                    customFieldId: customField.customFieldId,
+                    customFieldName: customField.customFieldName,
                   };
                 }
               ),
@@ -805,10 +805,12 @@ function App() {
             // resetMenus={false}
             menus={updateMenuState2(
               transformReportData(reportResponse),
-              generateReportMenuKeys(reportData)
+              generateReportMenuKeys(transformReportData(reportResponse))
             )}
             setResponse={setResponse}
-            menuKeys={generateReportMenuKeys(reportData)}
+            menuKeys={generateReportMenuKeys(
+              transformReportData(reportResponse)
+            )}
           />
         </Card>
         <Card className="my-10 p-10 bg-backgroundLight">
