@@ -21,11 +21,14 @@ const customStyles: TableStyles = {
     style: {
       borderColor: "#0000000d",
       borderWidth: "0.15rem",
+      borderRadius:"16px",
+      border :"2px solid #E6E6E6  ",
+      overflow: "auto",
     },
   },
   headRow: {
     style: {
-      backgroundColor: "#f8f9fa",
+      backgroundColor: "#FAFAFA",
       fontWeight: 600,
       fontSize: "14px",
       color: "#464a53",
@@ -41,9 +44,13 @@ const customStyles: TableStyles = {
     style: {
       "&:nth-of-type(odd)": {
         backgroundColor: "#ffffff",
+        fontWeight: 400,
+
       },
       "&:nth-of-type(even)": {
-        backgroundColor: "#f8f9fa",
+        backgroundColor: "#FAFAFA",
+        fontWeight: 400,
+
       },
       borderBottomWidth: 0,
     },
@@ -54,6 +61,12 @@ const customStyles: TableStyles = {
       justifyContent: "start",
     },
   },
+
+  pagination: {
+    style: {
+      borderTop: "0"
+    }
+  }
 };
 
 export const Table: React.FC<TableProps> = ({

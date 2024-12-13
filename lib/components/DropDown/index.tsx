@@ -76,13 +76,14 @@ export const DropDown: React.FC<dropdownProps> = ({
   };
 
   const customStyles = {
-    control: (provided: any, state: { isFocused: boolean }) => {
+    control: (provided: any, state: { isFocused: boolean, isDisabled: boolean }) => {
       return {
         ...provided,
         borderColor: state.isFocused ? "#E4E5E9" : "#dfe1e5",
         fontSize: 16,
         padding: "6px 7px",
         color: "green",
+        backgroundColor: state.isDisabled ? "#fcfcfc" : "#ffffff"
       };
     },
     option: (
@@ -96,7 +97,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         ":active": {
           backgroundColor: "#21294C",
           color: "#FFFFFF",
-        },
+        },  
         fontSize: 16,
         padding: 10,
         cursor: "pointer",
@@ -171,7 +172,12 @@ export const DropDown: React.FC<dropdownProps> = ({
           option: (state) => (state.isFocused ? `${styles.active}` : ""),
         }}
         options={options}
-        components={animatedComponents}
+        // components={animatedComponents}
+        components={{
+          ...animatedComponents,          // Include any animated components here if needed
+          IndicatorSeparator: () => null, // Correct way to remove the separator
+        }}
+      
         isMulti={isMulti}
         data-testid={testId}
         styles={customStyles}

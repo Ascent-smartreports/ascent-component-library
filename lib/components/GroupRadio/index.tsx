@@ -45,7 +45,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
                   if (!disabled) handleOptionChange(item.label, item.value);
                 }}
               />
-              <Label className={`${(textStyles.label, "mx-2 mb-1 mr-24")}`}>
+              <Label className={`${(textStyles.label, "mx-2 mb-1 mr-10")}`}>
                 {item.label}
               </Label>
             </div>

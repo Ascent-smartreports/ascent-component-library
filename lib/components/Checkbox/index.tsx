@@ -187,7 +187,7 @@ export const CustomCheckbox = ({
         border: "solid #344054",
         borderWidth: "0 2px 2px 0",
         transform: "rotate(45deg)",
-        zIndex: 101,
+        zIndex: 9,
       };
     } else if (state === "uneditable") {
       return {
@@ -215,7 +215,7 @@ export const CustomCheckbox = ({
     width: "10px",
     height: "10px",
     backgroundColor: "#ffffff",
-    zIndex: 100,
+    zIndex: 9,
   };
 
   return (
