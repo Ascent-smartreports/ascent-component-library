@@ -156,7 +156,7 @@ export const InputField: React.FC<InputProps> = ({
     setError(error);
   }, [error]);
 
-  const finalClassName = twMerge("h-32", className);
+  const finalClassName = twMerge("", className);
 
   return (
     <div className={finalClassName}>
