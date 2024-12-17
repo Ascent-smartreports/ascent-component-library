@@ -76,13 +76,17 @@ export const DropDown: React.FC<dropdownProps> = ({
   };
 
   const customStyles = {
-    control: (provided: any, state: { isFocused: boolean }) => {
+    control: (
+      provided: any,
+      state: { isFocused: boolean; isDisabled: boolean }
+    ) => {
       return {
         ...provided,
         borderColor: state.isFocused ? "#E4E5E9" : "#dfe1e5",
         fontSize: 16,
         padding: "6px 7px",
         color: "green",
+        backgroundColor: state.isDisabled ? "#fcfcfc" : "#ffffff",
       };
     },
     option: (
@@ -154,10 +158,10 @@ export const DropDown: React.FC<dropdownProps> = ({
   };
 
   const inputId = `input_${field.name}`;
-  const finalClassName = twMerge("h-32", className);
+  const finalClassName = twMerge("", className);
   return (
     <div className={finalClassName}>
-      <Label htmlFor={inputId}>
+      <Label htmlFor={inputId} className="mb-2 inline-block">
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}
       </Label>
@@ -171,7 +175,11 @@ export const DropDown: React.FC<dropdownProps> = ({
           option: (state) => (state.isFocused ? `${styles.active}` : ""),
         }}
         options={options}
-        components={animatedComponents}
+        // components={animatedComponents}
+        components={{
+          ...animatedComponents, // Include any animated components here if needed
+          IndicatorSeparator: () => null, // Correct way to remove the separator
+        }}
         isMulti={isMulti}
         data-testid={testId}
         styles={customStyles}
