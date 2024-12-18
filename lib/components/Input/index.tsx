@@ -171,13 +171,13 @@ export const InputField: React.FC<InputProps> = ({
             <input
               id={inputId}
               type="file"
-              className="hidden"
+              className="hidden h-[44px]"
               onChange={handleChange}
               accept={accept}
               multiple={multiple}
               disabled={disabled}
             />
-            <div className="flex items-center justify-between align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[54px] pr-0.5 pl-0.5">
+            <div className="flex items-center justify-between align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[44px] pr-0.5 pl-0.5">
               <div className="w-[75%]">
                 <input
                   type="text"
@@ -191,17 +191,17 @@ export const InputField: React.FC<InputProps> = ({
                         ? "Choose files"
                         : "Choose file"
                   }
-                  className="flex-grow px-3 py-2 border-none focus:outline-none bg-white text-gray-400 placeholder-textLightDark"
+                  className="flex-grow px-3 py-2 border-none focus:outline-none bg-white text-gray-400 placeholder-textLightDark h-[44px]"
                   placeholder={multiple ? "Choose files" : "Choose file"}
                   style={{
                     color: selectedFiles ? "inherit" : "#9CA3AF",
                   }}
                 />
               </div>
-              <div className="h-[54px] flex align-middle justify-center items-center rounded-r-sm w-[85px]">
+              <div className="h-[44px] flex align-middle justify-center items-center rounded-r-sm w-[85px]">
                 <label
                   htmlFor={inputId}
-                  className=" flex align-middle justify-center items-center mr-1 px-2.5 py-2.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[40px] rounded-sm w-[100%]"
+                  className=" flex align-middle justify-center items-center mr-1 px-2.5 py-2.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[30px] rounded-sm w-[100%]"
                 >
                   Browse
                 </label>
@@ -229,7 +229,7 @@ export const InputField: React.FC<InputProps> = ({
             autoComplete="off"
             onBlur={field.onBlur}
             data-testid={testId}
-            className={finalCustomInputClass}
+            className={`${finalCustomInputClass} h-[44px]`}
             onFocus={field.onBlur}
           />
         )}

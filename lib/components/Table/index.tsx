@@ -19,10 +19,8 @@ interface TableProps {
 const customStyles: TableStyles = {
   table: {
     style: {
-      borderColor: "#0000000d",
-      borderWidth: "0.15rem",
-      borderRadius:"16px",
-      border :"2px solid #E6E6E6  ",
+      borderRadius: "8px 8px 0px 0px",
+      border: "1px solid #E6E6E6",
       overflow: "auto",
     },
   },
@@ -45,14 +43,13 @@ const customStyles: TableStyles = {
       "&:nth-of-type(odd)": {
         backgroundColor: "#ffffff",
         fontWeight: 400,
-
       },
       "&:nth-of-type(even)": {
         backgroundColor: "#FAFAFA",
         fontWeight: 400,
-
       },
       borderBottomWidth: 0,
+      border: 0,
     },
   },
   cells: {
@@ -64,9 +61,11 @@ const customStyles: TableStyles = {
 
   pagination: {
     style: {
-      borderTop: "0"
-    }
-  }
+      border: "1px solid #E6E6E6",
+      borderRadius: "0px 0px 8px 8px",
+      borderTop: 0,
+    },
+  },
 };
 
 export const Table: React.FC<TableProps> = ({

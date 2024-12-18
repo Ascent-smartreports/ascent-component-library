@@ -27,7 +27,8 @@ import {
   TextAreaInput,
   CustomCheckbox,
   // NotifySuccess,
-} from "ascent-component-library";
+  // } from "ascent-component-library";
+} from "../lib/main";
 import { Toaster } from "react-hot-toast";
 import AccordionMenu from "./components/AccordianMenu";
 import LatestAccordianMenu from "./components/LatestAccordianMenu";
