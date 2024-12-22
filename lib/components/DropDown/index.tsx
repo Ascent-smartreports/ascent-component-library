@@ -17,7 +17,7 @@ interface dropdownProps {
   placeholder?: string;
   options: Option[];
   validationSchema?: AnySchema<AnyObject> | undefined;
-  label: string;
+  label?: string;
   disabled?: boolean;
   className?: string;
   field: {
@@ -161,10 +161,12 @@ export const DropDown: React.FC<dropdownProps> = ({
   const finalClassName = twMerge("", className);
   return (
     <div className={finalClassName}>
-      <Label htmlFor={inputId} className="mb-2 inline-block">
-        {label}
-        {isRequiredField(validationSchema, field.name) && " *"}
-      </Label>
+      {label && (
+        <Label htmlFor={inputId} className="mb-2 inline-block">
+          {label}
+          {isRequiredField(validationSchema, field.name) && " *"}
+        </Label>
+      )}
       <Select
         id={inputId}
         classNames={{
