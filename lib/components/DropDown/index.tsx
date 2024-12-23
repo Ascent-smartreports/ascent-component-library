@@ -191,9 +191,11 @@ export const DropDown: React.FC<dropdownProps> = ({
         formatOptionLabel={formatOptionLabel}
         isDisabled={disabled}
       />
-      <div className="my-2">
-        {error?.value && <Paragraph type="error">{error?.value}</Paragraph>}
-      </div>
+      {error?.value && (
+        <div className="my-2">
+          <Paragraph type="error">{error?.value}</Paragraph>
+        </div>
+      )}
     </div>
   );
 };
