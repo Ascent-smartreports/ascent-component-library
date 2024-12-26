@@ -199,12 +199,12 @@ export const InputField: React.FC<InputProps> = ({
                   }}
                 />
               </div>
-              <div className="h-[44px] flex align-middle justify-center items-center rounded-r-sm w-[50px]">
+              <div className="h-[44px] flex align-middle justify-center items-center rounded-r-sm w-[40px]">
                 <label
                   htmlFor={inputId}
-                  className=" flex align-middle justify-center items-center mr-1 px-2.5 py-2.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[30px] rounded-sm w-[100%]"
+                  className=" flex align-middle justify-center items-center mr-1 px-1.5 py-1.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[30px] rounded-sm w-[100%]"
                 >
-                  <BsUpload size={24} className="text-white" />
+                  <BsUpload size={16} className="text-white" />
                 </label>
               </div>
             </div>

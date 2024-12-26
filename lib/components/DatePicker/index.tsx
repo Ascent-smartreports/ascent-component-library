@@ -99,7 +99,7 @@ export const FormikDateField: React.FC<formikDateProps> = ({
 
   return (
     <div className={finalClassName}>
-      <Label htmlFor={inputId}>
+      <Label htmlFor={inputId} className="mb-2 inline-block">
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </Label>
