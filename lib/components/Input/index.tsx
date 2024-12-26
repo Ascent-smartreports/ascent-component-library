@@ -6,6 +6,7 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { getIn } from "formik";
 import { Label, Paragraph } from "../Texts";
 import { twMerge } from "tailwind-merge";
+import { BsUpload } from "react-icons/bs";
 
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
@@ -198,12 +199,12 @@ export const InputField: React.FC<InputProps> = ({
                   }}
                 />
               </div>
-              <div className="h-[44px] flex align-middle justify-center items-center rounded-r-sm w-[85px]">
+              <div className="h-[44px] flex align-middle justify-center items-center rounded-r-sm w-[50px]">
                 <label
                   htmlFor={inputId}
                   className=" flex align-middle justify-center items-center mr-1 px-2.5 py-2.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[30px] rounded-sm w-[100%]"
                 >
-                  Browse
+                  <BsUpload size={24} className="text-white" />
                 </label>
               </div>
             </div>
@@ -253,9 +254,11 @@ export const InputField: React.FC<InputProps> = ({
           <div className={styles.rightIcon}>{rightIcon}</div>
         ) : null}
       </div>
-      <div className="my-2">
-        {error1 && <Paragraph type="error">{error1}</Paragraph>}
-      </div>
+      {error1 && (
+        <div className="my-2">
+          <Paragraph type="error">{error1}</Paragraph>
+        </div>
+      )}
     </div>
   );
 };

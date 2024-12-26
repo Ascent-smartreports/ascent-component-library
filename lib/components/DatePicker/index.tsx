@@ -143,9 +143,11 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
         className="rounded-md h-[44px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%]"
       />
-      <div className="my-2">
-        {error && <Paragraph type="error">{error}</Paragraph>}
-      </div>
+      {error && (
+        <div className="my-2">
+          <Paragraph type="error">{error}</Paragraph>
+        </div>
+      )}
     </div>
   );
 };
