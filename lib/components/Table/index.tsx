@@ -19,13 +19,14 @@ interface TableProps {
 const customStyles: TableStyles = {
   table: {
     style: {
-      borderColor: "#0000000d",
-      borderWidth: "0.15rem",
+      borderRadius: "8px 8px 0px 0px",
+      border: "1px solid #E6E6E6",
+      overflow: "auto",
     },
   },
   headRow: {
     style: {
-      backgroundColor: "#f8f9fa",
+      backgroundColor: "#FAFAFA",
       fontWeight: 600,
       fontSize: "14px",
       color: "#464a53",
@@ -41,17 +42,28 @@ const customStyles: TableStyles = {
     style: {
       "&:nth-of-type(odd)": {
         backgroundColor: "#ffffff",
+        fontWeight: 400,
       },
       "&:nth-of-type(even)": {
-        backgroundColor: "#f8f9fa",
+        backgroundColor: "#FAFAFA",
+        fontWeight: 400,
       },
       borderBottomWidth: 0,
+      border: 0,
     },
   },
   cells: {
     style: {
       color: "#464a53",
       justifyContent: "start",
+    },
+  },
+
+  pagination: {
+    style: {
+      border: "1px solid #E6E6E6",
+      borderRadius: "0px 0px 8px 8px",
+      borderTop: 0,
     },
   },
 };

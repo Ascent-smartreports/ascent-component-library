@@ -55,7 +55,7 @@ const CustomInput = React.forwardRef<HTMLInputElement, any>(
         placeholder={pickerType === "date" ? "DD/MM/YYYY" : "MMM YYYY"}
         autoFocus={autoFocus}
         disabled={disabled}
-        className="rounded-md h-[54px] focus:outline-none border-none text-textLightGray w-[100%] pl-4"
+        className="rounded-md h-[44px] focus:outline-none border-none text-textLightGray w-[100%] pl-4"
       />
       <img
         src={CalendarIcon}
@@ -95,11 +95,11 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         : null;
 
   const inputId = `input_${field.name}`;
-  const finalClassName = twMerge("h-32", className);
+  const finalClassName = twMerge("", className);
 
   return (
     <div className={finalClassName}>
-      <Label htmlFor={inputId}>
+      <Label htmlFor={inputId} className="mb-2 inline-block">
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </Label>
@@ -141,11 +141,13 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         }
         showMonthYearPicker={pickerType === "month-year"}
         wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
-        className="rounded-md h-[54px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%]"
+        className="rounded-md h-[44px] focus:outline-none border-[1.5px] border-border text-textLightGray w-[100%]"
       />
-      <div className="my-2">
-        {error && <Paragraph type="error">{error}</Paragraph>}
-      </div>
+      {error && (
+        <div className="my-2">
+          <Paragraph type="error">{error}</Paragraph>
+        </div>
+      )}
     </div>
   );
 };

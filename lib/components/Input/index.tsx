@@ -6,6 +6,7 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { getIn } from "formik";
 import { Label, Paragraph } from "../Texts";
 import { twMerge } from "tailwind-merge";
+import { BsUpload } from "react-icons/bs";
 
 export interface InputProps {
   validationSchema?: AnySchema<AnyObject> | undefined;
@@ -156,11 +157,11 @@ export const InputField: React.FC<InputProps> = ({
     setError(error);
   }, [error]);
 
-  const finalClassName = twMerge("h-32", className);
+  const finalClassName = twMerge("", className);
 
   return (
     <div className={finalClassName}>
-      <Label htmlFor={inputId}>
+      <Label htmlFor={inputId} className="mb-2 inline-block">
         {label}
         {isRequiredField(validationSchema, field.name) && "*"}
       </Label>
@@ -171,13 +172,13 @@ export const InputField: React.FC<InputProps> = ({
             <input
               id={inputId}
               type="file"
-              className="hidden"
+              className="hidden h-[44px]"
               onChange={handleChange}
               accept={accept}
               multiple={multiple}
               disabled={disabled}
             />
-            <div className="flex items-center justify-between align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[54px] pr-0.5 pl-0.5">
+            <div className="flex items-center justify-between align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[44px] pr-0.5 pl-0.5">
               <div className="w-[75%]">
                 <input
                   type="text"
@@ -191,19 +192,19 @@ export const InputField: React.FC<InputProps> = ({
                         ? "Choose files"
                         : "Choose file"
                   }
-                  className="flex-grow px-3 py-2 border-none focus:outline-none bg-white text-gray-400 placeholder-textLightDark"
+                  className="flex-grow px-3 py-2 border-none focus:outline-none bg-white text-gray-400 placeholder-textLightDark h-[44px]"
                   placeholder={multiple ? "Choose files" : "Choose file"}
                   style={{
                     color: selectedFiles ? "inherit" : "#9CA3AF",
                   }}
                 />
               </div>
-              <div className="h-[54px] flex align-middle justify-center items-center rounded-r-sm w-[85px]">
+              <div className="h-[44px] flex align-middle justify-center items-center rounded-r-sm w-[40px]">
                 <label
                   htmlFor={inputId}
-                  className=" flex align-middle justify-center items-center mr-1 px-2.5 py-2.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[40px] rounded-sm w-[100%]"
+                  className=" flex align-middle justify-center items-center mr-1 px-1.5 py-1.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[30px] rounded-sm w-[100%]"
                 >
-                  Browse
+                  <BsUpload size={16} className="text-white" />
                 </label>
               </div>
             </div>
@@ -229,7 +230,7 @@ export const InputField: React.FC<InputProps> = ({
             autoComplete="off"
             onBlur={field.onBlur}
             data-testid={testId}
-            className={finalCustomInputClass}
+            className={`${finalCustomInputClass} h-[44px]`}
             onFocus={field.onBlur}
           />
         )}
@@ -253,9 +254,11 @@ export const InputField: React.FC<InputProps> = ({
           <div className={styles.rightIcon}>{rightIcon}</div>
         ) : null}
       </div>
-      <div className="my-2">
-        {error1 && <Paragraph type="error">{error1}</Paragraph>}
-      </div>
+      {error1 && (
+        <div className="my-2">
+          <Paragraph type="error">{error1}</Paragraph>
+        </div>
+      )}
     </div>
   );
 };

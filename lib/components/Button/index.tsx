@@ -24,26 +24,25 @@ export const Button: React.FC<buttonProps> = ({
   let buttonTypeClasses =
     buttonType === "outlined"
       ? isDisabled
-        ? "text-backgroundLight border-[1px] border-backgroundDark"
+        ? "bg-[#ccc] text-backgroundLight border-[1px] border-backgroundDark"
         : "bg-backgroundLight border-backgroundDark text-backgroundDark border-[1px]"
       : isDisabled
         ? "bg-disabledPrimaryBtn text-backgroundLight"
         : "bg-backgroundTheme border-none text-backgroundLight";
 
   if (isDisabled) {
-    buttonTypeClasses =
-      "bg-buttonDisabled border-'backgroundTheme' text-'backgroundTheme' cursor-not-allowed";
+    buttonTypeClasses = "bg-[#ccc] text-[#666] border-none cursor-not-allowed";
   }
 
   const finalCustomButtonClass = twMerge(
-    `${styles.button} ${buttonTypeClasses}`,
+    `${styles.button} ${buttonTypeClasses} `,
     customStyle
   );
 
   return (
     <button
       onClick={onClick}
-      className={finalCustomButtonClass}
+      className={`${finalCustomButtonClass} additional-class h-[44px]`}
       disabled={isDisabled}
       type={type ? type : "submit"}
       data-testid={testId}
