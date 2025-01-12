@@ -1,9 +1,9 @@
 .inputWrapper {
-  @apply flex items-center relative;
+  @apply flex items-center relative ;
 }
 
 .input {
-  @apply flex-grow rounded-md h-[44px] focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%] px-4;
+  @apply flex-grow rounded-sm focus:outline-none border-[1.5px] border-border text-textDarkGray w-[100%] min-w-48;
 }
 
 .leftIcon {

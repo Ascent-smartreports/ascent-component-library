@@ -15,10 +15,9 @@ interface IPagination {
 }
 interface CustomTableProps<T> {
   columns: AnyObject[];
-  isLoading: boolean;
   data: any[];
-  meta: IPagination;
-  totalRows: number;
+  meta?: IPagination;
+  totalRows?: number;
   responsive?: boolean;
   paginationRequired?: boolean;
   striped?: boolean;
@@ -60,6 +59,7 @@ const Table = <T,>({
   clearSelectedRows,
   selectableRowDisabled,
   paginationPerPage = 6,
+  paginationTableRowsPerPageOptions = [5, 10, 15, 20],
 }: CustomTableProps<T>) => {
   const [columnOrder, setColumnOrder] = useState<"asc" | "desc">("asc");
   const [sortStates, setSortStates] = useState<AnyObject[]>([]);
@@ -233,7 +233,8 @@ const Table = <T,>({
         onChangePage={handlePageChange}
         onChangeRowsPerPage={handleItemsPerPageChange}
         paginationComponent={CustomPagination}
-        paginationTotalRows={totalRows}
+        paginationTotalRows={totalRows || 0}
+        paginationRowsPerPageOptions={paginationTableRowsPerPageOptions}
       />
     </div>
   );

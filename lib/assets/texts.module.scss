@@ -10,17 +10,14 @@
 .label {
   font-family: "Manrope";
   font-weight:600;
-  @apply text-[14px] text-textDark my-1;
+  @apply text-[14px] text-textDark;
 }
-
 .paragraph {
   font-family: "Manrope";
   font-weight: 400;
   @apply text-[14px] text-textDark;
 }
-
 .errorText {
     font-family: "Manrope";
-    @apply text-[14px] text-backgroundDarkRed my-1;
-  
+    @apply text-[14px] text-backgroundDarkRed;
 }

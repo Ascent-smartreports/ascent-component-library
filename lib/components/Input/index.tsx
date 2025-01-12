@@ -5,7 +5,6 @@ import styles from "../../assets/input.module.scss";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { getIn } from "formik";
 import { Label, Paragraph } from "../Texts";
-import { twMerge } from "tailwind-merge";
 import { BsUpload } from "react-icons/bs";
 
 export interface InputProps {
@@ -95,6 +94,7 @@ export const isRequiredField = (
     return false;
   }
 };
+
 export const InputField: React.FC<InputProps> = ({
   label,
   validationSchema,
@@ -122,10 +122,7 @@ export const InputField: React.FC<InputProps> = ({
   const inputId = `input_${field.name}`;
   const [error1, setError] = useState<string | undefined>();
 
-  const finalCustomInputClass = twMerge(
-    `${styles.input} ${leftIcon ? "pl-9" : ""}`,
-    className
-  );
+  const finalCustomInputClass = `${styles.input} ${leftIcon ? "pl-9" : ""}`;
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -157,29 +154,31 @@ export const InputField: React.FC<InputProps> = ({
     setError(error);
   }, [error]);
 
-  const finalClassName = twMerge("", className);
-
   return (
-    <div className={finalClassName}>
-      <Label htmlFor={inputId} className="mb-2 inline-block">
+    <div className={className}>
+      <Label
+        htmlFor={inputId}
+        className="mb-[3px] inline-block text-base font-normal text-[#21294C]"
+      >
         {label}
-        {isRequiredField(validationSchema, field.name) && "*"}
+        {isRequiredField(validationSchema, field.name) && " *"}
       </Label>
       <div className={styles.inputWrapper}>
         {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
+
         {type === "file" ? (
           <div className="flex items-center w-full">
             <input
               id={inputId}
               type="file"
-              className="hidden h-[44px]"
+              className="hidden text-base font-normal text-[#21294C]"
               onChange={handleChange}
               accept={accept}
               multiple={multiple}
               disabled={disabled}
             />
-            <div className="flex items-center justify-between align-middle w-full border rounded-md overflow-hidden  border-border text-textDarkGray h-[44px] pr-0.5 pl-0.5">
-              <div className="w-[75%]">
+            <div className="flex items-center justify-between w-full border rounded-sm overflow-hidden h-[48px] px-1 border-border">
+              <div className="flex-grow">
                 <input
                   type="text"
                   readOnly
@@ -192,28 +191,26 @@ export const InputField: React.FC<InputProps> = ({
                         ? "Choose files"
                         : "Choose file"
                   }
-                  className="flex-grow px-3 py-2 border-none focus:outline-none bg-white text-gray-400 placeholder-textLightDark h-[44px]"
+                  className="w-full px-3 py-2 border-none focus:outline-none bg-[#ffffff] text-border placeholder-textLightDark min-w-48"
                   placeholder={multiple ? "Choose files" : "Choose file"}
                   style={{
                     color: selectedFiles ? "inherit" : "#9CA3AF",
                   }}
                 />
               </div>
-              <div className="h-[44px] flex align-middle justify-center items-center rounded-r-sm w-[40px]">
-                <label
-                  htmlFor={inputId}
-                  className=" flex align-middle justify-center items-center mr-1 px-1.5 py-1.5 text-gray-600 cursor-pointer  border-border bg-backgroundTheme text-borderLight h-[30px] rounded-sm w-[100%]"
-                >
-                  <BsUpload size={16} className="text-white" />
-                </label>
-              </div>
+              <label
+                htmlFor={inputId}
+                className="flex justify-center items-center h-[30px] w-[30px] mr-1 bg-backgroundTheme text-[#ffffff] rounded-sm cursor-pointer"
+              >
+                <BsUpload size={16} className="text-[#ffffff]" />
+              </label>
             </div>
           </div>
         ) : (
           <input
             id={inputId}
             type={isPassword && !isPasswordVisible ? "password" : type}
-            autoFocus={!!autoFocus}
+            autoFocus={autoFocus}
             value={
               type === "file"
                 ? undefined
@@ -224,32 +221,27 @@ export const InputField: React.FC<InputProps> = ({
                     | undefined)
             }
             onChange={handleChange}
-            placeholder={placeholder ? placeholder : `Enter ${label}`}
+            placeholder={placeholder || `Enter ${label}`}
             disabled={disabled}
             maxLength={maxLength}
             autoComplete="off"
             onBlur={field.onBlur}
             data-testid={testId}
-            className={`${finalCustomInputClass} h-[44px]`}
-            onFocus={field.onBlur}
+            className={`w-full h-[48px] px-3 border rounded-sm focus:outline-none focus:ring-2 focus:ring-primary ${finalCustomInputClass}`}
           />
         )}
+
         {isPassword ? (
-          <>
-            {!isPasswordVisible ? (
-              <IoEyeOutline
-                className={styles.rightIcon}
-                size={22}
-                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-              />
+          <span
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+          >
+            {isPasswordVisible ? (
+              <IoEyeOffOutline size={22} />
             ) : (
-              <IoEyeOffOutline
-                className={styles.rightIcon}
-                size={22}
-                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-              />
+              <IoEyeOutline size={22} />
             )}
-          </>
+          </span>
         ) : rightIcon ? (
           <div className={styles.rightIcon}>{rightIcon}</div>
         ) : null}
