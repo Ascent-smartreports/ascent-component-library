@@ -17,7 +17,7 @@ import {
   NotifySuccess,
   NotifyWarning,
 } from "./components/Notify/Notify";
-import { Table } from "./components/Table";
+import Table  from "./components/Table";
 import { InputField } from "./components/Input";
 import { CustomCheckbox } from "./components/Checkbox";
 import { TextAreaInput } from "./components/TextAreaInput";
