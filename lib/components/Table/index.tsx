@@ -98,7 +98,7 @@ const Table = <T,>({
   };
 
   const handleSort = (column: TableColumn<T>) => {
-    const newSortField = column.sortField || "";
+    const newSortField = column.sortField || column.name || ""; // Fallback to column.name
 
     setSortStates((prevSortStates) => {
       const updatedSortStates = prevSortStates?.map((state) => {
@@ -131,9 +131,9 @@ const Table = <T,>({
   };
 
   const getSortIcon = useCallback(
-    (column: string) => {
+    (columnKey: string) => {
       const currentSortState = sortStates?.find(
-        (state) => state?.sortField === column
+        (state) => state?.sortField === columnKey
       );
 
       if (currentSortState) {
@@ -141,9 +141,7 @@ const Table = <T,>({
           <img
             src={currentSortState?.isActive ? SortIcon : LIghtSortIcon}
             alt="Sort"
-            className={`sort-icon ${
-              currentSortState?.isActive ? "active" : "active"
-            }`}
+            className={`sort-icon ${currentSortState?.isActive ? "active" : ""}`}
             style={{
               transform: columnOrder === "desc" ? "rotate(180deg)" : "none",
             }}
@@ -160,7 +158,7 @@ const Table = <T,>({
   const updatedColumns = useMemo(
     () =>
       columns?.map((column) => {
-        if (column?.sortable && column?.sortField) {
+        if (column?.sortable) {
           return {
             ...column,
             name: (
@@ -177,7 +175,7 @@ const Table = <T,>({
                 className="sortable-column"
               >
                 <div style={{ cursor: "pointer" }}>{column.name}</div>
-                {getSortIcon(column.sortField as string)}
+                {getSortIcon(column.sortField || column.name || "")}
               </div>
             ),
           };
@@ -199,7 +197,7 @@ const Table = <T,>({
     const updatedSortStates = columns
       ?.filter((column) => column?.sortable)
       ?.map((column) => ({
-        sortField: column.sortField || "",
+        sortField: column.sortField || column.name || "",
         count: 0,
         isActive: false,
       }))
@@ -214,8 +212,7 @@ const Table = <T,>({
       });
 
     setSortStates(updatedSortStates);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columns]);
+  }, [columns, sortStates]);
 
   return (
     <div>
