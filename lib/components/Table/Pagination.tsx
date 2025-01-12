@@ -1,5 +1,9 @@
 import "../../assets/pagination.css";
 import { AnyObject } from "yup";
+import SkipBackward from "../../assets/images/skipBackwardLeft.svg";
+import SkipForward from "../../assets/images/skipForwardRight.svg";
+import SkipLeft from "../../assets/images/skipLeft.svg";
+import SkipRight from "../../assets/images/skipRight.svg";
 
 export const CustomPagination = ({
   rowsPerPage,
@@ -43,14 +47,14 @@ export const CustomPagination = ({
           onClick={() => handlePageChange(1)}
           disabled={currentPage === 1}
         >
-          {"<<"}
+          <img src={SkipBackward} alt="Skip Backward" width={13} />
         </button>
         <button
           className="pagination-button"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          {"<"}
+          <img src={SkipLeft} alt="Skip Backward" width={13} />
         </button>
 
         {renderPageNumbers()}
@@ -60,14 +64,14 @@ export const CustomPagination = ({
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          {">"}
+          <img src={SkipRight} alt="Skip Backward" width={13} />
         </button>
         <button
           className="pagination-button"
           onClick={() => handlePageChange(totalPages)}
           disabled={currentPage === totalPages}
         >
-          {">>"}
+          <img src={SkipForward} alt="Skip Backward" width={13} />
         </button>
       </div>
       <div className="pagination-info">
