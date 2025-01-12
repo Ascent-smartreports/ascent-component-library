@@ -1,30 +1,74 @@
 .rdt_Table {
-  border-color: #0000000d;
-  border-width: 0.15rem;
+  border-radius: 8px 8px 0px 0px;
+  border: 1px solid #0000000D;
+  border-bottom: 1px solid #FAFAFA;
 }
+
 .rdt_TableCol {
-  justify-content: center;
+  justify-content: start;
 }
 .rdt_TableCell {
-  color: #464a53;
-  justify-content: center;
-}
-.rdt_TableCol_Sortable {
-  justify-content: center;
-  align-items: center;
+  color: #464A53;
+  height: 60px;
+  font-size: 14px;
+  justify-content: start;
 }
 .rdt_TableHeadRow {
   background-color: #f8f9fa !important;
-  font-weight: 600;
-  font-size: 14px;
-  color: #464a53;
+  font-weight:500 !important;
+  font-size: 17px;
+  color: #464A53;
+  height: 60px;
+  border: none !important;
+  justify-content: start;
+  align-items: center;
+  
 }
+
+.rdt_TableRow {
+  height: 60px;
+}
+
 .rdt_TableRow:nth-child(odd) {
   background-color: #ffffff;
+  border: none !important;
+  font-weight: 400;
+  color: #464A53;
+  /* font-size: 25px; */
 }
 .rdt_TableRow:nth-child(even) {
   background-color: #f8f9fa;
+  border: none !important;
+  font-weight: 400;
+  color: #464A53;
+
 }
 .rdt_TableRow:last-child {
   border-bottom-width: 0 !important;
+}
+
+.rdt_TableCol_Sortable {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: start;
+}
+
+.rdt_TableCol_Sortable span {
+  display: none !important;
+}
+
+.rdt_TableCol_Sortable h6 {
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding-right: 0px;
+}
+
+.rdt_TableRow .rdt_TableCell:nth-child(1) {
+  padding-left: 30px;
+}
+.rdt_TableHeadRow .rdt_TableCol:nth-child(1) {
+  padding-left: 30px;
 }

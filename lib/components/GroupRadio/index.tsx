@@ -23,7 +23,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
   className = "",
 }) => {
   const inputId = `input_${label}`;
-  const finalClassName = twMerge("h-32", className);
+  const finalClassName = twMerge("", className);
   return (
     <div className={finalClassName}>
       <div className="flex flex-col items-start justify-start">
@@ -45,7 +45,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
                   if (!disabled) handleOptionChange(item.label, item.value);
                 }}
               />
-              <Label className={`${(textStyles.label, "mx-2 mb-1 mr-24")}`}>
+              <Label className={`${(textStyles.label, "mx-2 mb-1 mr-10")}`}>
                 {item.label}
               </Label>
             </div>
