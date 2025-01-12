@@ -128,12 +128,10 @@ export const DropDown: React.FC<dropdownProps> = ({
         formatOptionLabel={formatOptionLabel}
         isDisabled={disabled}
       />
-      {error?.value ? (
+      {error?.value &&(
         <div className="my-2 h-4">
           <Paragraph type="error">{error?.value}</Paragraph>
         </div>
-      ) : (
-        <div className="my-2 h-4" />
       )}
     </div>
   );

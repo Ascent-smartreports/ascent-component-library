@@ -47,14 +47,14 @@ export const CustomPagination = ({
           onClick={() => handlePageChange(1)}
           disabled={currentPage === 1}
         >
-          <img src={SkipBackward} alt="Skip Backward" width={13} />
+          <img src={SkipBackward} alt="Skip Backward" width={12} />
         </button>
         <button
           className="pagination-button"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          <img src={SkipLeft} alt="Skip Backward" width={13} />
+          <img src={SkipLeft} alt="Skip Backward" width={12} />
         </button>
 
         {renderPageNumbers()}
@@ -64,14 +64,14 @@ export const CustomPagination = ({
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          <img src={SkipRight} alt="Skip Backward" width={13} />
+          <img src={SkipRight} alt="Skip Backward" width={12} />
         </button>
         <button
           className="pagination-button"
           onClick={() => handlePageChange(totalPages)}
           disabled={currentPage === totalPages}
         >
-          <img src={SkipForward} alt="Skip Backward" width={13} />
+          <img src={SkipForward} alt="Skip Backward" width={12} />
         </button>
       </div>
       <div className="pagination-info">
