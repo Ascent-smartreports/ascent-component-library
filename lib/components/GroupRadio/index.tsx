@@ -28,7 +28,12 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
     <div className={finalClassName}>
       <div className="flex flex-col items-start justify-start">
         <div className="flex justify-start">
-          <Label htmlFor={inputId}>{label}</Label>
+          <Label
+            htmlFor={inputId}
+            className="inline-block text-base font-normal text-[#21294C]"
+          >
+            {label}
+          </Label>
         </div>
         <div className={styles.radioInnerContainer}>
           {data.map((item) => (
@@ -45,7 +50,9 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
                   if (!disabled) handleOptionChange(item.label, item.value);
                 }}
               />
-              <Label className={`${(textStyles.label, "mx-2 mb-1 mr-10")}`}>
+              <Label
+                className={`${(textStyles.label, "mx-2 mb-1 mr-10 text-base font-normal text-[#21294C]")}`}
+              >
                 {item.label}
               </Label>
             </div>
