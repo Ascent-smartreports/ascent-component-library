@@ -6,7 +6,7 @@ import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/dropdown.module.scss";
 import { Label, Paragraph } from "../Texts";
-import { twMerge } from "tailwind-merge";
+import { CustomStyles } from "./customStyles";
 export interface Option {
   label: string;
   value: string;
@@ -75,67 +75,6 @@ export const DropDown: React.FC<dropdownProps> = ({
     }
   };
 
-  const customStyles = {
-    control: (
-      provided: any,
-      state: { isFocused: boolean; isDisabled: boolean }
-    ) => {
-      return {
-        ...provided,
-        borderColor: state.isFocused ? "#E4E5E9" : "#dfe1e5",
-        fontSize: 16,
-        padding: "6px 7px",
-        color: "green",
-        backgroundColor: state.isDisabled ? "#fcfcfc" : "#ffffff",
-      };
-    },
-    option: (
-      provided: any,
-      state: { isFocused: boolean; isSelected: boolean }
-    ) => {
-      return {
-        ...provided,
-        backgroundColor: state.isSelected ? "#21294C" : "#FFFFFF",
-        color: state.isSelected ? "#FFFFFF" : "#21294C",
-        ":active": {
-          backgroundColor: "#21294C",
-          color: "#FFFFFF",
-        },
-        fontSize: 16,
-        padding: 10,
-        cursor: "pointer",
-      };
-    },
-    placeholder: (provided: any) => ({
-      ...provided,
-      color: "#8D91A3",
-    }),
-    menu: (provided: any) => ({
-      ...provided,
-      marginTop: 10,
-      borderRadius: 4,
-      boxShadow: "0 4px 11px rgba(0, 0, 0, 0.1)",
-    }),
-    multiValue: (provided: any) => ({
-      ...provided,
-      backgroundColor: "#E0E0E0",
-      borderRadius: 4,
-      padding: "2px 5px",
-    }),
-    multiValueLabel: (provided: any) => ({
-      ...provided,
-      color: "#21294C",
-    }),
-    multiValueRemove: (provided: any) => ({
-      ...provided,
-      color: "#666666",
-      cursor: "pointer",
-      "&:hover": {
-        color: "#4A90E2",
-      },
-    }),
-  };
-
   const formatOptionLabel = (
     option: Option,
     { context }: { context: "menu" | "value" }
@@ -158,11 +97,13 @@ export const DropDown: React.FC<dropdownProps> = ({
   };
 
   const inputId = `input_${field.name}`;
-  const finalClassName = twMerge("", className);
   return (
-    <div className={finalClassName}>
+    <div className={className}>
       {label && (
-        <Label htmlFor={inputId} className="mb-2 inline-block">
+        <Label
+          htmlFor={inputId}
+          className="mb-[3px] inline-block text-base font-normal text-[#21294C]"
+        >
           {label}
           {isRequiredField(validationSchema, field.name) && " *"}
         </Label>
@@ -170,31 +111,29 @@ export const DropDown: React.FC<dropdownProps> = ({
       <Select
         id={inputId}
         classNames={{
-          control: (state) =>
-            state.isFocused
-              ? `${styles.dropdownContainer}`
-              : `${styles.dropdownContainer}`,
+          control: () => styles.dropdownContainer,
           option: (state) => (state.isFocused ? `${styles.active}` : ""),
         }}
         options={options}
-        // components={animatedComponents}
         components={{
-          ...animatedComponents, // Include any animated components here if needed
-          IndicatorSeparator: () => null, // Correct way to remove the separator
+          ...animatedComponents,
+          IndicatorSeparator: () => null,
         }}
         isMulti={isMulti}
         data-testid={testId}
-        styles={customStyles}
+        styles={CustomStyles}
         placeholder={placeholder ? placeholder : `Select ${label}`}
         onChange={handleChange}
         value={defaultValue as Option | Option[]}
         formatOptionLabel={formatOptionLabel}
         isDisabled={disabled}
       />
-      {error?.value && (
-        <div className="my-2">
+      {error?.value ? (
+        <div className="my-2 h-4">
           <Paragraph type="error">{error?.value}</Paragraph>
         </div>
+      ) : (
+        <div className="my-2 h-4" />
       )}
     </div>
   );
