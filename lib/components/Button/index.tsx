@@ -42,7 +42,7 @@ export const Button: React.FC<buttonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`${finalCustomButtonClass} additional-class h-[44px]`}
+      className={`${finalCustomButtonClass} `}
       disabled={isDisabled}
       type={type ? type : "submit"}
       data-testid={testId}

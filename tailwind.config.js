@@ -31,7 +31,20 @@ export default {
       mainBackground: "#FAFAFA",
       backgroundModal: "#000000BF",
     },
-    extend: {},
+    extend: {
+      screens: {
+        xs: "480px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        "lg-md": { min: "1024px", max: "1350px" },
+        xl: "1280px",
+        "2xl": "1536px",
+        "3xl": "1900px",
+        "4xl": "2000px",
+        tablet: { min: "768px", max: "1023px" },
+      },
+    },
   },
   plugins: [],
 };
