@@ -15,14 +15,13 @@
 }
 .rdt_TableHeadRow {
   background-color: #f8f9fa !important;
-  font-weight:500 !important;
-  font-size: 17px;
+  font-weight:600 !important;
+  font-size: 15px;
   color: #464A53;
   height: 60px;
   border: none !important;
   justify-content: start;
   align-items: center;
-  
 }
 
 .rdt_TableRow {

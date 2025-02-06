@@ -212,7 +212,8 @@ const Table = <T,>({
       });
 
     setSortStates(updatedSortStates);
-  }, [columns, sortStates]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns]);
 
   return (
     <div>
