@@ -156,7 +156,10 @@ export const InputField: React.FC<InputProps> = ({
 
   return (
     <div className={className}>
-      <Label htmlFor={inputId} className="mb-[.5rem]">
+      <Label
+        htmlFor={inputId}
+        className="mb-[.5rem] inline-block text-base font-normal text-backgroundTheme"
+      >
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}
       </Label>
