@@ -30,7 +30,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
         <div className="flex justify-start">
           <Label
             htmlFor={inputId}
-            className="inline-block text-base font-normal text-[#21294C]"
+            className="inline-block text-base font-normal text-backgroundTheme"
           >
             {label}
           </Label>
@@ -51,7 +51,7 @@ export const GroupRadio: React.FC<GroupRadioButtonInterface> = ({
                 }}
               />
               <Label
-                className={`${(textStyles.label, "mx-2 mb-1 mr-10 text-base font-normal text-[#21294C]")}`}
+                className={`${(textStyles.label, "mx-2 mb-1 mr-10 text-base font-normal text-backgroundTheme")}`}
               >
                 {item.label}
               </Label>

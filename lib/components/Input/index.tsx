@@ -156,10 +156,7 @@ export const InputField: React.FC<InputProps> = ({
 
   return (
     <div className={className}>
-      <Label
-        htmlFor={inputId}
-        className="mb-[3px] inline-block text-base font-normal text-[#21294C]"
-      >
+      <Label htmlFor={inputId} className="mb-[.5rem]">
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}
       </Label>
@@ -167,11 +164,11 @@ export const InputField: React.FC<InputProps> = ({
         {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
 
         {type === "file" ? (
-          <div className="flex items-center w-full">
+          <div className="flex items-center ">
             <input
               id={inputId}
               type="file"
-              className="hidden text-base font-normal text-[#21294C]"
+              className="hidden text-base font-normal text-backgroundTheme"
               onChange={handleChange}
               accept={accept}
               multiple={multiple}
@@ -227,7 +224,7 @@ export const InputField: React.FC<InputProps> = ({
             autoComplete="off"
             onBlur={field.onBlur}
             data-testid={testId}
-            className={`w-full h-[48px] px-3 border rounded-sm focus:outline-none focus:ring-2 focus:ring-primary ${finalCustomInputClass}`}
+            className={`  px-3 border rounded-sm focus:outline-none focus:ring-2 focus:ring-primary ${finalCustomInputClass}`}
           />
         )}
 

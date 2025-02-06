@@ -127,7 +127,7 @@ function App() {
           <Table data={data} columns={columns} />
           <ToastContainer />
           <FormikProvider value={formik}>
-            <div className="flex items-center">
+            <div className="flex items-end">
               <Field name={"name"}>
                 {({ field, form }: FieldProps) => (
                   <InputField
@@ -178,7 +178,6 @@ function App() {
                 // isDisabled={true}
                 onClick={formik.handleSubmit}
                 // buttonType="
-                customStyle="my-4"
                 testId="demo"
               />
             </div>

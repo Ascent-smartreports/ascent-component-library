@@ -16,7 +16,6 @@ export default {
       backgroundDark: "#000000",
       tableBackground: "#0000A",
       tableBorder: "#0000000D",
-      borderLight: "#E4E5E9",
       buttonDisabled: "#8D91A3",
       border: "#E4E5E9",
       errorText: "#FD6868",
