@@ -37,7 +37,7 @@ export default {
         md: "768px",
         lg: "1024px",
         "lg-md": { min: "1024px", max: "1350px" },
-        xl: "1280px",
+        xl: { min: "1351px", max: "1535px" },
         "2xl": "1536px",
         "3xl": "1900px",
         "4xl": "2000px",

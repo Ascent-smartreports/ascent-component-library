@@ -101,7 +101,7 @@ export const FormikDateField: React.FC<formikDateProps> = ({
     <div className={finalClassName}>
       <Label
         htmlFor={inputId}
-        className="mb-[.5rem] inline-block text-base font-normal text-backgroundTheme"
+        className="mb-[.5rem] inline-block  font-normal text-backgroundTheme"
       >
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}

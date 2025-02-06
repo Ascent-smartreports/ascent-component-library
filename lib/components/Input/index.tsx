@@ -158,7 +158,7 @@ export const InputField: React.FC<InputProps> = ({
     <div className={className}>
       <Label
         htmlFor={inputId}
-        className="mb-[.5rem] inline-block text-base font-normal text-backgroundTheme"
+        className="mb-[.5rem] inline-block  font-normal text-backgroundTheme"
       >
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}
@@ -171,7 +171,7 @@ export const InputField: React.FC<InputProps> = ({
             <input
               id={inputId}
               type="file"
-              className="hidden text-base font-normal text-backgroundTheme"
+              className="hidden  font-normal text-backgroundTheme"
               onChange={handleChange}
               accept={accept}
               multiple={multiple}

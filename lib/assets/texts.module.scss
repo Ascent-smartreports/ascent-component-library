@@ -1,22 +1,28 @@
 .heading {
   font-family: "Manrope";
-  @apply text-[22px] text-textDark font-bold;
+  @apply text-[22px] text-textDark font-bold 
 }
 
 .subHeading {
   font-family: "Manrope";
   @apply text-[16px] text-textDark font-semibold;
 }
+
 .label {
   font-family: "Manrope";
-  @apply text-[14px] text-textDark font-extralight;
+  @apply text-textDark font-extralight
+         4xl:text-[18px] 3xl:text-[17px] 2xl:text-[16px] xl:text-[14px] lg-md:text-[14px] tablet:text-[12px] text-[10px];
 }
+
 .paragraph {
   font-family: "Manrope";
   font-weight: 400;
-  @apply text-[14px] text-textDark;
+  @apply text-textDark
+         4xl:text-[18px] 3xl:text-[17px] 2xl:text-[16px] xl:text-[14px] lg-md:text-[14px] tablet:text-[12px] text-[10px];
 }
+
 .errorText {
-    font-family: "Manrope";
-    @apply text-[14px] text-backgroundDarkRed;
+  font-family: "Manrope";
+  @apply text-backgroundDarkRed lg:h-10
+         4xl:text-[18px] 3xl:text-[17px] 2xl:text-[16px] xl:text-[14px] lg-md:text-[14px]  tablet:text-[12px] text-[10px];
 }

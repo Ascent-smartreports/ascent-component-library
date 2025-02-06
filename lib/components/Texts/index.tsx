@@ -57,10 +57,7 @@ export const Label: React.FC<TextProps> = ({
 }) => {
   return (
     <label
-      className={twMerge(
-        className,
-        "text-[14px] font-semibold text-backgroundTheme"
-      )}
+      className={twMerge(className, styles.label)}
       style={{ fontFamily: "Manrope" }}
       onClick={onTextClick}
       htmlFor={htmlFor}
