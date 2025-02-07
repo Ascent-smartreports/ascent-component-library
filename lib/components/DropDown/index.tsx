@@ -102,7 +102,7 @@ export const DropDown: React.FC<dropdownProps> = ({
       {label && (
         <Label
           htmlFor={inputId}
-          className="mb-[3px] inline-block text-base font-normal text-[#21294C]"
+          className="mb-[.5rem] inline-block  font-normal text-backgroundTheme"
         >
           {label}
           {isRequiredField(validationSchema, field.name) && " *"}
@@ -128,7 +128,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         formatOptionLabel={formatOptionLabel}
         isDisabled={disabled}
       />
-      {error?.value &&(
+      {error?.value && (
         <div className="my-2 h-4">
           <Paragraph type="error">{error?.value}</Paragraph>
         </div>

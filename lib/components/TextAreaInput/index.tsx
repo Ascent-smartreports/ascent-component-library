@@ -56,7 +56,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
     <div className={className}>
       <Label
         htmlFor={inputId}
-        className="mb-[3px] inline-block text-base font-normal text-[#21294C]"
+        className="mb-[.5rem] inline-block  font-normal text-backgroundTheme"
       >
         {label}
         {isRequiredField(validationSchema, field.name) && " *"}
