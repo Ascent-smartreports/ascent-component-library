@@ -7,16 +7,18 @@
 .rdt_TableCol {
   justify-content: start;
 }
+
 .rdt_TableCell {
+  @apply fs12;
   color: #464A53;
   height: 60px;
-  font-size: 14px;
   justify-content: start;
 }
+
 .rdt_TableHeadRow {
+  @apply fs14;
   background-color: #f8f9fa !important;
   font-weight:600 !important;
-  font-size: 15px;
   color: #464A53;
   height: 60px;
   border: none !important;
@@ -35,6 +37,7 @@
   color: #464A53;
   /* font-size: 25px; */
 }
+
 .rdt_TableRow:nth-child(even) {
   background-color: #f8f9fa;
   border: none !important;
