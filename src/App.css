@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .fs20 {
+    font-family: "Manrope";
+    @apply md:text-base lg:text-lg xl:text-xl 2xl:text-xl 3xl:text-2xl 4xl:text-3xl;
+  }
+  .fs18 {
+    font-family: "Manrope";
+    @apply text-lg md:text-sm lg:text-sm xl:text-lg 2xl:text-xl 3xl:text-2xl 4xl:text-2xl;
+  }
+
+  .fs14 {
+    font-family: "Manrope";
+    @apply text-sm md:text-xs lg:text-sm xl:text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl;
+  }
+
+  .fs12 {
+    font-family: "Manrope";
+    @apply text-xs md:text-[10px] lg:text-xs xl:text-xs 2xl:text-sm 3xl:text-base 4xl:text-lg;
+  }
+}

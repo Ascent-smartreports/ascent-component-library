@@ -1,30 +1,20 @@
 .heading {
-  font-family: "Manrope";
-  @apply text-xl font-bold text-textDark 
-         md:text-base lg:text-lg xl:text-xl 2xl:text-xl 3xl:text-2xl 4xl:text-3xl;
+  @apply fs20 font-bold text-textDark;
 }
 
 .subHeading {
-  font-family: "Manrope";
-  @apply text-base font-semibold text-textDark
-          md:text-sm lg:text-sm xl:text-lg 2xl:text-xl 3xl:text-2xl 4xl:text-2xl;
+  @apply fs18 font-semibold text-textDark;
 }
 
 .label {
-  font-family: "Manrope";
-  @apply text-xs font-extralight text-textDark
-         md:text-xs lg:text-sm xl:text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl;
+  @apply fs14 font-extralight text-textDark;
 }
 
 .paragraph {
-  font-family: "Manrope";
   font-weight: 400;
-  @apply text-xs font-normal text-textDark
-         md:text-[10px] lg:text-xs xl:text-xs 2xl:text-sm 3xl:text-base 4xl:text-lg;
+  @apply fs12 font-normal text-textDark;
 }
 
 .errorText {
-  font-family: "Manrope";
-  @apply text-xs text-backgroundDarkRed
-         sm:text-xs md:text-sm lg:text-sm xl:text-base 2xl:text-base 3xl:text-lg 4xl:text-xl;
+  @apply fs14 text-backgroundDarkRed;
 }
