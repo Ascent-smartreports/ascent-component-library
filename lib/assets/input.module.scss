@@ -3,7 +3,9 @@
 }
 
 .input {
-  @apply flex-grow rounded focus:outline-none border-[1.5px] border-border  w-[100%] h-[32px] min-w-48 tablet:h-[36px] lg-md:h-[40px] xl:h-[44px] 2xl:h-[48px] 3xl:h-[50px] 4xl:h-[54px] text-backgroundTheme;
+  @apply flex-grow rounded focus:outline-none border-[1.5px] border-border  w-[100%] 
+         xs:h-8 md:h-[36px] lg:h-10 xl:h-11 2xl:h-12 3xl:h-[50px] 4xl:h-[54px] 
+         text-backgroundTheme;
 }
 
 .leftIcon {

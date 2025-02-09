@@ -1,3 +1,5 @@
 .button {
-  @apply items-center justify-center flex rounded font-semibold h-[32px] tablet:h-[36px] lg-md:h-[40px] xl:h-[44px] 2xl:h-[48px] 3xl:h-[50px] 4xl:h-[54px] px-4 py-2;
+  @apply items-center justify-center flex rounded font-semibold 
+        xs:h-8 md:h-[36px] lg:h-10 xl:h-11 2xl:h-12 3xl:h-[50px] 4xl:h-[54px] 
+        px-4 py-2 h-10;
 }

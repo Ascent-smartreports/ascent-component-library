@@ -1,28 +1,30 @@
 .heading {
   font-family: "Manrope";
-  @apply text-[22px] text-textDark font-bold 
+  @apply text-xl font-bold text-textDark 
+         md:text-base lg:text-lg xl:text-xl 2xl:text-xl 3xl:text-2xl 4xl:text-3xl;
 }
 
 .subHeading {
   font-family: "Manrope";
-  @apply text-[16px] text-textDark font-semibold;
+  @apply text-base font-semibold text-textDark
+          md:text-sm lg:text-sm xl:text-lg 2xl:text-xl 3xl:text-2xl 4xl:text-2xl;
 }
 
 .label {
   font-family: "Manrope";
-  @apply text-textDark font-extralight
-         4xl:text-[18px] 3xl:text-[17px] 2xl:text-[16px] xl:text-[14px] lg-md:text-[14px] tablet:text-[12px] text-[10px];
+  @apply text-xs font-extralight text-textDark
+         md:text-xs lg:text-sm xl:text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl;
 }
 
 .paragraph {
   font-family: "Manrope";
   font-weight: 400;
-  @apply text-textDark
-         4xl:text-[18px] 3xl:text-[17px] 2xl:text-[16px] xl:text-[14px] lg-md:text-[14px] tablet:text-[12px] text-[10px];
+  @apply text-xs font-normal text-textDark
+         md:text-[10px] lg:text-xs xl:text-xs 2xl:text-sm 3xl:text-base 4xl:text-lg;
 }
 
 .errorText {
   font-family: "Manrope";
-  @apply text-backgroundDarkRed lg:h-10
-         4xl:text-[18px] 3xl:text-[17px] 2xl:text-[16px] xl:text-[14px] lg-md:text-[14px]  tablet:text-[12px] text-[10px];
+  @apply text-xs text-backgroundDarkRed
+         sm:text-xs md:text-sm lg:text-sm xl:text-base 2xl:text-base 3xl:text-lg 4xl:text-xl;
 }

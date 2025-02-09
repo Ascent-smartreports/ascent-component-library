@@ -31,17 +31,15 @@ export default {
       backgroundModal: "#000000BF",
     },
     extend: {
-      screens: {
-        xs: "480px",
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        "lg-md": { min: "1024px", max: "1350px" },
-        xl: { min: "1351px", max: "1535px" },
-        "2xl": "1536px",
-        "3xl": "1900px",
-        "4xl": "2000px",
-        tablet: { min: "768px", max: "1023px" },
+       screens: {
+        xs: "480px", // Extra small devices (phones)
+        sm: "640px", // Small devices (tablets)
+        md: "768px", // Medium devices (tablets in landscape)
+        lg: "1024px", // Large devices (laptops)
+        xl: "1280px", // Extra large devices (desktops)
+        "2xl": "1536px", // 2x extra large devices (large desktops)
+        "3xl": "1900px", // Custom breakpoint for very large screens
+        "4xl":"2000px", // extra large screens
       },
     },
   },
