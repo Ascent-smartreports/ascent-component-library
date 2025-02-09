@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "../../assets/button.module.scss";
+import textStyles from "../../assets/texts.module.scss";
 import { twMerge } from "tailwind-merge";
+
 interface buttonProps {
   label: string;
   onClick: () => void;
@@ -24,25 +26,25 @@ export const Button: React.FC<buttonProps> = ({
   let buttonTypeClasses =
     buttonType === "outlined"
       ? isDisabled
-        ? "bg-[#ccc] text-backgroundLight border-[1px] border-backgroundDark"
-        : "bg-backgroundLight border-backgroundDark text-backgroundDark border-[1px]"
+        ? "bg-[#ccc] text-backgroundLight border-[1px] border-backgroundDark font-semibold"
+        : "bg-backgroundLight border-backgroundDark text-backgroundDark border-[1px] font-semibold"
       : isDisabled
-        ? "bg-disabledPrimaryBtn text-backgroundLight"
-        : "bg-backgroundTheme border-none text-backgroundLight";
+        ? "bg-disabledPrimaryBtn text-backgroundLight font-semibold"
+        : "bg-backgroundTheme border-none text-backgroundLight font-semibold";
 
   if (isDisabled) {
     buttonTypeClasses = "bg-[#ccc] text-[#666] border-none cursor-not-allowed";
   }
 
   const finalCustomButtonClass = twMerge(
-    `${styles.button} ${buttonTypeClasses} `,
+    `${styles.button} ${buttonTypeClasses} ${textStyles.label} `,
     customStyle
   );
 
   return (
     <button
       onClick={onClick}
-      className={`${finalCustomButtonClass} additional-class h-[44px]`}
+      className={`${finalCustomButtonClass}`}
       disabled={isDisabled}
       type={type ? type : "submit"}
       data-testid={testId}

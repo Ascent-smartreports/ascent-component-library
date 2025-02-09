@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../assets/texts.module.scss";
+import { twMerge } from "tailwind-merge";
 
 interface TextProps {
   children: React.ReactNode;
@@ -23,9 +24,9 @@ export const Heading: React.FC<TextProps> = ({
 }) => {
   return (
     <h2
-      className={className || styles.heading}
+      className={twMerge(className, styles.heading)} // Merge className with default styles
       style={{ fontWeight: "bold" }}
-      onClick={() => onTextClick}
+      onClick={onTextClick}
     >
       {children}
     </h2>
@@ -39,9 +40,9 @@ export const SubHeading: React.FC<TextProps> = ({
 }) => {
   return (
     <h4
-      className={className || styles.subHeading}
+      className={twMerge(className, styles.subHeading)} // Merge className with default styles
       style={{ fontWeight: "bold" }}
-      onClick={() => onTextClick}
+      onClick={onTextClick}
     >
       {children}
     </h4>
@@ -56,7 +57,8 @@ export const Label: React.FC<TextProps> = ({
 }) => {
   return (
     <label
-      className={className || styles.label}
+      className={twMerge(className, styles.label)}
+      style={{ fontFamily: "Manrope" }}
       onClick={onTextClick}
       htmlFor={htmlFor}
     >
@@ -80,7 +82,7 @@ export const ToolTipLabel: React.FC<TooltipTextProps> = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <label
-        className={className || styles.label}
+        className={twMerge(className, styles.label)} // Merge className with default styles
         onClick={onTextClick}
         style={{
           whiteSpace: "nowrap",
@@ -131,7 +133,7 @@ export const Paragraph: React.FC<TextProps> = ({
 }) => {
   return (
     <p
-      className={type ? styles.errorText : className || styles.paragraph}
+      className={twMerge(type ? styles.errorText : styles.paragraph, className)} // Merge className with default styles
       onClick={onTextClick}
     >
       {children}
