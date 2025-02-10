@@ -1,7 +1,7 @@
 .rdt_Table {
   border-radius: 8px 8px 0px 0px;
-  border: 1px solid #0000000D;
-  border-bottom: 1px solid #FAFAFA;
+  border: 1px solid #0000000d;
+  border-bottom: 1px solid #fafafa;
 }
 
 .rdt_TableCol {
@@ -10,40 +10,39 @@
 
 .rdt_TableCell {
   @apply fs12;
-  color: #464A53;
-  height: 60px;
+  @apply 4xl:h-16 3xl:h-14 2xl:h-12 xl:h-12 lg:h-10 md:h-8;
+  color: #464a53;
   justify-content: start;
 }
 
 .rdt_TableHeadRow {
   @apply fs14;
   background-color: #f8f9fa !important;
-  font-weight:600 !important;
-  color: #464A53;
-  height: 60px;
+  font-weight: 600 !important;
+  color: #464a53;
+  @apply 4xl:h-16 3xl:h-14 2xl:h-12 xl:h-12 lg:h-10 md:h-8;
+
   border: none !important;
   justify-content: start;
   align-items: center;
 }
 
 .rdt_TableRow {
-  height: 60px;
+  @apply 4xl:h-16 3xl:h-14 2xl:h-12 xl:h-12 lg:h-10 md:h-8;
 }
 
 .rdt_TableRow:nth-child(odd) {
   background-color: #ffffff;
   border: none !important;
   font-weight: 400;
-  color: #464A53;
-  /* font-size: 25px; */
+  color: #464a53;
 }
 
 .rdt_TableRow:nth-child(even) {
   background-color: #f8f9fa;
   border: none !important;
   font-weight: 400;
-  color: #464A53;
-
+  color: #464a53;
 }
 .rdt_TableRow:last-child {
   border-bottom-width: 0 !important;
