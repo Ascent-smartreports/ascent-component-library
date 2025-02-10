@@ -49,7 +49,7 @@ export const ModalChildComp = () => {
                 label={"close"}
                 type="submit"
                 // isDisabled={true}
-                onClick={formik.handleSubmit}
+                onClick={() => {}}
                 buttonType="outlined"
                 testId="demo"
               />

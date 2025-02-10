@@ -1,0 +1,71 @@
+.custom_select_input__control {
+  border-radius: 2px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding-bottom: 3px;
+  @apply inputHeight border-border fs14;
+}
+
+.css-t3ipsp-control {
+  outline: none !important;
+  box-shadow: none !important;
+  @apply border-border;
+}
+
+.css-t3ipsp-control:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  @apply border-border
+}
+
+.custom_select_input__indicator-separator {
+  display: none !important;
+}
+
+.custom_select_input__multi-value {
+  width: min-content !important;
+  @apply bg-border;
+}
+
+.custom_select_input__multi-value__label {
+  color: var(--textLight) !important;
+  font-weight: 500 !important;
+  @apply fs12 text-textLightGray;
+}
+
+.custom_select_input__multi-value__remove {
+  color: var(--textLight) !important;
+   @apply bg-border;
+}
+
+.custom_select_input__value-container--is-multi {
+  padding-top: 10px !important;
+  padding-inline-start: 10px !important;
+}
+
+/* Default control styles */
+.custom_select_input__control {
+  border-radius: 2px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding-bottom: 3px;
+  @apply inputHeight border-border fs14;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Focus state */
+.custom_select_input__control--is-focused {
+  @apply border-border;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.custom_select_input__control:hover {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+.custom_select_input__placeholder {
+  @apply fs14 text-textLightDark;
+}

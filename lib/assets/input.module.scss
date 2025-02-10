@@ -1,15 +1,29 @@
 .inputWrapper {
-  @apply flex items-center relative ;
+  @apply flex items-center relative;
 }
 
 .input {
-  @apply flex-grow rounded focus:outline-none border-[1.5px] border-border  w-[100%] h-[32px] min-w-48 tablet:h-[36px] lg-md:h-[40px] xl:h-[44px] 2xl:h-[48px] 3xl:h-[50px] 4xl:h-[54px] text-backgroundTheme;
-}
+  @apply appearance-none;
+  @apply flex-grow rounded border-[1.5px] border-border w-[100%] inputHeight text-backgroundTheme;
 
-.leftIcon {
-  @apply absolute left-3;
-}
+  &::placeholder {
+    @apply text-textLightGray fs14;
+  }
 
-.rightIcon {
-  @apply absolute right-3;
+  &:focus {
+    @apply outline-none ring-0;
+    box-shadow: none;
+
+    &:disabled {
+      @apply bg-textLightGray cursor-not-allowed;
+    }
+  }
+
+  .leftIcon {
+    @apply absolute left-3;
+  }
+
+  .rightIcon {
+    @apply absolute right-3;
+  }
 }

@@ -5,6 +5,7 @@ import * as Yup from "yup";
 const meta: Meta<typeof InputField> = {
   component: InputField,
 };
+import { MdOutlineEmail } from "react-icons/md";
 
 export default meta;
 type Story = StoryObj<typeof InputField>;
@@ -84,5 +85,21 @@ export const PasswordInput: Story = {
     validationSchema: validationSchema,
     isPassword: true,
     rightIcon: <IoEyeOffOutline />,
+    leftIcon: <MdOutlineEmail size={20} />,
+  },
+};
+
+export const InputWithLeftIcon: Story = {
+  args: {
+    label: "Password",
+    field: {
+      name: "password",
+      value: "",
+      onBlur: () => {},
+      onChange: () => {},
+    },
+    error: "Password is required",
+    validationSchema: validationSchema,
+    leftIcon: <MdOutlineEmail size={20} />,
   },
 };

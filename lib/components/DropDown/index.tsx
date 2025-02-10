@@ -6,7 +6,7 @@ import { isRequiredField } from "../Input";
 import { AnyObject, AnySchema } from "yup";
 import styles from "../../assets/dropdown.module.scss";
 import { Label, Paragraph } from "../Texts";
-import { CustomStyles } from "./customStyles";
+// import { CustomStyles } from "./customStyles";
 export interface Option {
   label: string;
   value: string;
@@ -112,6 +112,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         id={inputId}
         classNames={{
           control: () => styles.dropdownContainer,
+          placeholder: () => "fs14",
           option: (state) => (state.isFocused ? `${styles.active}` : ""),
         }}
         options={options}
@@ -121,7 +122,7 @@ export const DropDown: React.FC<dropdownProps> = ({
         }}
         isMulti={isMulti}
         data-testid={testId}
-        styles={CustomStyles}
+        classNamePrefix={"custom_select_input"}
         placeholder={placeholder ? placeholder : `Select ${label}`}
         onChange={handleChange}
         value={defaultValue as Option | Option[]}

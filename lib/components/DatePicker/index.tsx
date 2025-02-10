@@ -46,7 +46,7 @@ interface formikDateProps {
 
 const CustomInput = React.forwardRef<HTMLInputElement, any>(
   ({ value, onClick, onChange, autoFocus, disabled, pickerType }, ref) => (
-    <div className="relative w-[100%] border-border  border-[1.5px] rounded min-w-48">
+    <div className="relative w-[100%] border-border border-[1.5px] rounded min-w-48">
       <input
         ref={ref}
         value={value}
@@ -55,12 +55,12 @@ const CustomInput = React.forwardRef<HTMLInputElement, any>(
         placeholder={pickerType === "date" ? "DD/MM/YYYY" : "MMM YYYY"}
         autoFocus={autoFocus}
         disabled={disabled}
-        className="rounded min-w-48 h-[32px] tablet:h-[36px] lg-md:h-[40px] xl:h-[44px] 2xl:h-[48px] 3xl:h-[50px] 4xl:h-[54px] focus:outline-none border-none text-backgroundTheme w-[100%] pl-4"
+        className="rounded min-w-48 inputHeight focus:outline-none border-none text-backgroundTheme w-[100%] pl-4 placeholder:text-textLightGray placeholder:fs14"
       />
       <img
         src={CalendarIcon}
         alt="Calendar Icon"
-        className="absolute right-4 top-4 w-4 h-5 cursor-pointer"
+        className="absolute right-4 top-3 w-4 h-4 cursor-pointer"
         onClick={onClick}
       />
     </div>
@@ -144,7 +144,7 @@ export const FormikDateField: React.FC<formikDateProps> = ({
         }
         showMonthYearPicker={pickerType === "month-year"}
         wrapperClassName="w-[100%] border-border text-textLightGray border-[1.5px]"
-        className="rounded text-backgroundTheme min-w-48 h-[32px] tablet:h-[36px] lg-md:h-[40px] xl:h-[44px] 2xl:h-[48px] 3xl:h-[50px] 4xl:h-[54px] focus:outline-none border-[1.5px] border-border  w-[100%]"
+        className="rounded text-backgroundTheme min-w-48 inputHeight focus:outline-none border-[1.5px] border-border  w-[100%]"
       />
       {error && (
         <div className="my-2">
