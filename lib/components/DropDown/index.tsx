@@ -102,7 +102,7 @@ export const DropDown: React.FC<dropdownProps> = ({
       {label && (
         <Label
           htmlFor={inputId}
-          className="mb-[.5rem] inline-block  font-normal text-backgroundTheme"
+          className="mb-[4px] inline-block  font-normal text-backgroundTheme"
         >
           {label}
           {isRequiredField(validationSchema, field.name) && " *"}
