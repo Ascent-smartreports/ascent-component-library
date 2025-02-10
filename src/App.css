@@ -4,7 +4,7 @@
 
 @layer utilities {
   .inputHeight {
-    @apply h-10 xs:h-8 md:h-[36px] lg:h-[38] xl:h-10 2xl:h-11 3xl:h-[50px] 4xl:h-[54px];
+    @apply h-[42px] xs:h-[32px] md:h-[36px] lg:h-[38px] xl:h-[42px] 2xl:h-[46px] 3xl:h-[50px] 4xl:h-[54px] 
   }
   .fs20 {
     font-family: "Manrope";
