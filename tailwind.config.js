@@ -31,7 +31,7 @@ export default {
       backgroundModal: "#000000BF",
     },
     extend: {
-       screens: {
+      screens: {
         xs: "480px", // Extra small devices (phones)
         sm: "640px", // Small devices (tablets)
         md: "768px", // Medium devices (tablets in landscape)
@@ -39,7 +39,7 @@ export default {
         xl: "1280px", // Extra large devices (desktops)
         "2xl": "1536px", // 2x extra large devices (large desktops)
         "3xl": "1900px", // Custom breakpoint for very large screens
-        "4xl":"2000px", // extra large screens
+        "4xl": "2000px", // extra large screens
       },
     },
   },
