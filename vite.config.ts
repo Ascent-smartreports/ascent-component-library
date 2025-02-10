@@ -9,6 +9,7 @@ import tailwindcss from "tailwindcss";
 
 export default defineConfig({
   build: {
+    sourcemap: true, 
     rollupOptions: {
       external: [
         "react",
